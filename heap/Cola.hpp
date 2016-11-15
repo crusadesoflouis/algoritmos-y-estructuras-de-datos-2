@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <stack>
+#include<math.h>
 using namespace std;
 
 template <class T>
@@ -23,13 +24,16 @@ class Cola
 		bool esVacia() const;
 
 		// borra un elemento del conjunto.
-		void remover(const T&);
+		void Remover(const T&);
+
+	 	const T& Tope();
 
 		// devuelve la cantidad de elementos que tiene el arbol
-		unsigned int cardinal() const;
+		unsigned int Cardinal() const;
 		//funcion exclusivamente de muestra para ser testeado
 		//no debe quedar publica luego de comprobar la correctitud del programa
 		void mostrar();
+
 
 	private:
 
@@ -62,7 +66,7 @@ class Cola
 	}
 
 bool completo( int tamanio, int altura){
-	if (tamanio == ((2^altura) -1)) {
+	if (tamanio == (pow(2,altura)-1)) {
 		return true;
 	}
 	else{
@@ -89,26 +93,38 @@ void buscarModificable(Nodo* &busca,const T& valor){
 //casos base del algoritmo
 if (SinHijos(busca)) {
 	busca->izq = new Nodo(valor);
+	busca->izq->padre = busca;
 	busca->tamIzq ++;
 	busca->altura ++;
 	}
 else{
+
 	if (UnHijo(busca)) {
 	busca->tamDer++;
 	busca->der = new Nodo(valor);
+	busca->der->padre = busca;
 	}
 	else{
 			//en este momento, tenemos que decidir hacia donde seguir con el buscador
 			//y llamarse asi mismo recursivamente
-			if (completo(busca->tamDer,busca->altura-1) && completo(busca->tamIzq,busca->altura-1)) {
+
+			int alt = busca->altura -1;
+			if (completo(busca->tamDer,alt) && completo(busca->tamIzq,alt)) {
 				busca->altura++;
 				busca->tamIzq++;
-				buscarModificable(busca->izq,valor);
+				busca= busca->izq;
+				buscarModificable(busca,valor);
 			}
 			else{
-				if (completo(busca->tamIzq,busca->altura-1)) {
+				if (completo(busca->tamIzq,alt)) {
 					busca->tamDer++;
-					buscarModificable(busca->der,valor);
+					busca = busca->der;
+					buscarModificable(busca,valor);
+				}
+				else{
+					busca->tamIzq++;
+					busca = busca->izq;
+					buscarModificable(busca,valor);
 				}
 			}
 		}
@@ -137,11 +153,15 @@ bool EsRaiz(Nodo* & padre){
 };
 
 
+
+template <class T>
+const T& Cola<T>::Tope(){
+	return raiz->valor;
+}
+
 template <class T>
 Cola<T>::Nodo::Nodo(const T& v)
-	 : valor(v), izq(NULL), der(NULL), padre(NULL), altura(1),tamIzq(0),tamDer(0)
-{
-
+	 : valor(v), izq(NULL), der(NULL), padre(NULL), altura(1),tamIzq(0),tamDer(0){
 }
 
 template <class T>
@@ -181,7 +201,7 @@ void Cola<T>::Encolar(const T& clave){
 }
 
 template <class T>
-unsigned int Cola<T>::cardinal() const{
+unsigned int Cola<T>::Cardinal() const{
 if (esVacia()) {
 		return 0;
 		}
@@ -191,7 +211,7 @@ if (esVacia()) {
 }
 
 template <class T>
-void Cola<T>::remover(const T& clave){
+void Cola<T>::Remover(const T& clave){
 //TODO
 }
 template <class T>

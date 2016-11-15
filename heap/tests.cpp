@@ -10,16 +10,13 @@ void encolar_inserta() {
   c.Encolar(42);
   c.Encolar(32);
   c.Encolar(40);
-  c.Encolar(33);
-	c.Encolar(69);
-	c.Encolar(2058);
-	c.Encolar(-499);
-  c.remover(42);
-  c.remover(40);
-  c.remover(33);
+  c.Encolar(47);
+  c.Encolar(50);
+  c.Encolar(599);
+  c.Encolar(55);
+  c.Encolar(-54);
+  ASSERT_EQ(c.Cardinal(),8);
   c.mostrar();
-  ASSERT_EQ(c.cardinal(),4);
-
 
 }
 /*
@@ -38,7 +35,7 @@ void test_remover() {
  	c.Encolar(130);
  	c.Encolar(43);
 	}
-*/
+
 void mostrar() {
   Cola<int> c;
   c.Encolar(42);
@@ -73,13 +70,13 @@ void borrar(){
   c.Encolar(599);
 
 }
-
+*/
 int main() {
-  /*
-    RUN_TEST(si_no_lo_agrego_no_pertenece);
+
     RUN_TEST(encolar_inserta);
+    /*
     RUN_TEST(mostrar);
-  RUN_TEST(maximoyminimo);
+    RUN_TEST(maximoyminimo);
   */
     return 0;
 }
