@@ -3,8 +3,22 @@
 
 #include "mini_test.h"
 
+void encolar_IT(){
+
+  Cola<int> c;
+
+  Cola<int>::Iterador IT_42 = c.Encolar(42);
+  Cola<int>::Iterador IT_40 = c.Encolar(40);
+  Cola<int>::Iterador IT_51 = c.Encolar(51);
+  Cola<int>::Iterador IT_3 = c.Encolar(3);
+  c.mostrar();
+  ASSERT_EQ(c.Cardinal(),4);
+  ASSERT_EQ(c.Tope(),3);
+
+}
 
 
+/*
 void encolar_inserta() {
   Cola<int> c;
   c.Encolar(42);
@@ -19,7 +33,7 @@ void encolar_inserta() {
   c.mostrar();
 
 }
-/*
+
 void test_remover() {
 	// Chequear por lo menos los siguientes 3 casos:
  	// - Borrar una hoja
@@ -73,8 +87,11 @@ void borrar(){
 */
 int main() {
 
+      RUN_TEST(encolar_IT);
+  /*
+
     RUN_TEST(encolar_inserta);
-    /*
+
     RUN_TEST(mostrar);
     RUN_TEST(maximoyminimo);
   */
