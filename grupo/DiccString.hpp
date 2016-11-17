@@ -1,12 +1,18 @@
 #ifndef DICC_STRING_H_
 #define DICC_STRING_H_
 
-#include "aed2.h"
+
 #include <iostream>
 #include <cassert>
+
+#include "../aed2.h"
+#include "../TiposJuego.h"
+
+
+
+
 using namespace std;
 
-typedef struct{int lat;int log;} tup;
 
 
 template<typename T>
@@ -14,6 +20,7 @@ template<typename T>
 class DiccMatriz {
 
         public:
+				
                 /**
                 CONSTRUCTOR
                 * Construye un diccionario vacio.
@@ -27,21 +34,21 @@ class DiccMatriz {
                 * Recibe una clave con su significado de tipo T y la define.
                 * Si ya estaba definida, la reescribe.
                 **/
-                void Definir(tup tupla, const T& significado);
+                void Definir(const Coordenada& c, const T& significado);
 
                 /**
                 DEFINIDO?
                 * Devuelve un bool, que es true si la clave pasada está definida en
                 * el diccionario.
                 **/
-                bool Definido(tup tupla) const;
+                bool Definido(const Coordenada& c) const;
 
                 /**
                 OBTENER
                 * Dada una clave, devuelve su significado.
                 * PRE: La clave está definida.
                 */
-                T& Obtener(tup tupla);
+                T& Obtener(const Coordenada& c);
 
                 /**
                 OBTENER
@@ -49,7 +56,7 @@ class DiccMatriz {
                 * PRE: La clave está definida.
                 --PRODUCE ALIASING--
                 **/
-                void Borrar(tup tupla);
+                void Borrar(const Coordenada& c);
 
 
                 /**
@@ -57,37 +64,41 @@ class DiccMatriz {
                 * Devuelve las claves del diccionario.
                 --NO PRODUCE ALIASING--
                 **/
-                const Conj<tup>& Claves() const;
+                const Conj<Coordenada> & Claves() const;
 
         private:
+				
               //latitud es x
               //latitud es Y
-              Vector <Vector <T> > Matriz;
-              int latitud;
-              int longitud;
-              Conj<tup> claves;
-                };
-                //TODO: funciones auxiliares
-bool FueraDeRango(int posicionX, int posicionY,int latitud,int longitud){
+              Vector <Vector <T> > grilla;
+              int maxLatitud;
+              int maxLongitud;
+              
+              Conj<Coordenada> keys;
+      };
+
+                
+//TODO: funciones auxiliares
+/*bool FueraDeRango(int posicionX, int posicionY,int latitud,int longitud){
   if (posicionX > latitud || posicionY > longitud) {
     return false;
   }
   else{
     return true;
   }
-}
+}*/
 
 //creo que no hace falta definir tampoco el constructor
 
 template <typename T>
-DiccMatriz<T>::DiccMatriz():Matriz(),claves(){
+DiccMatriz<T>::DiccMatriz():Matriz(),claves(),{
 
 }
 
 
 template <typename T>
 void DiccMatriz<T>::Definir(tup tupla, const T& significado){
-if (!(tupla.lat < latitud || tupla.log < longitud)) {
+/*if (!(tupla.lat < latitud || tupla.log < longitud)) {
   for (int i = 0; i < tupla.lat - latitud; i++) {
   	Vector<T> aux;
     Matriz.AgregarAtras(aux.Vacia());
@@ -98,13 +109,13 @@ if (!(tupla.lat < latitud || tupla.log < longitud)) {
   }
 Matriz[tupla.lat][tupla.log] = significado;
 claves.Agregar(tupla);
-
+*/
 }
 
 
 template <typename T>
-bool DiccMatriz<T>::Definido(tup tupla) const{
-if (FueraDeRango(tupla.lat,tupla.log,latitud,longitud)) {
+bool DiccMatriz<T>::Definido(const Coordenada& c) const{
+/*if (FueraDeRango(tupla.lat,tupla.log,latitud,longitud)) {
   return false;
 }
 else{
@@ -114,33 +125,37 @@ else{
     else{
       return false;
     }
-}
+}*/ return false;
 }
 
 
 template <typename T>
 T& DiccMatriz<T>::Obtener(tup tupla) {
+
 assert(Definido(tupla));
-return Matriz[tupla.lat][tupla.log];
+//return Matriz[tupla.lat][tupla.log];
+return Matriz[0][0];
 }
 
 
 template <typename T>
-const Conj<tup>& DiccMatriz<T>::Claves() const{
-return claves;
+const Conj<Coordenada>& DiccMatriz<T>::Claves() const{
+
+	return claves;
 }
 
 template <typename T>
 void DiccMatriz<T>::Mostrar() const {
-    std::cout << "[";
-
+  /*  std::cout << "[";
+*/
 }
 
 template <typename T>
 void DiccMatriz<T>::Borrar(tup tupla) {
-assert(Definido(tupla));
+/*assert(Definido(tupla));
 Matriz[tupla.lat][tupla.log] = NULL;
 claves.Eliminar(tupla);
+*/
 }
 
 
