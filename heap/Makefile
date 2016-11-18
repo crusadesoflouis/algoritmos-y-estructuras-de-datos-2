@@ -1,19 +1,24 @@
-CXXFLAGS = -g -Wall
+CXXFLAGS =	-O2 -g -Wall -fmessage-length=0
 
-SOURCES = tests.cpp
+SOURCES = tests.cpp Cola.hpp # Driver.cpp Coordenada.cpp Mapa.cpp Juego.cpp
 OBJS = $(SOURCES:.cpp=.o)
 
 LIBS =
 
-TARGET = tests
+TARGET =	tests
 
-$(TARGET): $(OBJS)
+$(TARGET):	$(OBJS)
 	$(CXX) -o $(TARGET) $(OBJS) $(LIBS)
 
-all: $(TARGET)
+all:	$(TARGET)
 
 clean:
 	rm -f $(OBJS) $(TARGET)
+
+.PHONY: run valgrind
+
+run: all
+	./$(TARGET)
 
 valgrind: all
 	valgrind --leak-check=full ./$(TARGET)

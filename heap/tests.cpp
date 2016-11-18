@@ -3,6 +3,26 @@
 
 #include "mini_test.h"
 
+
+
+void encolar_y_borrar() {
+
+  Cola<int> c;
+
+//  Cola<int>::Iterador IT_42 = c.Encolar(42);
+//  Cola<int>::Iterador IT_40 = c.Encolar(40);
+  Cola<int>::Iterador IT_51 = c.Encolar(51);
+  Cola<int>::Iterador IT_3 = c.Encolar(3);
+  c.mostrar();
+  IT_51.EliminarSiguiente();
+  ASSERT_EQ(c.Cardinal(),1);
+  ASSERT_EQ(c.Tope(),3);
+
+}
+/*
+
+
+
 void encolar_IT(){
 
   Cola<int> c;
@@ -17,23 +37,6 @@ void encolar_IT(){
 
 }
 
-
-
-void encolar_y_borrar() {
-
-  Cola<int> c;
-
-  Cola<int>::Iterador IT_42 = c.Encolar(42);
-  Cola<int>::Iterador IT_40 = c.Encolar(40);
-  Cola<int>::Iterador IT_51 = c.Encolar(51);
-  Cola<int>::Iterador IT_3 = c.Encolar(3);
-  c.mostrar();
-  IT_42.EliminarSiguiente();
-  ASSERT_EQ(c.Cardinal(),3);
-  ASSERT_EQ(c.Tope(),3);
-
-}
-/*
 void test_remover() {
 	// Chequear por lo menos los siguientes 3 casos:
  	// - Borrar una hoja

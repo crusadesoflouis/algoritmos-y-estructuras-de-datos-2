@@ -17,10 +17,9 @@ class Cola
 		~Cola();
 		// Inserta un elemento en el heap.
 		typename Cola<T>::Iterador Encolar(const T&);
+
 		// Decide si el arbol es vacio o no
 		bool esVacia() const;
-		// borra un elemento del conjunto.
-		void Remover(typename Cola<T>::Iterador);
 	 	const T& Tope();
 		// devuelve la cantidad de elementos que tiene el arbol
 		unsigned int Cardinal() const;
@@ -28,23 +27,26 @@ class Cola
 		//no debe quedar publica luego de comprobar la correctitud del programa
 		void mostrar();
 
+
+		 Iterador CrearIt();
+		 Iterador CrearIt(typename Cola<T>::Nodo* );
+
 		class Iterador{
 			public:
+				Iterador();
+				Iterador(Cola<T>* cola, typename Cola<T>::Nodo* proximo) : cola(cola),nodo_siguiente(proximo){};
 			  bool HaySiguiente() const;
 				T& Siguiente() const;
+		 		void EliminarSiguiente();
 			private:
-	 void EliminarSiguiente();
-				Iterador();
-				Iterador(typename Cola<T>::Nodo* _proximo) : nodo_siguiente(_proximo) {};
-				friend typename Cola<T>::Iterador Cola<T>::Encolar(const T&);
-				//friend typename Cola<T>::Iterador void Cola<T>::Remover(typename Cola<T>::Iterador);
-				friend typename Cola<T>::Iterador::EliminarSiguiente Cola<T>::Remover(typename Cola<T>::Iterador);
+				friend typename Cola<T>::Iterador Cola<T>::CrearIt();
+				friend typename Cola<T>::Iterador Cola<T>::CrearIt(typename Cola<T>::Nodo*);
+				Cola<T>* cola;
 				typename Cola<T>::Nodo* nodo_siguiente;
 		};
 
 
 		private:
-
 		// la representación de un nodo interno.
 		struct Nodo
 		{
@@ -61,6 +63,28 @@ class Cola
 			int tamIzq;
 			int tamDer;
 		};
+
+
+
+
+		// borra un elemento del conjunto.
+void Remover(Nodo* Aborrar){
+Nodo* ultimo = raiz;
+if (raiz == Aborrar) {
+		raiz = NULL;
+		delete Aborrar;
+}
+else{
+		UltimoAgregado(ultimo);
+		Aborrar->valor = ultimo->valor;
+		SoyHijoDerecho(ultimo) ? ultimo->padre->der = NULL:ultimo->padre->izq = NULL;
+		reconstruir(ultimo);
+		delete ultimo;
+		sift_UP(Aborrar);
+		sift_DOWN(Aborrar);
+}
+
+}
 
 		// puntero a la raíz de nuestro árbol.
 		Nodo* raiz;
@@ -262,6 +286,36 @@ bool EsRaiz(Nodo* & padre){
 
 
 
+///////////////////////////////////////////class Iterador/////////////////////////////////
+
+template <typename T>
+Cola<T>::Iterador::Iterador()
+	:cola(NULL), nodo_siguiente(NULL){
+	}
+
+
+template <typename T>
+bool Cola<T>::Iterador::HaySiguiente() const{
+	return nodo_siguiente != NULL;
+}
+
+template <typename T>
+typename Cola<T>::Iterador Cola<T>::CrearIt() {
+	return typename Cola<T>::Iterador::Iterador();
+}
+
+template <typename T>
+typename Cola<T>::Iterador Cola<T>::CrearIt(typename Cola<T>::Nodo* auxiliar) {
+	return typename Cola<T>::Iterador::Iterador(this,auxiliar);
+}
+
+template <typename T>
+void Cola<T>::Iterador::EliminarSiguiente(){
+	cola->Remover(nodo_siguiente);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 template <class T>
 const T& Cola<T>::Tope(){
 	return raiz->valor;
@@ -296,21 +350,20 @@ bool Cola<T>::esVacia() const{
 
 template <class T>
 typename Cola<T>::Iterador Cola<T>::Encolar(const T& clave){
-
+	Cola<T>::Iterador IT;
 	if (esVacia()) {
 		Nodo* auxiliar = new Nodo(clave);
 		auxiliar->valor = clave;
 		raiz = auxiliar;
-		Cola<T>::Iterador IT(auxiliar);
-		return IT;
+		IT = CrearIt(auxiliar);
 	}
 	else{
 		Nodo* busca = raiz;
 		buscarModificable(busca,clave);
 		sift_UP(busca);
-		Cola<T>::Iterador IT(busca);
-		return IT;
+		IT = CrearIt(busca);
 	}
+	return IT;
 }
 
 template <class T>
@@ -328,47 +381,6 @@ void Cola<T>::mostrar() {
       mostrarNodo(this->raiz);
 }
 ///////////////////////////////////////////////////////////////////////////////////////
-template <class T>
-void Cola<T>::Remover(typename Cola<T>::Iterador IT){
-
-IT.EliminarSiguiente();
-}
-
-
-
-
-//class Iterador
-
-template <typename T>
-Cola<T>::Iterador::Iterador()
-	:nodo_siguiente(NULL){
-	}
-
-template <typename T>
-bool Cola<T>::Iterador::HaySiguiente() const{
-	return nodo_siguiente != NULL;
-}
-
-template <typename T>
-void Cola<T>::Iterador::EliminarSiguiente(){
-Nodo* Aborrar = nodo_siguiente;
-Nodo* ultimo = raiz;
-cout << ultimo->valor << endl;
-if (raiz = Aborrar) {
-	raiz = NULL;
-	delete Aborrar;
-}
-else{
-	UltimoAgregado(ultimo);
-	Aborrar->valor = ultimo->valor;
-	SoyHijoDerecho(ultimo) ? ultimo->padre->der = NULL:ultimo->padre->izq = NULL;
-	reconstruir(ultimo);
-	delete ultimo;
-	sift_UP(Aborrar);
-	sift_DOWN(Aborrar);
-	}
-}
-
 
 
 /*
