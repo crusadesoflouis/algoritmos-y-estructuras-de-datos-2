@@ -38,6 +38,7 @@ class Cola
 				Iterador(typename Cola<T>::Nodo* _proximo) : nodo_siguiente(_proximo) {};
 				friend typename Cola<T>::Iterador Cola<T>::Encolar(const T&);
 				//friend typename Cola<T>::Iterador void Cola<T>::Remover(typename Cola<T>::Iterador);
+				friend typename Cola<T>::Iterador::EliminarSiguiente Cola<T>::Remover(typename Cola<T>::Iterador);
 				typename Cola<T>::Nodo* nodo_siguiente;
 		};
 
@@ -220,7 +221,7 @@ bool EsRaiz(Nodo* & padre){
 						//de los dos este completo
 
 						//en el caso de que el de la izquierda este completo y a la derecha no tenga absolutamente nada
-					if (completo(ultimo->tamIzq,alt)&&Completo(ultimo->tamDer,alt-1)) {
+					if (completo(ultimo->tamIzq,alt)&&completo(ultimo->tamDer,alt-1)) {
 						UltimoAgregado(ultimo->izq);
 					}
 					else{
@@ -352,6 +353,7 @@ template <typename T>
 void Cola<T>::Iterador::EliminarSiguiente(){
 Nodo* Aborrar = nodo_siguiente;
 Nodo* ultimo = raiz;
+cout << ultimo->valor << endl;
 if (raiz = Aborrar) {
 	raiz = NULL;
 	delete Aborrar;

@@ -18,22 +18,22 @@ void encolar_IT(){
 }
 
 
-/*
-void encolar_inserta() {
+
+void encolar_y_borrar() {
+
   Cola<int> c;
-  c.Encolar(42);
-  c.Encolar(32);
-  c.Encolar(40);
-  c.Encolar(47);
-  c.Encolar(50);
-  c.Encolar(599);
-  c.Encolar(55);
-  c.Encolar(-54);
-  ASSERT_EQ(c.Cardinal(),8);
+
+  Cola<int>::Iterador IT_42 = c.Encolar(42);
+  Cola<int>::Iterador IT_40 = c.Encolar(40);
+  Cola<int>::Iterador IT_51 = c.Encolar(51);
+  Cola<int>::Iterador IT_3 = c.Encolar(3);
   c.mostrar();
+  IT_42.EliminarSiguiente();
+  ASSERT_EQ(c.Cardinal(),3);
+  ASSERT_EQ(c.Tope(),3);
 
 }
-
+/*
 void test_remover() {
 	// Chequear por lo menos los siguientes 3 casos:
  	// - Borrar una hoja
@@ -87,11 +87,9 @@ void borrar(){
 */
 int main() {
 
-      RUN_TEST(encolar_IT);
+  //  RUN_TEST(encolar_IT);
+    RUN_TEST(encolar_y_borrar);
   /*
-
-    RUN_TEST(encolar_inserta);
-
     RUN_TEST(mostrar);
     RUN_TEST(maximoyminimo);
   */
