@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <stack>
-#include<math.h>
+#include <math.h>
 using namespace std;
 
 template <class T>
@@ -11,25 +11,15 @@ class Cola
 {
 	public:
 		class Iterador;
-		// Constructor. Genera un heap vacio
 		Cola();
-		// Destructor. Debe dejar limpia la memoria.
 		~Cola();
-		// Inserta un elemento en el heap.
-		typename Cola<T>::Iterador Encolar(const T&);
-
-		// Decide si el arbol es vacio o no
 		bool esVacia() const;
 	 	const T& Tope();
-		// devuelve la cantidad de elementos que tiene el arbol
+		typename Cola<T>::Iterador Encolar(const T&);
 		unsigned int Cardinal() const;
-		//funcion exclusivamente de muestra para ser testeado
-		//no debe quedar publica luego de comprobar la correctitud del programa
 		void mostrar();
-
-
-		 Iterador CrearIt();
-		 Iterador CrearIt(typename Cola<T>::Nodo* );
+		Iterador CrearIt();
+		Iterador CrearIt(typename Cola<T>::Nodo* );
 
 		class Iterador{
 			public:
@@ -47,34 +37,25 @@ class Cola
 
 
 		private:
-		// la representación de un nodo interno.
 		struct Nodo
 		{
-			// el constructor, toma el elemento al que representa el nodo.
 			Nodo(const T& v);
-			// el elemento al que representa el nodo.
 			T valor;
-			// puntero a la raíz del subárbol izq.
 			Nodo* izq;
-			// puntero a la raíz del subárbol der.
 			Nodo* der;
 			Nodo* padre;
 			int altura;
 			int tamIzq;
 			int tamDer;
 		};
-
-
-
-
-		// borra un elemento del conjunto.
+		Nodo* raiz;
 void Remover(Nodo* Aborrar){
 Nodo* ultimo = raiz;
-if (raiz == Aborrar) {
+	if (raiz == Aborrar) {
 		raiz = NULL;
 		delete Aborrar;
-}
-else{
+	}
+	else{
 		UltimoAgregado(ultimo);
 		Aborrar->valor = ultimo->valor;
 		SoyHijoDerecho(ultimo) ? ultimo->padre->der = NULL:ultimo->padre->izq = NULL;
@@ -82,13 +63,9 @@ else{
 		delete ultimo;
 		sift_UP(Aborrar);
 		sift_DOWN(Aborrar);
+	}
 }
 
-}
-
-		// puntero a la raíz de nuestro árbol.
-		Nodo* raiz;
-	// funciones auxiliares
 	void mostrarNodo(Nodo* nodulo){
 		if (!(nodulo == NULL)) {
 			mostrarNodo(nodulo->izq);
@@ -116,6 +93,7 @@ bool SinHijos(Nodo* padre){
 bool TieneHijos(Nodo* padre){
 	return !SinHijos(padre);
 }
+
 bool UnHijo(Nodo* padre){
 	if ((padre->der != NULL && padre->izq == NULL)^(padre->der == NULL && padre->izq != NULL) ) {
 		return true;
@@ -125,9 +103,7 @@ bool UnHijo(Nodo* padre){
 	}
 }
 bool HijosConPrioridad(Nodo* padre){
-
 	return padre->izq->valor < padre->valor || padre->der->valor < padre->valor;
-
 }
 
 void elMinimoDeLosTres(Nodo* padre,Nodo* minimo){
@@ -137,7 +113,6 @@ void elMinimoDeLosTres(Nodo* padre,Nodo* minimo){
 		minimo = padre;
 	}
 }
-
 
 void buscarModificable(Nodo* &busca,const T& valor){
 //casos base del algoritmo
@@ -151,10 +126,10 @@ if (SinHijos(busca)) {
 else{
 
 	if (UnHijo(busca)) {
-	busca->tamDer++;
-	busca->der = new Nodo(valor);
-	busca->der->padre = busca;
-	busca = busca->der;
+		busca->tamDer++;
+		busca->der = new Nodo(valor);
+		busca->der->padre = busca;
+		busca = busca->der;
 	}
 	else{
 			//en este momento, tenemos que decidir hacia donde seguir con el buscador
@@ -180,9 +155,7 @@ else{
 				}
 			}
 		}
-
 	}
-
 }
 
 void sift_UP(Nodo* &sube){
@@ -191,9 +164,7 @@ void sift_UP(Nodo* &sube){
 		sube->padre->valor = sube->valor;
 		sube->valor = swap;
 		sube = sube->padre;
-
 	}
-
 }
 void sift_DOWN(Nodo* &baja){
 	while (TieneHijos(baja)&&HijosConPrioridad(baja)) {
@@ -220,11 +191,8 @@ bool EsRaiz(Nodo* & padre){
 	}
 	else{
 		return false;
-			}
 	}
-
-
-	//funciones auxiliares de Borrar
+}
 
 	void UltimoAgregado(Nodo* ultimo){
 		if (TieneHijos(ultimo)) {
@@ -235,7 +203,6 @@ bool EsRaiz(Nodo* & padre){
 			//entonces tiene dos hijos
 			else{
 				int alt = ultimo->altura -1; //ahorro de escritura
-
 				if (completo(ultimo->tamDer,alt)&&completo(ultimo->tamIzq,alt)) {
 					//en el caso de que este completo de ambos lados, tengo que avanzar hacia la derecha
 					UltimoAgregado(ultimo->der);
@@ -251,7 +218,6 @@ bool EsRaiz(Nodo* & padre){
 					else{
 						UltimoAgregado(ultimo->der);
 					}
-
 				}
 			}
 		}
@@ -279,20 +245,12 @@ bool EsRaiz(Nodo* & padre){
 	bool SoyHijoDerecho(Nodo* ultimo){
 	return ultimo->padre->der == ultimo;
 	}
-
-
-
 };
-
-
-
 ///////////////////////////////////////////class Iterador/////////////////////////////////
-
 template <typename T>
 Cola<T>::Iterador::Iterador()
 	:cola(NULL), nodo_siguiente(NULL){
 	}
-
 
 template <typename T>
 bool Cola<T>::Iterador::HaySiguiente() const{
@@ -329,7 +287,6 @@ Cola<T>::Nodo::Nodo(const T& v)
 template <class T>
 Cola<T>::Cola() : raiz(NULL){
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////////
 template <class T>
@@ -381,8 +338,6 @@ void Cola<T>::mostrar() {
       mostrarNodo(this->raiz);
 }
 ///////////////////////////////////////////////////////////////////////////////////////
-
-
 /*
 */
 #endif // CONJUNTO_HPP_

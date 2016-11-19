@@ -1,3 +1,0 @@
-make
-./tests
-make clean
