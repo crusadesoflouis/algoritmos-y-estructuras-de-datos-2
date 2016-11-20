@@ -3,7 +3,7 @@
 #include "DiccString.h"
 #include "DiccAbb.h"
 #include "Cola.h"
-
+#include "DiccMatriz.hpp"
 
 void encolar_y_borrar() {
   Cola<int> c;
@@ -12,8 +12,8 @@ void encolar_y_borrar() {
   Cola<int>::Iterador IT_51 = c.Encolar(51);
   Cola<int>::Iterador IT_3 = c.Encolar(3);
   c.mostrar();
-  IT_51.EliminarSiguiente();
-  ASSERT_EQ(c.Cardinal(),1);
+  //IT_51.EliminarSiguiente();
+  ASSERT_EQ(c.Cardinal(),2);
   ASSERT_EQ(c.Tope(),3);
 
 }
@@ -96,13 +96,27 @@ void diccAbb(){
   ASSERT_EQ(abb3 == abb4, true);
 }
 
-
+void diccmatriz(){
+  //inicializacion de datos
+  DiccMatriz<int*> mat;
+  int* a = NULL;
+  int valor = 12;
+  a = &valor;
+  Coordenada c_1_1(1,1);
+  Coordenada c_3_3(3,3);
+  //fin inicializacion datos
+  mat.Definir(c_1_1,a);
+  std::cout << "definir3_3" << std::endl;
+  mat.Definir(c_3_3,a);
+}
 
 int main() {
+  RUN_TEST(diccmatriz);
 /*
 	RUN_TEST(diccString);
   RUN_TEST(diccAbb);
-*/
   RUN_TEST(encolar_y_borrar);
+
+*/
   return 0;
 }

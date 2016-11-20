@@ -7,12 +7,12 @@ typedef unsigned int Jugador;
 typedef std::string Pokemon;
 
 
- 
+
 struct Coordenada
 {
 	Nat latitud;
 	Nat longitud;
-	Coordenada(Nat latitud, Nat longitud) : latitud(latitud), longitud(longitud){
+	Coordenada(Nat lat, Nat longi) : latitud(lat), longitud(longi){
 	}
 };
 

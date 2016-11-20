@@ -158,14 +158,98 @@ else{
 	}
 }
 
-void sift_UP(Nodo* &sube){
-	while (sube->padre != NULL && sube->valor < sube->padre->valor) {
-		T swap = sube->padre->valor;
-		sube->padre->valor = sube->valor;
-		sube->valor = swap;
-		sube = sube->padre;
+bool AbueloEsRaiz(Nodo* abu){
+	return abu->padre->padre == NULL;
+}
+bool hijoUnico(Nodo* hijo){
+	return UnHijo(hijo->padre);
+}
+
+void SwapDeDosNodos (Nodo* &sube){
+int a = raiz->altura;
+int d = raiz->tamDer;
+int i = raiz->tamIzq;
+sube->padre = NULL;
+sube->izq = raiz;
+raiz->izq = NULL;
+raiz->padre = sube;
+raiz->altura = sube->altura;
+raiz->tamDer = sube->tamDer;
+raiz->tamIzq = sube->tamIzq;
+raiz = sube;
+raiz->altura = a;
+raiz->tamDer = d;
+raiz->tamIzq = i;
+}
+
+void SwapDeTresNodos(Nodo* &sube){
+	if (SoyHijoDerecho(sube)) {
+		sube->izq = raiz->izq;
+		sube->izq->padre = sube;
+		sube->der = raiz;
+		raiz->padre = sube;
+		raiz->der = NULL;
+		raiz->izq = NULL;
+		sube->padre = NULL;
+		raiz = sube;
+	}
+	else{
+		sube->der = raiz->der;
+		sube->der->padre = sube;
+		sube->izq = raiz;
+		raiz->padre = sube;
+		raiz->der = NULL;
+		raiz->izq = NULL;
+		sube->padre = NULL;
+		raiz = sube;
 	}
 }
+void swapderecha(Nodo* &sube) {
+
+}
+
+void swapizquierda(Nodo* &sube) {
+
+}
+
+void sift_UP(Nodo* &sube){
+
+	while (sube->padre != NULL && sube->valor < sube->padre->valor) {
+		cout << "entre al while" << endl;
+		if (AbueloEsRaiz(sube)) {
+
+			SwapToRoot(sube);
+		}
+		else{
+			SimpleSwap(sube);
+		}
+	}
+}
+
+void SwapToRoot(Nodo* &sube){
+
+		if (SinHijos(sube)) {
+			if (hijoUnico(sube)) {
+				SwapDeDosNodos(sube);
+			}
+			else{
+				SwapDeTresNodos(sube);
+			}
+		}
+		else{
+			if (SoyHijoDerecho(sube)) {
+				swapderecha(sube);
+			}
+			else{
+				swapizquierda(sube);
+			}
+		}
+}
+
+void SimpleSwap(Nodo* & sube){
+
+}
+
 void sift_DOWN(Nodo* &baja){
 	while (TieneHijos(baja)&&HijosConPrioridad(baja)) {
 		Nodo* minimo = NULL;
