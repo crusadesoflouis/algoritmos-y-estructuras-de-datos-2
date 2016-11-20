@@ -104,10 +104,18 @@ void diccmatriz(){
   a = &valor;
   Coordenada c_1_1(1,1);
   Coordenada c_3_3(3,3);
+  Coordenada c_3_1(3,1);
+  Coordenada c_3_2(3,2);
   //fin inicializacion datos
   mat.Definir(c_1_1,a);
-  std::cout << "definir3_3" << std::endl;
   mat.Definir(c_3_3,a);
+//  mat.mostrar();
+  mat.Definir(c_3_1,a);
+  mat.mostrar();
+  ASSERT_EQ(mat.Definido(c_3_1),true);
+  ASSERT_EQ(mat.Definido(c_3_2),false);
+  mat.Borrar(c_3_1);
+  ASSERT_EQ(mat.Definido(c_3_1),false);
 }
 
 int main() {

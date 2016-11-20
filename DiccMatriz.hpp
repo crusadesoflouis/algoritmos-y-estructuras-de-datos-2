@@ -61,15 +61,26 @@ class DiccMatriz {
                 **/
                 const Conj<Coordenada> & Claves() const;
 
+                void mostrar();
         private:
 
               Vector < Vector <T> > grilla;
-
-              Nat maxLatitud;
-
-			        Nat maxLongitud;
+              //latitud es x
+              //Nat maxLatitud;
+              //longitud es y
+			        //Nat maxLongitud;
 
               Conj<Coordenada> posicionesValidas;
+
+              Nat maxLatitud()const{
+                return grilla.Longitud();
+              }
+              Nat maxLongitud()const{
+                return grilla.EsVacio() ? 0 : grilla[0].Longitud();
+              }
+              bool enRango(const Coordenada & c)const{
+                return c.latitud <= maxLatitud() && c.longitud <= maxLongitud();
+              }
 };
 
 
@@ -84,102 +95,81 @@ class DiccMatriz {
 }*/
 template <typename T>
 bool DiccMatriz<T>::FueraDeRango(const Coordenada& c) const {
-    return  ! (c.latitud() < maxLatitud && c.longitud() < maxLongitud );
+    return  ! enRango(c);
 }
 
 //creo que no hace falta definir tampoco el constructor
 
 template <typename T>
-DiccMatriz<T>::DiccMatriz(): grilla(),posicionesValidas(),maxLatitud(0),maxLongitud(0){
+DiccMatriz<T>::DiccMatriz(): grilla(),posicionesValidas(){
 }
-
-/*
-template <typename T>
-void DiccMatriz<T>::Definir(const Coordenada& c , const T& significado){
-		if ( c.longitud > maxLongitud ){
-			for(Nat x = 0; x < c.longitud -  maxLongitud; x++ ){
-				Vector<T> nuevoX;
-				grilla.AgregarAtras(nuevoX);
-			}
-		}
-		if ( c.latitud > maxLatitud ){
-        std::cout << "entre a c.latitud mayor" << std::endl;
-			for(Nat y=0; y < c.longitud -  maxLongitud; y++ ){
-
-				grilla[c.longitud].AgregarAtras(NULL);
-			}
-		}
-  std::cout << "tamaño de la matriz" << std::endl;
-  std::cout << grilla.Longitud() << std::endl;
-  std::cout << "tamaño de la altura" << std::endl;
-  std::cout << grilla[c.longitud].Longitud() << std::endl;
-	grilla [c.longitud][c.latitud] = significado;
-	posicionesValidas.Agregar(c);
-  maxLatitud = c.latitud;
-  maxLongitud = c.longitud;
-
-}
-*/
 
 template <typename T>
 void DiccMatriz<T>::Definir(const Coordenada& c, const T& significado){
-if (!(c.latitud < maxLatitud || c.longitud < maxLongitud)) {
-  Vector<T> aux;
-  for (unsigned int  i = 0; i < c.latitud - maxLatitud; i++) {
-    grilla.AgregarAtras(aux);
-    for (unsigned int  j = 0; j < c.longitud - maxLongitud; j++) {
-      grilla[i].AgregarAtras(NULL);
+
+  if (grilla.EsVacio()) {
+      Vector<T> aux;
+      grilla.AgregarAtras(aux);
+      grilla[0].AgregarAtras(NULL);
+      grilla[0][0] = significado;
+  }
+  else{
+    if (c.latitud < maxLatitud() && c.longitud < maxLongitud()) {
+      grilla[c.latitud-1][c.longitud-1] = significado;
+    }
+    else{
+      Vector<T> aux;
+      for (unsigned int i = maxLatitud(); i < c.latitud; i++) {
+        grilla.AgregarAtras(aux);
       }
+      for (unsigned int i = 0; i < c.latitud; i++) {
+        for (unsigned int j = grilla[i].Longitud() ; j < c.longitud; j++) {
+          grilla[i].AgregarAtras(NULL);
+        }
+      }
+      grilla[c.latitud-1][c.longitud-1] = significado;
     }
   }
-grilla[c.latitud-1][c.longitud-1] = significado;
-posicionesValidas.Agregar(c);
-maxLongitud = c.longitud;
-maxLatitud = c.latitud;
+  posicionesValidas.Agregar(c);
 }
-
 
 template <typename T>
 bool DiccMatriz<T>::Definido(const Coordenada& c) const{
-	return false;
-}
-
-
-
-/*if (FueraDeRango(tupla.lat,tupla.log,latitud,longitud)) {
-  return false;
-}
-else{
-    if (!(Matriz[tupla.lat][tupla.log] == NULL)) {
-      return true;
-    }
-    else{
-      return false;
-    }
-}*/
-
-
-///--------------------------------------------------------------------------------------------------
-
-
-template <typename T>
-T& DiccMatriz<T>::Obtener(const Coordenada& c) {
-assert(Definido(c));
-return grilla[c.latitud()][c.longitud()];
-}
-
-template <typename T>
-const Conj<Coordenada>& DiccMatriz<T>::Claves() const{
-
-	return posicionesValidas;
+  if (FueraDeRango(c)) {
+    return false;
+  }
+  else{
+    return grilla[c.latitud-1][c.longitud-1] != NULL;
+  }
 }
 
 template <typename T>
 void DiccMatriz<T>::Borrar(const Coordenada& c) {
 assert(Definido(c));
-grilla[c.latitud()][c.longitud()] = NULL;
+grilla[c.latitud-1][c.longitud-1] = NULL;
 posicionesValidas.Eliminar(c);
 }
+
+template <typename T>
+T& DiccMatriz<T>::Obtener(const Coordenada& c) {
+assert(Definido(c));
+return grilla[c.latitud-1][c.longitud-1];
+}
+
+template <typename T>
+const Conj<Coordenada>& DiccMatriz<T>::Claves() const{
+	return posicionesValidas;
+}
+
+template <typename T>
+void DiccMatriz<T>::mostrar(){
+
+  std::cout << "la cantidad de columnas son " << grilla.Longitud() << std::endl;
+  for (int i = 0; i < grilla.Longitud(); i++) {
+    std::cout << "la cantidad de filas en grilla_"<< i <<  " son " << grilla[i].Longitud() << std::endl;
+  }
+}
+
 
 
 #endif
