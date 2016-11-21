@@ -3,18 +3,23 @@
 #include "DiccString.h"
 #include "DiccAbb.h"
 #include "Cola.h"
-#include "DiccMatriz.hpp"
+#include "DiccMatriz.h"
 
 void encolar_y_borrar() {
   Cola<int> c;
 //  Cola<int>::Iterador IT_42 = c.Encolar(42);
 //  Cola<int>::Iterador IT_40 = c.Encolar(40);
   Cola<int>::Iterador IT_51 = c.Encolar(51);
-  Cola<int>::Iterador IT_3 = c.Encolar(3);
+  Cola<int>::Iterador IT_40 = c.Encolar(40);
+  Cola<int>::Iterador IT_30 = c.Encolar(30);
+  //Cola<int>::Iterador IT_29 = c.Encolar(29);
+//  Cola<int>::Iterador IT_28 = c.Encolar(28);
+//  Cola<int>::Iterador IT_27 = c.Encolar(27);
+//  Cola<int>::Iterador IT_26 = c.Encolar(26);
   c.mostrar();
   //IT_51.EliminarSiguiente();
-  ASSERT_EQ(c.Cardinal(),2);
-  ASSERT_EQ(c.Tope(),3);
+  ASSERT_EQ(c.Cardinal(),3);
+  ASSERT_EQ(c.Tope(),30);
 
 }
 
@@ -106,25 +111,29 @@ void diccmatriz(){
   Coordenada c_3_3(3,3);
   Coordenada c_3_1(3,1);
   Coordenada c_3_2(3,2);
+  Coordenada c_7_2(7,2);
   //fin inicializacion datos
   mat.Definir(c_1_1,a);
   mat.Definir(c_3_3,a);
 //  mat.mostrar();
   mat.Definir(c_3_1,a);
-  mat.mostrar();
+//  mat.mostrar();
   ASSERT_EQ(mat.Definido(c_3_1),true);
   ASSERT_EQ(mat.Definido(c_3_2),false);
   mat.Borrar(c_3_1);
   ASSERT_EQ(mat.Definido(c_3_1),false);
+  ASSERT_EQ(mat.Obtener(c_1_1),a);
+  mat.Definir(c_7_2,a);
+  ASSERT_EQ(mat.Obtener(c_7_2),a);
 }
 
 int main() {
-  RUN_TEST(diccmatriz);
-/*
-	RUN_TEST(diccString);
-  RUN_TEST(diccAbb);
   RUN_TEST(encolar_y_borrar);
+//  RUN_TEST(diccmatriz);
+//	RUN_TEST(diccString);
+//  RUN_TEST(diccAbb);
 
-*/
+
+
   return 0;
 }
