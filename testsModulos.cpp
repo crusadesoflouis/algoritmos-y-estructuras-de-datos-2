@@ -1,10 +1,10 @@
 #include <iostream>
 #include "mini_test.h"
 #include "DiccString.h"
-#include "DiccAbb.h"
 #include "Cola.h"
 #include "DiccMatriz.h"
 #include "MultiConj.h"
+using namespace ::std;
 
 void multiconj(){
 //  MultiC<int> m;
@@ -17,7 +17,6 @@ void encolar_y_borrar() {
   Cola<int>::Iterador IT_51 = c.Encolar(51);
   Cola<int>::Iterador IT_40 = c.Encolar(40);
   Cola<int>::Iterador IT_30 = c.Encolar(30);
-  std::cout << "encolo el cuarto elemento" << std::endl;
   Cola<int>::Iterador IT_29 = c.Encolar(29);
 //  Cola<int>::Iterador IT_28 = c.Encolar(28);
 //  Cola<int>::Iterador IT_27 = c.Encolar(27);
@@ -64,49 +63,6 @@ void diccString(){
   ASSERT_EQ(trie == trie2 , false);
 	//era necesario hacer el constructor por copia?
 }
-
-using namespace ::std;
-
-void diccAbb(){
-  DiccN<int> abb;
-  int x = 16;
-  int y = 22;
-  int z = 28;
-  ASSERT_EQ(abb.Definido(12) , false);
-  abb.Definir(12, 16);
-  abb.Definir(17, 22);
-  abb.Definir(8, 28);
-  abb.Definir(9, 12);
-  ASSERT_EQ(abb.Definido(12) , true);
-  ASSERT_EQ(abb.Definido(9) , true);
-  abb.Borrar(9);
-  ASSERT_EQ(abb.Definido(9) , false);
-  //cout << abb.Significado(17) << endl;
-  ASSERT_EQ(abb.Significado(17), y);
-  ASSERT_EQ(abb.BuscarMin(), 8);
-  ASSERT_EQ(abb.BuscarMax(), 17);
-
-  DiccN<int> abb2;
-  ASSERT_EQ(abb2.Definido(12) , false);
-  abb2.Definir(12, x);
-  abb2.Definir(17, y);
-  abb2.Definir(8, z);
-  abb2.Definir(9, x);
-  ASSERT_EQ(abb2.Definido(12) , true);
-  ASSERT_EQ(abb2.Definido(9) , true);
-  abb2.Borrar(9);
-  ASSERT_EQ(abb2.Definido(9) , false);
-  ASSERT_EQ(abb2.Significado(17), y);
-  ASSERT_EQ(abb2.BuscarMin(), 8);
-  ASSERT_EQ(abb2.BuscarMax(), 17);
-
-  ASSERT_EQ(abb == abb2, true);
-
-  DiccN<int> abb3;
-  DiccN<int> abb4  = DiccN<int>(abb3);
-  ASSERT_EQ(abb3 == abb4, true);
-}
-
 void diccmatriz(){
   //inicializacion de datos
   DiccMatriz<int*> mat;
