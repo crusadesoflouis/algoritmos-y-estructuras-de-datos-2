@@ -4,6 +4,11 @@
 #include "DiccAbb.h"
 #include "Cola.h"
 #include "DiccMatriz.h"
+#include "MultiConj.h"
+
+void multiconj(){
+//  MultiC<int> m;
+}
 
 void encolar_y_borrar() {
   Cola<int> c;
@@ -12,14 +17,15 @@ void encolar_y_borrar() {
   Cola<int>::Iterador IT_51 = c.Encolar(51);
   Cola<int>::Iterador IT_40 = c.Encolar(40);
   Cola<int>::Iterador IT_30 = c.Encolar(30);
-  //Cola<int>::Iterador IT_29 = c.Encolar(29);
+  std::cout << "encolo el cuarto elemento" << std::endl;
+  Cola<int>::Iterador IT_29 = c.Encolar(29);
 //  Cola<int>::Iterador IT_28 = c.Encolar(28);
 //  Cola<int>::Iterador IT_27 = c.Encolar(27);
 //  Cola<int>::Iterador IT_26 = c.Encolar(26);
   c.mostrar();
   //IT_51.EliminarSiguiente();
-  ASSERT_EQ(c.Cardinal(),3);
-  ASSERT_EQ(c.Tope(),30);
+  ASSERT_EQ(c.Cardinal(),4);
+  ASSERT_EQ(c.Tope(),29);
 
 }
 
@@ -128,6 +134,7 @@ void diccmatriz(){
 }
 
 int main() {
+//  RUN_TEST(multiconj);
   RUN_TEST(encolar_y_borrar);
 //  RUN_TEST(diccmatriz);
 //	RUN_TEST(diccString);

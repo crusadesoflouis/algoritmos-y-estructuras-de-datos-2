@@ -216,79 +216,49 @@ void SwapDeTresNodos(Nodo* &sube,Nodo* &otro){
 		otro = sube;
 	}
 }
-void swapderecha(Nodo* &sube) {
-SwapDeDatos(raiz,sube);
-Nodo*auxDerecho = sube->der;
-Nodo*auxIzquierdo = sube->izq;
-sube->izq = raiz->izq;
-sube->izq->padre = sube;
-sube->der = raiz;
-raiz->padre = sube;
-raiz->der = NULL;
-raiz->izq = NULL;
-sube->padre = NULL;
-raiz = sube;
-raiz->der->der = auxDerecho;
-raiz->der->izq = auxIzquierdo;
-}
-
-void swapizquierda(Nodo* &sube) {
-SwapDeDatos(raiz,sube);
-Nodo*auxDerecho = sube->der;
-Nodo*auxIzquierdo = sube->izq;
-sube->der = raiz->der;
-sube->der->padre = sube;
-sube->izq = raiz;
-raiz->padre = sube;
-raiz->der = NULL;
-raiz->izq = NULL;
-sube->padre = NULL;
-raiz = sube;
-raiz->izq->der = auxDerecho;
-raiz->izq->izq = auxIzquierdo;
-}
-
 void sift_UP(Nodo* &sube){
 
 	while (sube->padre != NULL && sube->valor < sube->padre->valor) {
-		cout << "entre al while" << endl;
-		if (AbueloEsRaiz(sube)) {
-		cout << "entro a swaptoroot" << endl;
+		if(AbueloEsRaiz(sube)) {
 			SwapToRoot(sube);
 		}
 		else{
-			cout << "entre al SimpleSwap" << endl;
-			SimpleSwap(sube);
+			SimpleSwap(sube,sube->padre);
 		}
 	}
 }
 
 void SwapToRoot(Nodo* &sube){
-
-		if (SinHijos(sube)) {
-			if (hijoUnico(sube)) {
-				SwapDeDosNodos(sube,raiz);
-			}
-			else{
-				SwapDeTresNodos(sube,raiz);
-			}
-		}
-		else{
-			if (SoyHijoDerecho(sube)) {
-				swapderecha(sube);
-			}
-			else{
-				swapizquierda(sube);
-			}
-		}
-}
-
-void SimpleSwap(Nodo* & sube){
-if (SinHijos(sube)) {
 	if (hijoUnico(sube)) {
-		/* code */
+		SwapDeDosNodos(sube,raiz);
+	}
+	else{
+		SwapDeTresNodos(sube,raiz);
 	}
 }
+
+void SwapDeDosNodosConPadre(Nodo* &sube, Nodo* &don){
+SwapDeDatos(sube,don);
+Nodo* auxiliar = don->padre;
+if (SoyHijoDerecho(don)) {
+	don->padre->der = sube;
+}
+else{
+	don->padre->izq = sube;
+}
+don->padre = sube;
+sube->padre = auxiliar;
+sube->izq = don;
+don->izq = NULL;
+}
+
+void SimpleSwap(Nodo* & sube,Nodo* &dongato){
+	if (hijoUnico(sube)) {
+		SwapDeDosNodosConPadre(sube,dongato);
+	}
+	else{
+		SwapDeTresNodos(sube,dongato);
+	}
 }
 
 void sift_DOWN(Nodo* &baja){

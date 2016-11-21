@@ -53,15 +53,13 @@ class DiccS
     };
 
     Nodo* raiz_;
-    Conj<String> ConjClaves_;
-    // Conj<T> ConjSignificados_;
+    Conj<String> ConjClaves;
 
 };
 
 template<class T>
 bool operator==(const DiccS<T>&, const DiccS<T>&);
 
-  //  Implementacion de DiccString
 
 template<class T>
 DiccS<T>::DiccS(){
@@ -105,7 +103,7 @@ void DiccS<T>::Definir(const String k, const T& v){
   }
   T* x = new T(v);
   tr->val = x;
-  tr->nombre = ConjClaves_.AgregarRapido(k);
+  tr->nombre = ConjClaves.AgregarRapido(k);
 }
 
 template<class T>
@@ -115,7 +113,6 @@ void DiccS<T>::Borrar(const String k){
     tr = tr->chars[ (int)k[i] ];
   }
   tr->nombre.EliminarSiguiente();
-  // tr->val.EliminarSiguiente();
 
   delete tr->val;
   tr->val = NULL;
@@ -170,13 +167,13 @@ T& DiccS<T>::Significado(const String k) const{
 
 template<class T>
 Conj<String>::const_Iterador DiccS<T>::ClavesDicc() const{
-  return ConjClaves_.CrearIt();
+  return ConjClaves.CrearIt();
 }
 
 template<class T>
 bool DiccS<T>::operator==(const DiccS<T>& otro) const {
   bool res = true;
-  if (ConjClaves_ == otro.ConjClaves_){
+  if (ConjClaves == otro.ConjClaves){
     Conj<String>::const_Iterador it = ClavesDicc();
     while (it.HaySiguiente() && res){
       res = Significado(it.Siguiente()) == otro.Significado(it.Siguiente());
