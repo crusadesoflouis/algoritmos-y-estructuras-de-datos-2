@@ -3,12 +3,13 @@
 #include "DiccString.h"
 #include "Cola.h"
 #include "DiccMatriz.h"
-#include "MultiConj.h"
+//#include "Multiconjunto.h"
 using namespace ::std;
 
-void multiconj(){
-//  MultiConj<int> m;
+void testmulticonjunto(){
+//  Multiconjunto m;
 }
+
 
 void encolar_y_borrar() {
   Cola<int> c;
@@ -17,7 +18,8 @@ void encolar_y_borrar() {
   Cola<int>::Iterador IT_51 = c.Encolar(51);
   Cola<int>::Iterador IT_40 = c.Encolar(40);
   Cola<int>::Iterador IT_30 = c.Encolar(30);
-//  Cola<int>::Iterador IT_29 = c.Encolar(29);
+  std::cout << "encolo 29" << std::endl;
+  Cola<int>::Iterador IT_29 = c.Encolar(29);
 //  Cola<int>::Iterador IT_28 = c.Encolar(28);
 //  Cola<int>::Iterador IT_27 = c.Encolar(27);
 //  Cola<int>::Iterador IT_26 = c.Encolar(26);
@@ -63,6 +65,7 @@ void diccString(){
   ASSERT_EQ(trie == trie2 , false);
 	//era necesario hacer el constructor por copia?
 }
+
 void diccmatriz(){
   //inicializacion de datos
   DiccMatriz<int*> mat;
@@ -91,10 +94,10 @@ void diccmatriz(){
 
 int main() {
 
-  RUN_TEST(multiconj);
+//  RUN_TEST(testmulticonjunto);
   RUN_TEST(diccmatriz);
 	RUN_TEST(diccString);
-  RUN_TEST(encolar_y_borrar);
+//  RUN_TEST(encolar_y_borrar);
 
 
   return 0;

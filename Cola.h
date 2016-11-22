@@ -1,3 +1,4 @@
+
 #ifndef CONJUNTO_HPP_
 #define CONJUNTO_HPP_
 
@@ -134,7 +135,6 @@ else{
 	else{
 			//en este momento, tenemos que decidir hacia donde seguir con el buscador
 			//y llamarse asi mismo recursivamente
-
 			int alt = busca->altura -1;
 			if (completo(busca->tamDer,alt) && completo(busca->tamIzq,alt)) {
 				busca->altura++;
@@ -158,8 +158,8 @@ else{
 	}
 }
 
-bool AbueloEsRaiz(Nodo* abu){
-	return abu->padre->padre == NULL;
+bool PadreEsRaiz(Nodo* padrei){
+	return padrei->padre->padre == NULL;
 }
 
 bool hijoUnico(Nodo* hijo){
@@ -219,13 +219,18 @@ void SwapDeTresNodos(Nodo* &sube,Nodo* &otro){
 void sift_UP(Nodo* &sube){
 
 	while (sube->padre != NULL && sube->valor < sube->padre->valor) {
-		if(AbueloEsRaiz(sube)) {
+		cout << "entre al while "<< endl;
+		if(PadreEsRaiz(sube)) {
+			cout<< "entre a es raiz padre"<<endl;
 			SwapToRoot(sube);
 		}
 		else{
+			cout << "padreNOesraiz"<<endl;
+			cout << "ACA ESTA EL ERROR NO ENTIENDO PORQUE "<< endl;
 			SimpleSwap(sube,sube->padre);
 		}
 	}
+
 }
 
 void SwapToRoot(Nodo* &sube){
@@ -239,20 +244,27 @@ void SwapToRoot(Nodo* &sube){
 ////////////////////////////////////////////////////////////////////////////////
 void SwapDeDosNodosConPadre(Nodo* &sube, Nodo* &don){
 SwapDeDatos(sube,don);
-Nodo* auxiliar = don->padre;
 if (SoyHijoDerecho(don)) {
 	don->padre->der = sube;
 }
 else{
 	don->padre->izq = sube;
 }
-don->padre = sube;
-sube->padre = auxiliar;
+sube->padre = don->padre;
 sube->izq = don;
 don->izq = NULL;
+don->padre = sube;
+
+
 }
 
 void SimpleSwap(Nodo* & sube,Nodo* &dongato){
+	cout << "entre a simple Swap y preguto si el padre es el nodo raiz"<< endl;
+	if (dongato == raiz) {
+		cout <<"es la raiz"<< endl;
+		cout << "WTF?" <<  endl;
+	}
+
 	if (hijoUnico(sube)) {
 		SwapDeDosNodosConPadre(sube,dongato);
 	}
@@ -402,6 +414,12 @@ bool Cola<T>::esVacia() const{
 
 template <class T>
 typename Cola<T>::Iterador Cola<T>::Encolar(const T& clave){
+	if (raiz != NULL) {
+		if (raiz->padre != NULL) {
+			cout << "el padre de la raiz  es distinta de null"<< endl;
+		}
+	}
+
 	Cola<T>::Iterador IT;
 	if (esVacia()) {
 		Nodo* auxiliar = new Nodo(clave);

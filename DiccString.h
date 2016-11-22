@@ -2,12 +2,8 @@
 #define	DICCSTRING_H_INCLUDED
 
 #include <iostream>
-// #include "Dicc.h"
-
 #include "aed2.h"
-//#include "Conj.h"
-//#include "TiposBasicos.h"
-// #include "Registro.h"
+
 
 using namespace aed2;
 

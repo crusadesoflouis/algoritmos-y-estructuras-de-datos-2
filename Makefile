@@ -1,7 +1,7 @@
 CXXFLAGS = -g -Wall -Wno-reorder #ojo -wno -reorder le quita algo respecto al orden
 
 SOURCES = testsModulos.cpp
-HEADERS = DiccString.h Cola.h DiccMatriz.h MultiConj.h
+HEADERS = DiccString.h Cola.h DiccMatriz.h Multiconjunto.h
 OBJS = $(SOURCES:.cpp=.o)
 
 LIBS =
