@@ -1,4 +1,4 @@
-CXXFLAGS = -g -Wall -Wno-reorder #ojo -wno -reorder le quita algo respecto al orden 
+CXXFLAGS = -g -Wall -Wno-reorder #ojo -wno -reorder le quita algo respecto al orden
 
 SOURCES = testsModulos.cpp
 HEADERS = DiccString.h Cola.h DiccMatriz.h MultiConj.h
@@ -8,7 +8,7 @@ LIBS =
 
 TARGET = tests
 
-$(TARGET): $(OBJS) $(HEADERS)  
+$(TARGET): $(OBJS) $(HEADERS)
 	$(CXX) -o $(TARGET) $(OBJS) $(LIBS)
 
 all: $(TARGET)

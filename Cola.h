@@ -236,7 +236,7 @@ void SwapToRoot(Nodo* &sube){
 		SwapDeTresNodos(sube,raiz);
 	}
 }
-
+////////////////////////////////////////////////////////////////////////////////
 void SwapDeDosNodosConPadre(Nodo* &sube, Nodo* &don){
 SwapDeDatos(sube,don);
 Nodo* auxiliar = don->padre;

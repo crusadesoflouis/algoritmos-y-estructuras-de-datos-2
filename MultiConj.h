@@ -9,15 +9,15 @@
 using namespace aed2;
 
 template<class T>
-class MultiC
+class MultiConj
 {
   public:
 
-    MultiC();
+    MultiConj();
 
-    MultiC(const MultiC<T>& otro);
+    MultiConj(const MultiConj<T>& otro);
 
-    ~MultiC();
+    ~MultiConj();
 
     void Definir(const String k, const T& v);
 
@@ -40,12 +40,12 @@ class MultiC
 
 
 template<class T>
-MultiC<T>::MultiC():cardinal(0),trie(DiccS()){
+MultiConj<T>::MultiConj():cardinal(0),trie(DiccS()){
 
 }
 
 template<class T>
-MultiC<T>::MultiC(const MultiC<T>& otro){
+MultiConj<T>::MultiConj(const MultiConj<T>& otro){
   cardinal = otro.Cardinal();
   trie(otro);
 }
