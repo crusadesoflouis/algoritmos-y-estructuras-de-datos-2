@@ -6,9 +6,6 @@
 //#include "Multiconjunto.h"
 using namespace ::std;
 
-void testmulticonjunto(){
-//  Multiconjunto m;
-}
 
 
 void encolar_y_borrar() {
@@ -77,8 +74,10 @@ void diccmatriz(){
   Coordenada c_3_1(3,1);
   Coordenada c_3_2(3,2);
   Coordenada c_7_2(7,2);
+  ASSERT_EQ(mat.Vacio(),true);
   //fin inicializacion datos
   mat.Definir(c_1_1,a);
+  ASSERT_EQ(mat.Vacio(),false);
   mat.Definir(c_3_3,a);
 //  mat.mostrar();
   mat.Definir(c_3_1,a);
@@ -94,10 +93,9 @@ void diccmatriz(){
 
 int main() {
 
-//  RUN_TEST(testmulticonjunto);
   RUN_TEST(diccmatriz);
 	RUN_TEST(diccString);
-//  RUN_TEST(encolar_y_borrar);
+  RUN_TEST(encolar_y_borrar);
 
 
   return 0;

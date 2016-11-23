@@ -38,6 +38,8 @@ class DiccMatriz {
                 **/
                 bool Definido(const Coordenada& c) const;
 
+
+                bool Vacio() const;
                 /**
                 OBTENER
                 * Dada una clave, devuelve su significado.
@@ -60,6 +62,10 @@ class DiccMatriz {
                 --NO PRODUCE ALIASING--
                 **/
                 const Conj<Coordenada> & Claves() const;
+
+                Nat Latitud() const;
+
+                Nat Longitud() const;
 
                 void mostrar();
         private:
@@ -93,6 +99,22 @@ class DiccMatriz {
     return true;
   }
 }*/
+
+template <typename T>
+bool DiccMatriz<T>::Vacio() const{
+  return grilla.EsVacio();
+}
+
+template <typename T>
+Nat DiccMatriz<T>::Latitud() const{
+return maxLatitud;
+}
+
+template <typename T>
+Nat DiccMatriz<T>::Longitud() const{
+return maxLongitud;
+}
+
 template <typename T>
 bool DiccMatriz<T>::FueraDeRango(const Coordenada& c) const {
     return  ! enRango(c);
