@@ -2,7 +2,7 @@
 #include "DiccMatriz.h"
 using namespace std;
 
-  
+
 class Mapa {
 
         public:

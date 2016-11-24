@@ -7,12 +7,13 @@
     DiccS<Nat> trie;
   }
   MultiC::~MultiC(){
-
   }
 
 void MultiC::Agregar(const String k){
   if (trie.Definido(k)) {
-    trie.Definir(k,trie.Significado(k) + 1);
+    Nat Valor = trie.Significado(k) +1;
+    trie.Borrar(k);
+    trie.Definir(k,Valor);
   }
   else{
     Nat a = 1;

@@ -72,20 +72,14 @@ class DiccMatriz {
 
               Vector < Vector <T> > grilla;
               //latitud es x
-              //Nat maxLatitud;
+              //Nat Latitud;
               //longitud es y
-			        //Nat maxLongitud;
+			        //Nat Longitud;
 
               Conj<Coordenada> posicionesValidas;
-
-              Nat maxLatitud()const{
-                return grilla.Longitud();
-              }
-              Nat maxLongitud()const{
-                return grilla.EsVacio() ? 0 : grilla[0].Longitud();
-              }
+              
               bool enRango(const Coordenada & c)const{
-                return c.latitud <= maxLatitud() && c.longitud <= maxLongitud();
+                return c.latitud <= Latitud() && c.longitud <= Longitud();
               }
 };
 
@@ -107,12 +101,12 @@ bool DiccMatriz<T>::Vacio() const{
 
 template <typename T>
 Nat DiccMatriz<T>::Latitud() const{
-return maxLatitud;
+return grilla.EsVacio() ? 0 : grilla[0].Longitud();
 }
 
 template <typename T>
 Nat DiccMatriz<T>::Longitud() const{
-return maxLongitud;
+return grilla.Longitud();
 }
 
 template <typename T>
@@ -136,12 +130,12 @@ void DiccMatriz<T>::Definir(const Coordenada& c, const T& significado){
       grilla[0][0] = significado;
   }
   else{
-    if (c.latitud < maxLatitud() && c.longitud < maxLongitud()) {
+    if (c.latitud < Latitud() && c.longitud < Longitud()) {
       grilla[c.latitud-1][c.longitud-1] = significado;
     }
     else{
       Vector<T> aux;
-      for (unsigned int i = maxLatitud(); i < c.latitud; i++) {
+      for (unsigned int i = Latitud(); i < c.latitud; i++) {
         grilla.AgregarAtras(aux);
       }
       for (unsigned int i = 0; i < c.latitud; i++) {

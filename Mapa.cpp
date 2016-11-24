@@ -1,11 +1,12 @@
-#include "aed2.h"
-#include "TiposJuego.h"
 #include "Mapa.h"
 
 
 Mapa::Mapa(){
 }
 
+Mapa::~Mapa(){
+
+}
 bool Mapa::Vacia()const{
   return mapa.Vacio();
 }
@@ -77,7 +78,6 @@ void Mapa::AgregarCoord(const Coordenada &c){
       mapa.Definir(Cord_Agregada_2,true);
       IT_Agregar.EliminarSiguiente();
       Conj<Coordenada>::Iterador IT_Agregar = Visitadas.CrearIt();
-//definir las dos posiciones de la coordenada
     }
   }
 }
