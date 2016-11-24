@@ -1,11 +1,11 @@
 CXXFLAGS =	-O2 -g -Wall -fmessage-length=0
 
-SOURCES = MultiC.cpp testsTrie.cpp
+SOURCES =  testsModulos.cpp cola.h
 OBJS = $(SOURCES:.cpp=.o)
 
 LIBS =
 
-TARGET =	testsTrie
+TARGET =	testModulos
 
 $(TARGET):	$(OBJS)
 	$(CXX) -o $(TARGET) $(OBJS) $(LIBS)

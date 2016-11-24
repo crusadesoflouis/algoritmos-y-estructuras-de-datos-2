@@ -1,32 +1,31 @@
 #include <iostream>
 #include "mini_test.h"
-#include "DiccString.h"
+//#include "DiccString.h"
 #include "Cola.h"
-#include "DiccMatriz.h"
+//#include "DiccMatriz.h"
 //#include "Multiconjunto.h"
 using namespace ::std;
 
- 
+
 
 void encolar_y_borrar() {
   Cola<int> c;
-//  Cola<int>::Iterador IT_42 = c.Encolar(42);
-//  Cola<int>::Iterador IT_40 = c.Encolar(40);
-  Cola<int>::Iterador IT_51 = c.Encolar(51);
+  Cola<int>::Iterador IT_42 = c.Encolar(42);
+  cout << "encole el primer nodo voy al segundo"<< endl;
   Cola<int>::Iterador IT_40 = c.Encolar(40);
-  Cola<int>::Iterador IT_30 = c.Encolar(30);
-  std::cout << "encolo 29" << std::endl;
-  Cola<int>::Iterador IT_29 = c.Encolar(29);
+//  Cola<int>::Iterador IT_51 = c.Encolar(51);
+//  Cola<int>::Iterador IT_30 = c.Encolar(30);
+//  Cola<int>::Iterador IT_29 = c.Encolar(29);
 //  Cola<int>::Iterador IT_28 = c.Encolar(28);
 //  Cola<int>::Iterador IT_27 = c.Encolar(27);
 //  Cola<int>::Iterador IT_26 = c.Encolar(26);
   c.mostrar();
   //IT_51.EliminarSiguiente();
-  ASSERT_EQ(c.Cardinal(),4);
-  ASSERT_EQ(c.Tope(),29);
+  ASSERT_EQ(c.Cardinal(),2);
+  ASSERT_EQ(c.Tope(),40);
 
 }
-
+/*
 void diccString(){
   DiccS<int> trie;
   String s = "casa";
@@ -90,11 +89,11 @@ void diccmatriz(){
   mat.Definir(c_7_2,a);
   ASSERT_EQ(mat.Obtener(c_7_2),a);
 }
-
+*/
 int main() {
 
-  RUN_TEST(diccmatriz);
-	RUN_TEST(diccString);
+//  RUN_TEST(diccmatriz);
+//	RUN_TEST(diccString);
   RUN_TEST(encolar_y_borrar);
 
 
