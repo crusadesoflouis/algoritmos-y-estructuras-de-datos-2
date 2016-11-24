@@ -6,7 +6,7 @@
 //#include "Multiconjunto.h"
 using namespace ::std;
 
-
+ 
 
 void encolar_y_borrar() {
   Cola<int> c;

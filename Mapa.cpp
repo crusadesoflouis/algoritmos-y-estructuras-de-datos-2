@@ -4,7 +4,6 @@
 
 
 Mapa::Mapa(){
-
 }
 
 bool Mapa::Vacia()const{
@@ -72,8 +71,13 @@ void Mapa::AgregarCoord(const Coordenada &c){
     Conj<Coordenada>::Iterador IT_Agregar = Visitadas.CrearIt();
     while (IT_Agregar.HaySiguiente()) {
       Coordenada LaVisitada = IT_Agregar.Siguiente();
-      Coordenada Cord_Agregada = PosicionReal(c,LaVisitada,lat);
-
+      Coordenada Cord_Agregada_1 = PosicionReal(c,LaVisitada,lat);
+      Coordenada Cord_Agregada_2 = PosicionReal(LaVisitada,c,lat);
+      mapa.Definir(Cord_Agregada_1,true);
+      mapa.Definir(Cord_Agregada_2,true);
+      IT_Agregar.EliminarSiguiente();
+      Conj<Coordenada>::Iterador IT_Agregar = Visitadas.CrearIt();
+//definir las dos posiciones de la coordenada
     }
   }
 }

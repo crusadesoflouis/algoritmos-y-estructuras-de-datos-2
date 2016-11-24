@@ -1,6 +1,6 @@
 clear
 clear
-g++ -g -Wall Mapa.cpp -o multiC
+g++ -c  -g -Wall Mapa.cpp -o multiC
 #g++ -g -Wall testMapa.cpp -o tests
 
 ./tests

@@ -3,7 +3,7 @@
 #include "mapa.h"
 
 using namespace ::std;
-
+ 
 void diccmatriz(){
   //inicializacion de datos
   Mapa m;

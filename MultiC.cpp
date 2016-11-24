@@ -2,10 +2,13 @@
 //inicializacion
 
 
-  MultiC::MultiC(){
-     cardinalidad = 0;
+  MultiC::MultiC() {
+    cardinalidad = 0;
+    DiccS<Nat> trie;
   }
+  MultiC::~MultiC(){
 
+  }
 
 void MultiC::Agregar(const String k){
   if (trie.Definido(k)) {

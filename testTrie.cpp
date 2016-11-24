@@ -2,7 +2,7 @@
 #include "MultiC.h"
 #include "mini_test.h"
 using namespace ::std;
-
+ 
 void defvacia(){
   MultiC c;
   ASSERT_EQ(c.Vacia(),true);

@@ -225,8 +225,10 @@ void sift_UP(Nodo* &sube){
 			SwapToRoot(sube);
 		}
 		else{
-			cout << "padreNOesraiz"<<endl;
-			cout << "ACA ESTA EL ERROR NO ENTIENDO PORQUE "<< endl;
+			//cout << "sift_UP: el valor derecho de la raiz " << raiz->der->valor << endl;
+			//cout << "sift_UP: el valor derecho de la raiz " << raiz->izq->valor << endl;
+			//cout << "padreNOesraiz"<<endl;
+			//cout << "ACA ESTA EL ERROR NO ENTIENDO PORQUE "<< endl;
 			SimpleSwap(sube,sube->padre);
 		}
 	}
@@ -259,11 +261,14 @@ don->padre = sube;
 }
 
 void SimpleSwap(Nodo* & sube,Nodo* &dongato){
-	cout << "entre a simple Swap y preguto si el padre es el nodo raiz"<< endl;
+cout << "entre a simple Swap y preguto si el padre es el nodo raiz"<< endl;
 	if (dongato == raiz) {
 		cout <<"es la raiz"<< endl;
 		cout << "WTF?" <<  endl;
 	}
+
+		cout << "SimpleSwap: el valor derecho de la raiz " << raiz->der->valor << endl;
+		cout << "SimpleSwap: el valor derecho de la raiz " << raiz->izq->valor << endl;
 
 	if (hijoUnico(sube)) {
 		SwapDeDosNodosConPadre(sube,dongato);
@@ -271,6 +276,7 @@ void SimpleSwap(Nodo* & sube,Nodo* &dongato){
 	else{
 		SwapDeTresNodos(sube,dongato);
 	}
+
 }
 
 void sift_DOWN(Nodo* &baja){
@@ -399,6 +405,8 @@ Cola<T>::Cola() : raiz(NULL){
 template <class T>
 Cola<T>::~Cola()
 {
+
+	//eliminar recursivamente???
 //TODO
 }
 

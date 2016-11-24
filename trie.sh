@@ -1,7 +1,7 @@
 clear
 clear
-g++ -g -Wall MultiC.cpp -o multiC
-g++ -g -Wall testTrie.cpp -o tests
+g++ -c -g -Wall MultiC.cpp -o multiC.o
+#g++ -g -Wall testTrie.cpp -o tests
 
 ./tests
 
