@@ -1,5 +1,5 @@
-#ifndef DICC_STRING_H_
-#define DICC_STRING_H_
+#ifndef DICC_MATRIZ_H
+#define DICC_MATRIZ_H
 
 #include <iostream>
 #include <cassert>
@@ -77,7 +77,7 @@ class DiccMatriz {
 			        //Nat Longitud;
 
               Conj<Coordenada> posicionesValidas;
-              
+
               bool enRango(const Coordenada & c)const{
                 return c.latitud <= Latitud() && c.longitud <= Longitud();
               }

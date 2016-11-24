@@ -141,13 +141,14 @@ void swap(Nodo* &A, Nodo* &B,bool flag){
 	padre = B->padre;
 	derecho = B->der;
 	izquierdo = B->izq;
-
+	Nodo* C = B;
 
 	Nodo* auxiliarDer = A->der;
 	Nodo* auxiliarIzq = A->izq;
 
 cout << "valor de A es: "<< A->valor << endl;
 cout << "valor de B es: "<< B->valor << endl;
+
  A->padre = padre;
  cout << "valor de A es: "<< A->valor << endl;
  cout << "valor de B es: "<< B->valor << endl;

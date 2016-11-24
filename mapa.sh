@@ -1,7 +1,7 @@
 clear
 clear
-g++ -c  -g -Wall Mapa.cpp -o mapapa
-g++ -g -Wall testMapa.cpp mapapa -o tests
+g++ -c  -g -Wall Mapa.cpp -o mapa
+g++ -g -Wall testMapa.cpp mapa -o tests
 
 valgrind --leak-check=full ./tests
 
