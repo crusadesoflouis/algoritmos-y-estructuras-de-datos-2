@@ -126,32 +126,30 @@ void sift_UP(Nodo* &puntero){
 	while ((cont < stop)&&(puntero->valor < puntero->padre->valor)) {
 		swap(puntero,puntero->padre,IT.Anterior());
 		cont++;
+		cout << " el flag es: " << IT.Anterior() << endl; 
 		IT.Retroceder();
 	}
 }
 
-void swap(Nodo* &A, Nodo* &B,bool flag){
+void swap(Nodo* A, Nodo* B,bool flag){
 	//flag si es falso entonces A es hijo izquierdo de B
 	//flag si es verdadero entonces A es hijo derecho de B
-
-  Nodo* padre = NULL;
+	if (B == raiz){
+		raiz = A;
+	}
+	Nodo* padre = NULL;
 	Nodo* derecho = NULL;
 	Nodo* izquierdo = NULL;
 
 	padre = B->padre;
 	derecho = B->der;
 	izquierdo = B->izq;
-	Nodo* C = B;
-
+	
 	Nodo* auxiliarDer = A->der;
 	Nodo* auxiliarIzq = A->izq;
 
-cout << "valor de A es: "<< A->valor << endl;
-cout << "valor de B es: "<< B->valor << endl;
+ 	A->padre = padre;
 
- A->padre = padre;
- cout << "valor de A es: "<< A->valor << endl;
- cout << "valor de B es: "<< B->valor << endl;
 	if (padre != NULL) {
 		HijoDerecho(A) ? A->padre->der = A: A->padre->izq = A;
 	}
@@ -160,12 +158,12 @@ cout << "valor de B es: "<< B->valor << endl;
 	B->izq = auxiliarIzq;
 
 	if (flag) {
-		A->izq = B;
-		A->der = derecho;
-	}
-	else{
 		A->der = B;
 		A->izq = izquierdo;
+	}
+	else{
+		A->izq = B;
+		A->der = derecho;
 	}
 }
 //************************************************************************//
@@ -268,8 +266,11 @@ typename Cola<T>::Iterador Cola<T>::Encolar(const T& clave){
 		sift_UP(to_add);
 		IT = CrearIt(to_add);
 	}
+			cout << "creeIT"<<endl;
 	card++;
+			cout << "creeIT"<<endl;
 	return IT;
+			cout << "creeIT"<<endl;
 
 }
 

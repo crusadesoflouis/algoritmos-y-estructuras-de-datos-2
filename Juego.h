@@ -1,10 +1,11 @@
 #include <iostream>
 #include "aed2.h"
 #include "TiposJuego.h"
+/*
 #include "Mapa.h"
 #include "MultiC.h"
 #include "Cola.h"
-
+*/
 using namespace std;
   class Juego{
     public:
@@ -23,9 +24,9 @@ using namespace std;
 
       void Moverse(const Coordenada, const Jugador j);
 
-      Mapa MAPA();
+      Conj<Coordenada> MAPA();
 
-      Conj<Jugadores> Jugadores();
+      Conj<Jugador> Jugadores();
 
       bool EstaConectado(const Jugador j);
 
@@ -33,9 +34,11 @@ using namespace std;
 
       Coordenada Posicion (const Jugador j);
       //revisar este iterador
-      IteradorMulticonjunto<pokemon> Pokemons(const Jugador j);
+      //**********************************************************************************************************************
+      //IteradorMulticonjunto<Pokemon> Pokemons(const Jugador j);
+      //**********************************************************************************************************************
       //revisar estos iteradores //it al conjunto de jugadores expulsados
-      ItExpulsados<Jugadores> Expulsados();
+      Cola::IteradorExp Expulsados();
 
       Conj<Coordenada> PosConPokemons();
 
@@ -49,7 +52,7 @@ using namespace std;
 
       Coordenada PosPokemonCercano(const Coordenada &c);
 
-      Conj<Jugador> EntrenadoresPosibles<const Coordenada &c, const Conj<Jugador> &JugPosibeles);
+      Conj<Jugador> EntrenadoresPosibles(const Coordenada &c, const Conj<Jugador> &JugPosibeles);
 
       Nat IndiceRareza (const Pokemon p);
 
@@ -62,6 +65,8 @@ using namespace std;
       IteradorJug CrearIt();
 
       IteradorExp CrearIt();
+     
+        //******************** Los iteradores van a ser renombres por ahora***************************//
         class IteradorJug{
 
           public:
@@ -91,15 +96,39 @@ using namespace std;
             //***************//
         };
 
-      ///*****************estructura*******///
+        //*************************************************************************************************//
+      //******************Estructura provisoria*****//
+        Conj<Coordenada> Mundo;
+        Vector<InfoJug*> Jugadores;
+        Conj<Coordenada> PosSalvajes;
+        Conj<InfoPos*> FuturasCapturas;
 
+        struct InfoJug{
+
+          Nat Sanciones;
+          bool conectado;
+          Coordenada Ubicacion;
+          Lista<Pokemon> Atrapados;
+          Lista<Jugador> CazaActual;
+        }
+
+        struct InfoPos{
+
+          Nat Turnos;
+          Lista<jugador> PosiblesEntrenadores;
+          Pokemon Bicho;
+        }
+
+      ///*****************estructura*******///
+        /*
       Mapa Mundo;
       Vector<InfoJug*> Jugadores;
       Conj<Coordenada> PosSalvajes;
       //hay que hacer otra clase//
-      MultiC Pokedex
-
-
+      MultiC Pokedex;
+      Nat TotalPokemons;
+      DiccMatriz<InfoPos*> FuturasCapturas;
+  */
 
 
   };

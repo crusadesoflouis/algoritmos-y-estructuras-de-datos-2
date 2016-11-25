@@ -14,11 +14,11 @@ Nat coordenada::longitud()const{
   return longitu;
 }
 
-bool coordenada::operator == (coordenada& c2){
+bool coordenada::operator == (const coordenada& c2)const{
   return latitu == c2.latitud() and longitu == c2.longitud();
 }
 
-bool coordenada::operator != (coordenada& c2){
+bool coordenada::operator != (const coordenada& c2)const{
 return ! (latitu == c2.latitud()) && (longitu==c2.longitud());
 }
 

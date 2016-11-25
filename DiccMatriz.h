@@ -4,8 +4,7 @@
 #include <iostream>
 #include <cassert>
 #include "aed2.h"
-#include "TiposJuego.h"
-
+#include "coordenada.h"
 
 
 
@@ -29,14 +28,14 @@ class DiccMatriz {
                 * Recibe una clave con su significado de tipo T y la define.
                 * Si ya estaba definida, la reescribe.
                 **/
-                void Definir(const Coordenada& c, const T& significado);
+                void Definir(const coordenada& c, const T& significado);
 
                 /**
                 DEFINIDO?
                 * Devuelve un bool, que es true si la clave pasada está definida en
                 * el diccionario.
                 **/
-                bool Definido(const Coordenada& c) const;
+                bool Definido(const coordenada& c) const;
 
 
                 bool Vacio() const;
@@ -45,7 +44,7 @@ class DiccMatriz {
                 * Dada una clave, devuelve su significado.
                 * PRE: La clave está definida.
                 */
-                T& Obtener(const Coordenada& c);
+                T& Obtener(const coordenada& c);
 
                 /**
                 OBTENER
@@ -53,20 +52,20 @@ class DiccMatriz {
                 * PRE: La clave está definida.
                 --PRODUCE ALIASING--
                 **/
-                void Borrar(const Coordenada& c);
+                void Borrar(const coordenada& c);
 
-                bool FueraDeRango(const Coordenada& c) const;
+                bool FueraDeRango(const coordenada& c) const;
                 /**
                 CLAVES
                 * Devuelve las claves del diccionario.
                 --NO PRODUCE ALIASING--
                 **/
-                const Conj<Coordenada> & Claves() const;
+                const Conj<coordenada> & Claves() const;
 
                 Nat Latitud() const;
 
                 Nat Longitud() const;
-
+                //mostrar es solo para debug
                 void mostrar();
         private:
 
@@ -76,9 +75,9 @@ class DiccMatriz {
               //longitud es y
 			        //Nat Longitud;
 
-              Conj<Coordenada> posicionesValidas;
+              Conj<coordenada> posicionesValidas;
 
-              bool enRango(const Coordenada & c)const{
+              bool enRango(const coordenada & c)const{
                 return c.latitud <= Latitud() && c.longitud <= Longitud();
               }
 };
@@ -110,7 +109,7 @@ return grilla.Longitud();
 }
 
 template <typename T>
-bool DiccMatriz<T>::FueraDeRango(const Coordenada& c) const {
+bool DiccMatriz<T>::FueraDeRango(const coordenada& c) const {
     return  ! enRango(c);
 }
 
@@ -121,7 +120,7 @@ DiccMatriz<T>::DiccMatriz(): grilla(),posicionesValidas(){
 }
 
 template <typename T>
-void DiccMatriz<T>::Definir(const Coordenada& c, const T& significado){
+void DiccMatriz<T>::Definir(const coordenada& c, const T& significado){
 
   if (grilla.EsVacio()) {
       Vector<T> aux;
@@ -131,7 +130,7 @@ void DiccMatriz<T>::Definir(const Coordenada& c, const T& significado){
   }
   else{
     if (c.latitud < Latitud() && c.longitud < Longitud()) {
-      grilla[c.latitud-1][c.longitud-1] = significado;
+      grilla[c.latitud()-1][c.longitud()-1] = significado;
     }
     else{
       Vector<T> aux;
@@ -150,7 +149,7 @@ void DiccMatriz<T>::Definir(const Coordenada& c, const T& significado){
 }
 
 template <typename T>
-bool DiccMatriz<T>::Definido(const Coordenada& c) const{
+bool DiccMatriz<T>::Definido(const coordenada& c) const{
   if (FueraDeRango(c)) {
     return false;
   }
@@ -160,20 +159,20 @@ bool DiccMatriz<T>::Definido(const Coordenada& c) const{
 }
 
 template <typename T>
-void DiccMatriz<T>::Borrar(const Coordenada& c) {
+void DiccMatriz<T>::Borrar(const coordenada& c) {
 assert(Definido(c));
 grilla[c.latitud-1][c.longitud-1] = NULL;
 posicionesValidas.Eliminar(c);
 }
 
 template <typename T>
-T& DiccMatriz<T>::Obtener(const Coordenada& c) {
+T& DiccMatriz<T>::Obtener(const coordenada& c) {
 assert(Definido(c));
 return grilla[c.latitud-1][c.longitud-1];
 }
 
 template <typename T>
-const Conj<Coordenada>& DiccMatriz<T>::Claves() const{
+const Conj<coordenada>& DiccMatriz<T>::Claves() const{
 	return posicionesValidas;
 }
 

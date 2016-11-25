@@ -11,29 +11,28 @@ bool Mapa::Vacia()const{
   return mapa.Vacio();
 }
 
-Coordenada PosicionReal(const Coordenada &c,const Coordenada &d, const Nat latitudTotal){
+coordenada PosicionReal(const coordenada &c,const coordenada &d, const Nat latitudTotal){
 Nat PosicionX = c.latitud*(latitudTotal - 1) + c.longitud;
 Nat PosicionY = d.latitud*(latitudTotal - 1) + d.longitud;
-Coordenada e(PosicionX,PosicionY);
+coordenada e(PosicionX,PosicionY);
 return e;
 }
 
-void Mapa::AgregarAdyacentes(Conj<Coordenada> &Avisitar,const Coordenada &c){
-Coordenada e(c);
+void Mapa::AgregarAdyacentes(Conj<coordenada> &Avisitar,const coordenada &c){
+coordenada e(c);
 Nat lat = mapa.Latitud();
-Coordenada c_Der(c.latitud+1,c.longitud);
-Coordenada Derecha = PosicionReal(c_Der,c_Der,lat);
-Coordenada c_Izq(c.latitud-1,c.longitud);
-Coordenada Izquierda = PosicionReal(c_Izq,c_Izq,lat);
-Coordenada c_Arr(c.latitud,c.longitud+1);
-Coordenada Arriba = PosicionReal(c_Arr,c_Arr,lat);
-Coordenada c_Abj(c.latitud,c.longitud-1);
-Coordenada Abajo = PosicionReal(c_Abj,c_Abj,lat);
+coordenada c_Der(c.latitud+1,c.longitud);
+coordenada Derecha = PosicionReal(c_Der,c_Der,lat);
+coordenada c_Izq(c.latitud-1,c.longitud);
+coordenada Izquierda = PosicionReal(c_Izq,c_Izq,lat);
+coordenada c_Arr(c.latitud,c.longitud+1);
+coordenada Arriba = PosicionReal(c_Arr,c_Arr,lat);
+coordenada c_Abj(c.latitud,c.longitud-1);
+coordenada Abajo = PosicionReal(c_Abj,c_Abj,lat);
 
   if (mapa.Definido(Arriba)) {
     Avisitar.Agregar(Arriba);
   }
-
   if (mapa.Definido(Abajo)) {
     Avisitar.Agregar(Abajo);
   }
@@ -46,48 +45,47 @@ Coordenada Abajo = PosicionReal(c_Abj,c_Abj,lat);
     Avisitar.Agregar(Izquierda);
   }
 
-
-
 }
+/*
 
-
-void Mapa::AgregarCoord(const Coordenada &c){
+void Mapa::AgregarCoord(const coordenada &c){
   Nat lat = mapa.Latitud();
-  Coordenada d = PosicionReal(c,c,lat);
+  coordenada d = PosicionReal(c,c,lat);
   mapa.Definir(d,true);
-  Conj<Coordenada> Visitadas;
-  Conj<Coordenada> Avisitar;
+  Conj<coordenada> Visitadas;
+  Conj<coordenada> Avisitar;
   Visitadas.Agregar(d);
   AgregarAdyacentes(Avisitar,c);
 
-  Conj<Coordenada>::Iterador IT = Avisitar.CrearIt();
+  Conj<coordenada>::Iterador IT = Avisitar.CrearIt();
   while (IT.HaySiguiente()) {
     Visitadas.Agregar(IT.Siguiente());
     AgregarAdyacentes(Avisitar,IT.Siguiente());
-    Conj<Coordenada>::Iterador IT_Visitadas = Visitadas.CrearIt();
+    Conj<coordenada>::Iterador IT_Visitadas = Visitadas.CrearIt();
     while (IT_Visitadas.HaySiguiente()) {
       Avisitar.Eliminar(IT_Visitadas.Siguiente());
       IT_Visitadas.Avanzar();
     }
-    Conj<Coordenada>::Iterador IT_Agregar = Visitadas.CrearIt();
+    Conj<coordenada>::Iterador IT_Agregar = Visitadas.CrearIt();
     while (IT_Agregar.HaySiguiente()) {
-      Coordenada LaVisitada = IT_Agregar.Siguiente();
-      Coordenada Cord_Agregada_1 = PosicionReal(c,LaVisitada,lat);
-      Coordenada Cord_Agregada_2 = PosicionReal(LaVisitada,c,lat);
+      coordenada LaVisitada = IT_Agregar.Siguiente();
+      coordenada Cord_Agregada_1 = PosicionReal(c,LaVisitada,lat);
+      coordenada Cord_Agregada_2 = PosicionReal(LaVisitada,c,lat);
       mapa.Definir(Cord_Agregada_1,true);
       mapa.Definir(Cord_Agregada_2,true);
       IT_Agregar.EliminarSiguiente();
-      Conj<Coordenada>::Iterador IT_Agregar = Visitadas.CrearIt();
+      Conj<coordenada>::Iterador IT_Agregar = Visitadas.CrearIt();
     }
   }
 }
 
-bool Mapa::PosExistente(const Coordenada &c)const{
-  Coordenada d = PosicionReal(c,c,mapa.Latitud());
+bool Mapa::PosExistente(const coordenada &c)const{
+  coordenada d = PosicionReal(c,c,mapa.Latitud());
   return mapa.Definido(d);
 }
 
-bool Mapa::HayCamino(const Coordenada &c,const Coordenada &d)const{
-Coordenada e = PosicionReal(c,d,mapa.Latitud());
+bool Mapa::HayCamino(const coordenada &c,const coordenada &d)const{
+coordenada e = PosicionReal(c,d,mapa.Latitud());
   return mapa.Definido(e);
 }
+*/
