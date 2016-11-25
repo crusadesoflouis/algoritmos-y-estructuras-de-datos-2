@@ -33,9 +33,9 @@ using namespace std;
 
       Coordenada Posicion (const Jugador j);
       //revisar este iterador
-      IteradorMulticonjunto<pokemon> Pokemons(const Jugador j);
+      Juego::IteradorJug Pokemons(const Jugador j);
       //revisar estos iteradores //it al conjunto de jugadores expulsados
-      ItExpulsados<Jugadores> Expulsados();
+      Juego::IteradorExp Expulsados();
 
       Conj<Coordenada> PosConPokemons();
 
@@ -92,14 +92,35 @@ using namespace std;
         };
 
       ///*****************estructura*******///
-
+      //mapa es la matriz de vectores
       Mapa Mundo;
+      //conjunto con todos los jugadores incluso los expulsados
       Vector<InfoJug*> Jugadores;
+      //conjunto con todas las posiciones con pokemones
       Conj<Coordenada> PosSalvajes;
-      //hay que hacer otra clase//
-      MultiC Pokedex
+      // capaz que hay que hacer otra clase
+      // especializando el template diccS en Nat
+      //diccionario clave pokemon significado cantidad de dicha especie
+      //este diccionario  debe poder eliminar creo
+      DiccS<Nat> Pokedex;
+      //"cardinal" de la cantidad de pokemones
+      Nat TotalPokemones;
+      //futuras capturas "mapa" con punteros a los heaps
+      //donde estan los jugadores esperando
+      DiccMatriz<InfoPos*> FuturasCapturas;
+      //estructura de
+        struct InfoJug{
+          Nat Sanciones;
+          bool Conectado;
+          Coordenada Posicion;
+          MultiC Atrapados;
+        };
 
-
+        struct InfoPos{
+          Nat Turnos;
+          Cola<Jugador> PosiblesEntrenadores;
+          Pokemon Bicho;
+        };
 
 
   };

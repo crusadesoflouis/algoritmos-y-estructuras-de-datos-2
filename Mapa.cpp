@@ -18,6 +18,19 @@ Coordenada e(PosicionX,PosicionY);
 return e;
 }
 
+
+bool Mapa::PosExistente(const Coordenada &c)const{
+  Coordenada d = PosicionReal(c,c,mapa.Latitud());
+  return mapa.Definido(d);
+}
+
+
+bool Mapa::HayCamino(const Coordenada &c,const Coordenada &d)const{
+Coordenada e = PosicionReal(c,d,mapa.Latitud());
+  return mapa.Definido(e);
+}
+
+
 void Mapa::AgregarAdyacentes(Conj<Coordenada> &Avisitar,const Coordenada &c){
 Coordenada e(c);
 Nat lat = mapa.Latitud();
@@ -29,11 +42,11 @@ Coordenada c_Arr(c.latitud,c.longitud+1);
 Coordenada Arriba = PosicionReal(c_Arr,c_Arr,lat);
 Coordenada c_Abj(c.latitud,c.longitud-1);
 Coordenada Abajo = PosicionReal(c_Abj,c_Abj,lat);
-
+  /*
   if (mapa.Definido(Arriba)) {
     Avisitar.Agregar(Arriba);
   }
-
+/*
   if (mapa.Definido(Abajo)) {
     Avisitar.Agregar(Abajo);
   }
@@ -47,9 +60,10 @@ Coordenada Abajo = PosicionReal(c_Abj,c_Abj,lat);
   }
 
 
-
+*/
 }
 
+/*
 
 void Mapa::AgregarCoord(const Coordenada &c){
   Nat lat = mapa.Latitud();
@@ -82,12 +96,5 @@ void Mapa::AgregarCoord(const Coordenada &c){
   }
 }
 
-bool Mapa::PosExistente(const Coordenada &c)const{
-  Coordenada d = PosicionReal(c,c,mapa.Latitud());
-  return mapa.Definido(d);
-}
 
-bool Mapa::HayCamino(const Coordenada &c,const Coordenada &d)const{
-Coordenada e = PosicionReal(c,d,mapa.Latitud());
-  return mapa.Definido(e);
-}
+*/
