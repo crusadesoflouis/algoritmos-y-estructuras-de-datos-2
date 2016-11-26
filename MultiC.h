@@ -21,7 +21,13 @@ class MultiC{
     Nat Cardinal() const;
 
     Nat Repeticiones(const String k) const;
+
+    typename Conj<String>::const_Iterador CrearIt() const;
+
+    
 /*
+
+
   	class Iterador;
     //operaciones del Iterador
 

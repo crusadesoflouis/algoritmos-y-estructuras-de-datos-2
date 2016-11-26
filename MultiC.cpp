@@ -38,3 +38,7 @@ Nat MultiC::Cardinal()const {
 bool MultiC::Vacia(){
   return cardinalidad == 0;
 }
+
+Conj<String>::const_Iterador MultiC::CrearIt()const{
+  return trie.ClavesDicc();
+}

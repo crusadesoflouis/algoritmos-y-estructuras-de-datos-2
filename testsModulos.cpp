@@ -13,17 +13,20 @@ void encolar_y_borrar() {
   Cola<int>::Iterador IT_42 = c.Encolar(42);
   cout << "encole el primer nodo voy al segundo"<< endl;
   Cola<int>::Iterador IT_40 = c.Encolar(40);
-//  Cola<int>::Iterador IT_51 = c.Encolar(51);
-//  Cola<int>::Iterador IT_30 = c.Encolar(30);
-//  Cola<int>::Iterador IT_29 = c.Encolar(29);
-//  Cola<int>::Iterador IT_28 = c.Encolar(28);
-//  Cola<int>::Iterador IT_27 = c.Encolar(27);
-//  Cola<int>::Iterador IT_26 = c.Encolar(26);
-  c.mostrar();
-  //IT_51.EliminarSiguiente();
-  ASSERT_EQ(c.Cardinal(),2);
-  ASSERT_EQ(c.Tope(),40);
+  Cola<int>::Iterador IT_51 = c.Encolar(51);
+  Cola<int>::Iterador IT_30 = c.Encolar(30);
+  Cola<int>::Iterador IT_29 = c.Encolar(29);
+  Cola<int>::Iterador IT_28 = c.Encolar(28);
+ cout << "sali del 28"<< endl;
 
+  /*
+  Cola<int>::Iterador IT_27 = c.Encolar(27);
+  Cola<int>::Iterador IT_26 = c.Encolar(26);
+  */
+  //c.mostrar();
+  //IT_51.EliminarSiguiente();
+  ASSERT_EQ(c.Cardinal(),6);
+  ASSERT_EQ(c.Tope(),28);
 }
 /*
 void diccString(){

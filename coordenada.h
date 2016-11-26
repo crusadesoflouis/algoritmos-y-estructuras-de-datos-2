@@ -5,9 +5,9 @@ class coordenada {
 
     coordenada(Nat lat, Nat lon);
 
-    bool operator == (coordenada& c2);
+    bool operator == (const coordenada& c2)const;
 
-    bool operator != (coordenada& c2);
+    bool operator != (const coordenada& c2) const;
 
     Nat cuadRestaLat (const coordenada& c1, const coordenada& c2);
 

@@ -13,11 +13,11 @@ class Mapa {
 
                 bool Vacia() const;
 
-                void AgregarCoord(const Coordenada& c);
+                void AgregarCoord(const coordenada& c);
 
-                bool PosExistente(const Coordenada& c) const;
+                bool PosExistente(const coordenada& c) const;
 
-                bool HayCamino(const Coordenada &c,const Coordenada &d) const;
+                bool HayCamino(const coordenada &c,const coordenada &d) const;
 
 
               //  void mostrar();
@@ -29,6 +29,6 @@ class Mapa {
               //Nat maxLatitud;
               //longitud es y
 			        //Nat maxLongitud;
-              void AgregarAdyacentes(Conj<Coordenada> &Avisitar,const Coordenada &c);
+              void AgregarAdyacentes(Conj<coordenada> &Avisitar,const coordenada &c);
 
 };
