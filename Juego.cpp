@@ -4,9 +4,15 @@
 Juego::Juego():TotalPokemones(0){}
 
 Juego::~Juego(){}
-//puede ser que no tenga que pasar por lista de inicializacion
-//a turnos porque reconoce a 10 como integer y turnos es Nat
-//quizas el compilador no entiende como convertir de int to nat
+
+Jugador Juego::AgregarJugador(){
+  Juego::InfoJug* nuevo = new InfoJug;
+  Jugadores.AgregarAtras(nuevo);
+  unsigned int ID = Jugadores.Longitud();
+  return  ID;
+}
+
+
 
 void Juego::AgregarPokemon(const coordenada &c, const Pokemon &p){
 //agrego el pokemon en el mc donde estan las pos de pokemones salvajes
@@ -29,6 +35,14 @@ PosSalvajes.AgregarRapido(c);
   InfoPos* info = new InfoPos(p);
   Nat CantidadAtrapados = 0;
   bool online = false;
+  /*
   //creo un iterador al vector donde estan todos los jugadores
-  //Vector<InfoJug*>::Iterador IT = Jugadores.CrearIt();
+  Vector<InfoJug*>::const_Iterador IT = Jugadores.CrearIt();
+  while (IT.HaySiguiente()) {
+    online = IT.Siguiente().Conectado;
+    if (online && PuedeAtrapar(c,IT.Siguiente().Posicion)) {
+
+      IT.Siguiente().CazaActual = InfoPos.PosiblesEntrenadores.Encolar(IT.Siguiente(),)
+    }
+  }*/
 }

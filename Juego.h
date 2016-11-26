@@ -5,6 +5,7 @@
 #include "Mapa.h"
 #include "DiccMatriz.h"
 #include "Cola.h"
+#include "Tupla.h"
 
 using namespace std;
   class Juego{
@@ -26,7 +27,7 @@ using namespace std;
 
       Conj<coordenada> MAPA();
 
-      Conj<Jugador> Jugadores();
+      //IteradorJug Jugadores();
 
       bool EstaConectado(const Jugador j);
 
@@ -104,12 +105,14 @@ using namespace std;
           bool Conectado;
           coordenada Posicion;
           MultiC Atrapados;
-          
+          Cola<Jugador>::Iterador CazaActual;
+          InfoJug():Sanciones(0),Conectado(false),Posicion(0,0){
+          }
         };
 
         struct InfoPos{
           Nat Turnos;
-          Cola<Jugador> PosiblesEntrenadores;
+          Cola< Tupla <InfoJug*> > PosiblesEntrenadores;
           Pokemon Bicho;
 
           InfoPos(const Pokemon &p):Turnos(10){
@@ -119,7 +122,7 @@ using namespace std;
 
         Mapa Mundo;
         //conjunto con todos los jugadores incluso los expulsados
-        Vector<InfoJug*> Jugadores_Totales;
+        Vector<InfoJug*> Jugadores;
         //conjunto con todas las posiciones con pokemones
         Conj<coordenada> PosSalvajes;
         // capaz que hay que hacer otra clase
