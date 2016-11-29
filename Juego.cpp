@@ -5,6 +5,11 @@ Juego::Juego():TotalPokemones(0){}
 
 Juego::~Juego(){}
 
+Mapa Juego::MAPA(){
+  return Mundo;
+}
+
+
 Jugador Juego::AgregarJugador(){
   Juego::InfoJug* nuevo = new InfoJug;
   Jugadores.AgregarAtras(nuevo);
@@ -55,6 +60,7 @@ PosSalvajes.AgregarRapido(c);
 //dicho pokemon
   InfoPos* info = new InfoPos(p);
   bool online = false;
+  FuturasCapturas.Definir(c,info);
 
   //creo un iterador al vector donde estan todos los jugadores
   Vector<InfoJug*>::const_Iterador IT = Jugadores.CrearIt();
@@ -62,14 +68,12 @@ PosSalvajes.AgregarRapido(c);
   while (IT.HaySiguiente()) {
     online = IT.Siguiente()->Conectado;
     if (online && PuedeAtrapar(c,IT.Siguiente()->Posicion)) {
-    //  Tupla<InfoJug*> t(Jugadores[pos],IT.Siguiente()->Atrapados.Cardinal(),pos);
-    //  Jugadores[pos]->CazaActual() = info->PosiblesEntrenadores.Encolar(t);
-    // o Jugadores[pos]->CazaActual()(info->PosiblesEntrenadores.Encolar(t));
+      Tupla<InfoJug*> t(Jugadores[pos],IT.Siguiente()->Atrapados.Cardinal(),pos);
+      FuturasCapturas.Obtener(c)->PosiblesEntrenadores.Encolar(t);
     }
     pos++;
     IT.Avanzar();
   }
-//////////////****************** revisar operator = del iterador
 
 }
 
@@ -86,8 +90,6 @@ void Juego::Conectarse(const coordenada &c,const Jugador j){
 
 void Juego::Desconectarse(const Jugador j){
   Jugadores[j]->Conectado = false;
-  // deberia haber un bool en la estructura InfoJug que diga si CazaActual tiene algo
-  // o si no esta definido aun
   if (Jugadores[j]->EstaCazando) {
     Jugadores[j]->CazaActual.EliminarSiguiente();
   }
@@ -96,6 +98,15 @@ void Juego::Desconectarse(const Jugador j){
   }
 }
 
+void Juego::Capturar(const coordenada &c){
+ InfoJug* aux = FuturasCapturas.Obtener(c)->PosiblesEntrenadores.Tope().Iter();
+ aux->EstaCazando = false;
+ aux->CazaActual.EliminarSiguiente();
+ //como se destruye el heap??
+ Pokemon capturado = FuturasCapturas.Obtener(c)->Bicho;
+ aux->Atrapados.Agregar(capturado);
+ FuturasCapturas.Borrar(c);
+}
 
 void Juego::Moverse(const coordenada &c,const Jugador j){
 
@@ -119,9 +130,11 @@ void Juego::Moverse(const coordenada &c,const Jugador j){
   if (HayPokemonNuevo && HayPokemon && vieja == nueva) {
     Conj<coordenada>::Iterador IT = PosSalvajes.CrearIt();
     while (IT.HaySiguiente()) {
-      FuturasCapturas.Obtener(IT.Siguiente())->Turnos++;
-      if (FuturasCapturas.Obtener(IT.Siguiente())->Turnos == 10 && IT.Siguiente() != vieja) {
-      //  Capturar(IT.Siguiente());
+      if (IT.Siguiente() != c) {
+        FuturasCapturas.Obtener(IT.Siguiente())->Turnos++;
+        if (FuturasCapturas.Obtener(IT.Siguiente())->Turnos == 10 && IT.Siguiente() != vieja) {
+           Capturar(IT.Siguiente());
+        }
       }
       IT.Avanzar();
     }
@@ -131,47 +144,49 @@ void Juego::Moverse(const coordenada &c,const Jugador j){
     //osea puede ser que ambas sean vacias
     //o que salgo de una cola y entro a otra
     //o que de no estar en nada voy a una nueva capturas
-
-
     if (HayPokemon && HayPokemonNuevo) {
       // caso en el que salgo de una cola y entro a otra
       Jugadores[j]->CazaActual.EliminarSiguiente();
       FuturasCapturas.Obtener(vieja)->Turnos++;
+      if (FuturasCapturas.Obtener(vieja)->Turnos == 10) {
+         Capturar(vieja);
+      }
       FuturasCapturas.Obtener(nueva)->Turnos = 0;
-      //FuturasCapturas.Significado(nueva)->PosiblesEntrenadores.Encolar( tupla);
+      Tupla<InfoJug*> t(Jugadores[j],Jugadores[j]->Atrapados.Cardinal(),j);
+      FuturasCapturas.Obtener(nueva)->PosiblesEntrenadores.Encolar(t);
+      Conj<coordenada>::Iterador IT = PosSalvajes.CrearIt();
+      while (IT.HaySiguiente()) {
+        if (IT.Siguiente()!= vieja && IT.Siguiente() != nueva) {
+          FuturasCapturas.Obtener(IT.Siguiente())->Turnos++;
+        }
 
+        if (FuturasCapturas.Obtener(IT.Siguiente())->Turnos == 10) {
+          ////////////////////////////////// CAPTURAR /////////////////////////
+          Capturar(IT.Siguiente());
+        }
+        IT.Avanzar();
+      }
     }
     else{
-
+        //salgo de una posicion con pokemon a un lugar donde no hay pokemon
+        if (HayPokemon) {
+          Jugadores[j]->CazaActual.EliminarSiguiente();
+          Conj<coordenada>::Iterador IT = PosSalvajes.CrearIt();
+          while (IT.HaySiguiente()) {
+            FuturasCapturas.Obtener(IT.Siguiente())->Turnos++;
+            if (FuturasCapturas.Obtener(IT.Siguiente())->Turnos == 10) {
+              Capturar(IT.Siguiente());
+            }
+            IT.Avanzar();
+          }
+        }
+        else{
+          // entro a una posición con un pokemon y lo encolado
+          FuturasCapturas.Obtener(nueva)->Turnos = 0;
+          Tupla<InfoJug*> t(Jugadores[j],Jugadores[j]->Atrapados.Cardinal(),j);
+          FuturasCapturas.Obtener(nueva)->PosiblesEntrenadores.Encolar(t);
+        }
     }
   }
 
-
-
-/*
-  if (debeSancionarse(j)) {
-    //arrastrar errores??
-    Jugadores[j]->Sanciones == 4 ? Jugadores[j]->Sanciones = 1000: Jugadores[j]->Sanciones++;
-      Jugadores[j]->PosiblesEntrenadores.EliminarSiguiente();
-  }
-  if (Jugadores[j]->Sanciones < 4 ) {
-    Jugadores[j]->Posicion = c;
-    FuturasCapturas.Significado(posPokemon)->Turnos++;
-    if (HayPokemon && c.distEuclidea(posPokemon)>= 4) {
-      Jugadores[j]->CazaActual.EliminarSiguiente();
-    }
-    if (c.distEuclidea(posPokemon) >= 4 && HayPokemonCercano(c)) {
-      //encolo al jugador en la cola y devuelvo un iterador que se lo agrego
-      //a CazaActual que es donde esta el iterador en la Tupla
-      //  Tupla<InfoJug*> t(Jugadores[j],IT.Siguiente()->Atrapados.Cardinal(),pos);
-      //jugadores[j]->CazaActual = FuturasCapturas.Significado(PosPokemonCercano(c))->PosiblesEntrenadores.Encolar(IT.Siguiente,cardinal,algomas);
-      FuturasCapturas.Significado(PosPokemonCercano(c))->Turnos = 0;
-    }
-    if (FuturasCapturas.Significado(PosPokemonCercano(c))->Turnos == 10) {
-      Jugador  Capturador = FuturasCapturas.Significado(PosPokemonCercano(c))->Posiblesentrenadores.Tope().Identificacion();
-      Jugadores [Capturador]->Atrapados.Definir(FuturasCapturas.Significado(pospok)->Bicho);
-      FuturasCapturas.Eliminar(pospok)
-    }
-  }
-*/
 }

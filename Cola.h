@@ -15,8 +15,8 @@ class Cola
 		Cola();
 		~Cola();
 		bool esVacia() const;
-	 	const T& Tope();
-		typename Cola<T>::Iterador Encolar(const T&);
+	 	T Tope();
+		typename Cola<T>::Iterador Encolar(const T);
 		Nat Cardinal() const;
 		void mostrar();
 		Iterador CrearIt();
@@ -28,7 +28,7 @@ class Cola
 				Iterador(Cola<T>* cola, typename Cola<T>::Nodo* proximo) : cola(cola),nodo_siguiente(proximo){};
 				typename Cola<T>::Iterador& operator = (const typename Cola<T>::Iterador& otro);
 			  bool HaySiguiente() const;
-				T& Siguiente() const;
+				T Siguiente() const;
 		 		void EliminarSiguiente();
 			private:
 				friend typename Cola<T>::Iterador Cola<T>::CrearIt();
@@ -41,7 +41,7 @@ class Cola
 		private:
 		struct Nodo
 		{
-			Nodo(const T& v);
+			Nodo(const T v);
 			T valor;
 			Nodo* izq;
 			Nodo* der;
@@ -88,7 +88,7 @@ return auxiliar->padre->der == auxiliar;
 //*********************************************************************//
 //**********************auxiliares del encolado del nodo***********************
 
-void EncolarEnPosicion(Nodo* &encolado,const T& clave){
+void EncolarEnPosicion(Nodo* &encolado,const T clave){
 	Lista<bool> l;
 	Nat tamanio = card + 1;
 	to_binary(l,tamanio);
@@ -236,12 +236,12 @@ void Cola<T>::Iterador::EliminarSiguiente(){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 template <class T>
-const T& Cola<T>::Tope(){
+T Cola<T>::Tope(){
 	return raiz->valor;
 }
 
 template <class T>
-Cola<T>::Nodo::Nodo(const T& v)
+Cola<T>::Nodo::Nodo(const T v)
 	 : valor(v), izq(NULL), der(NULL), padre(NULL){
 }
 
@@ -261,7 +261,7 @@ return raiz == NULL;
 }
 
 template <class T>
-typename Cola<T>::Iterador Cola<T>::Encolar(const T& clave){
+typename Cola<T>::Iterador Cola<T>::Encolar(const T clave){
 	Cola<T>::Iterador IT;
 	if (esVacia()) {
 		Nodo* auxiliar = new Nodo(clave);

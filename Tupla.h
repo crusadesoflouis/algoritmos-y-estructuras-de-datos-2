@@ -14,7 +14,7 @@ public:
 
   unsigned int Identificacion();
 
-  bool operator< (const Tupla<T>& t2) const;
+  bool operator< (Tupla<T>& t2) const;
 
 private:
   T jugador;
@@ -42,8 +42,9 @@ unsigned int  Tupla<T>::Identificacion(){
   return ID;
 }
 template <class T>
-bool Tupla<T>::operator< (const Tupla<T>& t2) const {
-  if (Atrapados == t2.Atrapados()) {
+bool Tupla<T>::operator< (Tupla<T>& t2) const {
+
+  if (Atrapados == t2.Atrapados) {
     return ID < t2.Identificacion();
   }
   else{

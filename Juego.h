@@ -14,18 +14,18 @@ using namespace std;
       Juego();
 
       ~Juego();
-
+      //
       void AgregarPokemon(const coordenada &c, const Pokemon &p);
-
+      //
       Jugador AgregarJugador();
-
+      //
       void Conectarse(const coordenada &c,const Jugador j);
-
+      //
       void Desconectarse(const Jugador j);
-
+      //
       void Moverse(const coordenada &c, const Jugador j);
 
-      Conj<coordenada> MAPA();
+      Mapa MAPA();
 
       //IteradorJug Jugadores();
 
@@ -101,6 +101,7 @@ using namespace std;
       private:
 
         bool PuedeAtrapar(const coordenada &c1,const coordenada &c2);
+        void Capturar(const coordenada &c);
 
         struct InfoJug{
           Nat Sanciones;
