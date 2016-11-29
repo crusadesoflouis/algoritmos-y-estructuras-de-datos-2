@@ -17,7 +17,7 @@ public:
   bool operator< (const Tupla<T>& t2) const;
 
 private:
-  T* jugador;
+  T jugador;
   Jugador ID;
   Nat Atrapados;
 };
@@ -26,7 +26,7 @@ private:
 
 
 template <class T>
- Tupla<T>::Tupla(T& A,Nat B,Jugador C): jugador(A), Atrapados(B),ID(C){
+ Tupla<T>::Tupla(T& A,Nat B,Jugador C): jugador(A),ID(C),Atrapados(B){
 }
 template <class T>
 T&  Tupla<T>::Iter(){

@@ -23,7 +23,7 @@ using namespace std;
 
       void Desconectarse(const Jugador j);
 
-      void Moverse(const coordenada, const Jugador j);
+      void Moverse(const coordenada &c, const Jugador j);
 
       Conj<coordenada> MAPA();
 
@@ -100,11 +100,14 @@ using namespace std;
         ///*****************estructura*******///
       private:
 
+        bool PuedeAtrapar(const coordenada &c1,const coordenada &c2);
+
         struct InfoJug{
           Nat Sanciones;
           bool Conectado;
           coordenada Posicion;
           MultiC Atrapados;
+          bool EstaCazando;
           Cola<Jugador>::Iterador CazaActual;
           InfoJug():Sanciones(0),Conectado(false),Posicion(0,0){
           }
@@ -115,7 +118,7 @@ using namespace std;
           Cola< Tupla <InfoJug*> > PosiblesEntrenadores;
           Pokemon Bicho;
 
-          InfoPos(const Pokemon &p):Turnos(10){
+          InfoPos(const Pokemon &p):Turnos(0){
             Bicho = p;}
         };
 
@@ -135,6 +138,7 @@ using namespace std;
         //futuras capturas "mapa" con punteros a los heaps
         //donde estan los jugadores esperando
         DiccMatriz<InfoPos*> FuturasCapturas;
+
 
 
 

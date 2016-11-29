@@ -26,6 +26,7 @@ class Cola
 			public:
 				Iterador();
 				Iterador(Cola<T>* cola, typename Cola<T>::Nodo* proximo) : cola(cola),nodo_siguiente(proximo){};
+				typename Cola<T>::Iterador& operator = (const typename Cola<T>::Iterador& otro);
 			  bool HaySiguiente() const;
 				T& Siguiente() const;
 		 		void EliminarSiguiente();
@@ -126,7 +127,7 @@ void sift_UP(Nodo* &puntero){
 	while ((cont < stop)&&(puntero->valor < puntero->padre->valor)) {
 		swap(puntero,puntero->padre,IT.Anterior());
 		cont++;
-		cout << " el flag es: " << IT.Anterior() << endl; 
+		cout << " el flag es: " << IT.Anterior() << endl;
 		IT.Retroceder();
 	}
 }
@@ -144,7 +145,7 @@ void swap(Nodo* A, Nodo* B,bool flag){
 	padre = B->padre;
 	derecho = B->der;
 	izquierdo = B->izq;
-	
+
 	Nodo* auxiliarDer = A->der;
 	Nodo* auxiliarIzq = A->izq;
 
@@ -169,6 +170,7 @@ void swap(Nodo* A, Nodo* B,bool flag){
 //************************************************************************//
 
 void Remover(Nodo* Aborrar){
+/*
 Nodo* ultimo = raiz;
 	if (raiz == Aborrar) {
 		raiz = NULL;
@@ -183,6 +185,7 @@ Nodo* ultimo = raiz;
 		sift_DOWN(Aborrar);
 	}
 	card--;
+	*/
 }
 
 	void mostrarNodo(Nodo* nodulo){
@@ -204,6 +207,12 @@ Cola<T>::Iterador::Iterador()
 	:cola(NULL), nodo_siguiente(NULL){
 	}
 
+template <typename T>
+typename Cola<T>::Iterador& Cola<T>::Iterador::operator = (const Cola<T>::Iterador& otro){
+	cola = otro.cola;
+	nodo_siguiente = otro.nodo_siguiente;
+	return *this;
+}
 template <typename T>
 bool Cola<T>::Iterador::HaySiguiente() const{
 	return nodo_siguiente != NULL;

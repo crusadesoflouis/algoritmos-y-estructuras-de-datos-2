@@ -9,6 +9,8 @@ class coordenada {
 
     bool operator != (const coordenada& c2) const;
 
+    coordenada operator = (const coordenada& c2);
+
     Nat cuadRestaLat (const coordenada& c1, const coordenada& c2);
 
     Nat cuadRestaLong (const coordenada& c1 , const coordenada& c2);
