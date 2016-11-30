@@ -17,6 +17,7 @@ void Juego::Capturar(const coordenada &c){
  //como se destruye el heap??
  Pokemon capturado = FuturasCapturas.Obtener(c)->Bicho;
  aux->Atrapados.Agregar(capturado);
+ delete FuturasCapturas.Obtener(c);
  FuturasCapturas.Borrar(c);
 }
 
@@ -26,15 +27,23 @@ void Juego::Capturar(const coordenada &c){
 /**************************************************************************************************/
 /**************************************************************************************************/
 
-Juego::Juego():TotalPokemones(0){}
+Juego::Juego(Mapa &map):Mundo(map),TotalPokemones(0){}
 
-Juego::~Juego(){}
+Juego::~Juego(){
+
+for (Nat i = 1; i < Jugadores.Longitud(); i++) {
+  delete Jugadores[i];
+}
+
+
+}
+
 
 
 Jugador Juego::AgregarJugador(){
   Juego::InfoJug* nuevo = new InfoJug;
   Jugadores.AgregarAtras(nuevo);
-  unsigned int ID = Jugadores.Longitud();
+  unsigned int ID = Jugadores.Longitud() - 1;
   return  ID;
 }
 
@@ -77,11 +86,15 @@ PosSalvajes.AgregarRapido(c);
 
 void Juego::Conectarse(const coordenada &c,const Jugador j){
   //assert(Jugadores[j]->Sanciones < 5);
+  std::cout << "entre a conectarse" << std::endl;
+  std::cout << j << std::endl;
+  std::cout << Jugadores.Longitud() << std::endl;
   Jugadores[j]->Conectado = true;
   Jugadores[j]->Posicion = c;
+
   if (HayPokemonCercano(c)) {
       Tupla<InfoJug*> t(Jugadores[j],Jugadores[j]->Atrapados.Cardinal(),j);
-    FuturasCapturas.Obtener(PosPokemonCercano(c))->PosiblesEntrenadores.Encolar(t);
+      FuturasCapturas.Obtener(PosPokemonCercano(c))->PosiblesEntrenadores.Encolar(t);
   }
 }
 

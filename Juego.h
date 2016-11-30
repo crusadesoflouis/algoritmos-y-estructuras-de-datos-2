@@ -11,12 +11,11 @@
 using namespace std;
   class Juego{
     public:
-
       class Iterador;
 
       Iterador CrearIt();
 
-      Juego();
+      Juego(Mapa &map);
 
       ~Juego();
       //
@@ -123,36 +122,4 @@ using namespace std;
         //futuras capturas "mapa" con punteros a los heaps
         //donde estan los jugadores esperando
         DiccMatriz<InfoPos*> FuturasCapturas;
-
-
-
-
-        //*************************************************************************************************//
-      //******************Estructura provisoria*****//
-      /*
-        Conj<coordenada> Mundo;
-        Vector<InfoJug*> Jugadores;
-        Conj<coordenada> PosSalvajes;
-        Conj<InfoPos*> FuturasCapturas;
-
-        struct InfoJug{
-
-          Nat Sanciones;
-          bool conectado;
-          coordenada Ubicacion;
-          Lista<Pokemon> Atrapados;
-          Lista<Jugador> CazaActual;
-        };
-
-        struct InfoPos{
-
-          Nat Turnos;
-          Lista<jugador> PosiblesEntrenadores;
-          Pokemon Bicho;
-        };
-
-
-*/
-
-
 };

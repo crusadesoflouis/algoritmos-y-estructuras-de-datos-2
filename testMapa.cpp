@@ -20,12 +20,16 @@ void diccmatriz(){
   ASSERT_EQ(m.PosExistente(c_3_3),false);
   ASSERT_EQ(m.PosExistente(c_1_1),true);
   m.AgregarCoord(c_3_3);
-
-  m.AgregarCoord(c_3_1);
-
-  m.AgregarCoord(c_3_2);
-  std::cout << "agregue:c_3_2" << std::endl;
     /*
+  m.AgregarCoord(c_3_2);
+  ASSERT_EQ(m.HayCamino(c_3_3,c_3_2),true);
+
+std::cout << "agregue c_3_3" << std::endl;
+  m.AgregarCoord(c_3_1);
+std::cout << "agregue c_3_1" << std::endl;
+
+  std::cout << "agregue:c_3_2" << std::endl;
+
   m.AgregarCoord(c_7_2);
   m.AgregarCoord(c_2_2);
   ASSERT_EQ(m.HayCamino(c_1_1,c_1_1),true);
