@@ -1,13 +1,34 @@
 #include "Juego.h"
 
-//generadores
+/**************************************************************************************************/
+/**************************************************************************************************/
+/**************************************************FUNCIONES AUXILIARES****************************/
+/**************************************************************************************************/
+/**************************************************************************************************/
+bool Juego::PuedeAtrapar (coordenada c1,const coordenada &c2){
+  return c1.distEuclidea(c2) <= 4 &&  Mundo.HayCamino(c1,c2);
+}
+
+
+void Juego::Capturar(const coordenada &c){
+ InfoJug* aux = FuturasCapturas.Obtener(c)->PosiblesEntrenadores.Tope().Iter();
+ aux->EstaCazando = false;
+ aux->CazaActual.EliminarSiguiente();
+ //como se destruye el heap??
+ Pokemon capturado = FuturasCapturas.Obtener(c)->Bicho;
+ aux->Atrapados.Agregar(capturado);
+ FuturasCapturas.Borrar(c);
+}
+
+/**************************************************************************************************/
+/**************************************************************************************************/
+/**************************************************GENERADORES****************************/
+/**************************************************************************************************/
+/**************************************************************************************************/
+
 Juego::Juego():TotalPokemones(0){}
 
 Juego::~Juego(){}
-
-Mapa Juego::MAPA(){
-  return Mundo;
-}
 
 
 Jugador Juego::AgregarJugador(){
@@ -17,30 +38,7 @@ Jugador Juego::AgregarJugador(){
   return  ID;
 }
 
-coordenada Juego::PosPokemonCercano(const coordenada &c){
-  Conj<coordenada>::Iterador IT = PosSalvajes.CrearIt();
-  while (IT.HaySiguiente() && FuturasCapturas.Obtener(IT.Siguiente()) == NULL) {
-      IT.Avanzar();
-  }
-
-  return IT.Siguiente();
-}
-
-bool Juego::HayPokemonCercano( const coordenada &c){
-
-  //TODO
-
-  return true;
-}
-
-
-bool Juego::PuedeAtrapar (const coordenada &c1,const coordenada &c2){
-  //return distEuclidea(c1,c2) <= 4 &&  Mundo.HayCamino(c1,c2);
-  //modificar class coordenada asi c1.distEuclidea(c2) de un Nat
-  return true;
-}
-
-void Juego::AgregarPokemon(const coordenada &c, const Pokemon &p){
+void Juego::AgregarPokemon(coordenada c, const Pokemon &p){
 //agrego el pokemon en el mc donde estan las pos de pokemones salvajes
 PosSalvajes.AgregarRapido(c);
 // si estaba definido aumento en 1 su "cardinal" sino lo defino
@@ -98,19 +96,8 @@ void Juego::Desconectarse(const Jugador j){
   }
 }
 
-void Juego::Capturar(const coordenada &c){
- InfoJug* aux = FuturasCapturas.Obtener(c)->PosiblesEntrenadores.Tope().Iter();
- aux->EstaCazando = false;
- aux->CazaActual.EliminarSiguiente();
- //como se destruye el heap??
- Pokemon capturado = FuturasCapturas.Obtener(c)->Bicho;
- aux->Atrapados.Agregar(capturado);
- FuturasCapturas.Borrar(c);
-}
-
 void Juego::Moverse(const coordenada &c,const Jugador j){
-
-  //assert(Jugadores[j]->Sanciones < 5);
+  assert(Jugadores[j]->Sanciones < 5);
   bool HayPokemon = false;
   bool HayPokemonNuevo = false;
   coordenada vieja(0,0);
@@ -189,4 +176,136 @@ void Juego::Moverse(const coordenada &c,const Jugador j){
     }
   }
 
+}
+
+
+/**************************************************************************************************/
+/**************************************************************************************************/
+/**************************************************OBSERVADORES****************************/
+/**************************************************************************************************/
+/**************************************************************************************************/
+
+Mapa Juego::MAPA(){
+  return Mundo;
+}
+
+
+bool Juego::EstaConectado(const Jugador j){
+  return Jugadores[j]->Conectado;
+}
+
+Nat Juego::Sanciones(const Jugador j){
+  return Jugadores[j]->Sanciones;
+}
+
+coordenada Juego::Posicion(const Jugador j){
+  return Jugadores[j]->Posicion;
+}
+
+
+coordenada Juego::PosPokemonCercano(const coordenada &c){
+
+  Conj<coordenada> PosValidas(ObtenerPosicionesCercanas(c));
+
+  Conj<coordenada>::Iterador IT = PosValidas.CrearIt();
+  while (IT.HaySiguiente() && FuturasCapturas.Obtener(IT.Siguiente()) == NULL) {
+      IT.Avanzar();
+  }
+
+  return IT.Siguiente();
+}
+
+//falta iterador a Posiciones salvajes
+
+//falta iterador a Expulsados
+
+/**************************************************************************************************/
+/**************************************************************************************************/
+/**************************************************OTRAS OPERACIONES****************************/
+/**************************************************************************************************/
+/**************************************************************************************************/
+
+Conj<coordenada> Juego::ObtenerPosicionesCercanas(const coordenada c){
+  Conj<coordenada> Posiciones;
+  Posiciones.Agregar(c);
+   coordenada a(c.latitud()-1,c.longitud());
+   Posiciones.Agregar(a);
+   coordenada b(c.latitud()-2,c.longitud());
+   Posiciones.Agregar(b);
+   coordenada d(c.latitud()-1,c.longitud()-1);
+   Posiciones.Agregar(d);
+   coordenada e(c.latitud(),c.longitud()-1);
+   Posiciones.Agregar(e);
+   coordenada f(c.latitud(),c.longitud()-2);
+   Posiciones.Agregar(f);
+   coordenada g(c.latitud()+1,c.longitud()-1);
+   Posiciones.Agregar(g);
+   coordenada h(c.latitud()+1,c.longitud());
+   Posiciones.Agregar(h);
+   coordenada i(c.latitud()+2,c.longitud());
+   Posiciones.Agregar(i);
+   coordenada j(c.latitud()+1,c.longitud()+1);
+   Posiciones.Agregar(j);
+   coordenada k(c.latitud(),c.longitud()+1);
+   Posiciones.Agregar(k);
+   coordenada l(c.latitud(),c.longitud()+2);
+   Posiciones.Agregar(l);
+   coordenada m(c.latitud()-1,c.longitud()+1);
+   Posiciones.Agregar(m);
+   Conj<coordenada> validas;
+   Conj<coordenada>::Iterador IT = Posiciones.CrearIt();
+   while (IT.HaySiguiente()) {
+     if (Mundo.PosExistente(IT.Siguiente())) {
+       validas.Agregar(IT.Siguiente());
+     }
+     IT.Avanzar();
+   }
+   return validas;
+}
+
+bool Juego::HayPokemonCercano( const coordenada &c){
+
+  //TODO
+
+  return true;
+}
+
+
+/**************************************************************************************************/
+/**************************************************************************************************/
+/**************************************************ITERADOR****************************/
+/**************************************************************************************************/
+/**************************************************************************************************/
+
+
+typename Juego::Iterador Juego::CrearIt() {
+  return Iterador(this);
+}
+
+bool Juego::Iterador::HaySiguiente(){
+  unsigned int cont = Posicion;
+  unsigned int sig = cont++;
+  unsigned int guarda = juego->Jugadores.Longitud();
+  if (Posicion > guarda) {
+    return false;
+  }
+  else{
+      while (sig < guarda && juego->Jugadores[sig]->Sanciones > 4) {
+        sig++;
+      }
+      if (sig < guarda) {
+        return true;
+      }
+      return false;
+  }
+}
+
+void Juego::Iterador::Avanzar(){
+  assert(HaySiguiente());
+  Posicion++;
+}
+
+Jugador Juego::Iterador::Siguiente(){
+  assert(HaySiguiente());
+  return Posicion;
 }

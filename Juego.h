@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cassert>
 #include "aed2.h"
 #include "TiposJuego.h"
 #include "MultiC.h"
@@ -11,11 +12,15 @@ using namespace std;
   class Juego{
     public:
 
+      class Iterador;
+
+      Iterador CrearIt();
+
       Juego();
 
       ~Juego();
       //
-      void AgregarPokemon(const coordenada &c, const Pokemon &p);
+      void AgregarPokemon(coordenada c, const Pokemon &p);
       //
       Jugador AgregarJugador();
       //
@@ -24,23 +29,23 @@ using namespace std;
       void Desconectarse(const Jugador j);
       //
       void Moverse(const coordenada &c, const Jugador j);
-
+      //
       Mapa MAPA();
 
       //IteradorJug Jugadores();
-
+      //
       bool EstaConectado(const Jugador j);
-
+      //
       Nat Sanciones(const Jugador j);
-
+      //
       coordenada Posicion (const Jugador j);
       //**********************************************************************************************************************
       //IteradorMulticonjunto<Pokemon> Pokemons(const Jugador j);
       //**********************************************************************************************************************
       //revisar estos iteradores //it al conjunto de jugadores expulsados
       //Conj<Jugador>::IteradorExp Expulsados();
-
-      Conj<coordenada> PosConPokemons();
+      //
+      coordenada PosPokemonCercano(const coordenada &c);
 
       Pokemon PokemonEnPos(const coordenada &c);
 
@@ -50,59 +55,38 @@ using namespace std;
 
       bool HayPokemonCercano(const coordenada &c);
 
-      coordenada PosPokemonCercano(const coordenada &c);
-
       Conj<Jugador> EntrenadoresPosibles(const coordenada &c, const Conj<Jugador> &JugPosibeles);
 
       Nat IndiceRareza (const Pokemon p);
 
       Nat CantPokemonTotales();
-//revisar funcion
+
       //Nat CantidadMismaEspecie(const Pokemon p, MultiC<Pokemon>);
 
-
-      // no me reconoce el nombre del iterador, será porque le falta la estructura?
-      /*
-       Juego::IteradorJug CrearIt();
-
-       Juego::IteradorExp CrearIt();
-*/
-        //******************** Los iteradores van a ser renombres por ahora***************************//
-        class IteradorJug{
+        class Iterador{
 
           public:
 
+            Iterador();
             bool HaySiguiente();
-            void Siguiente();
+            Jugador Siguiente();
             void Avanzar();
-
           private:
-
-          //***************//
-          //***definirestr*//
-          //***************//
+            Juego* juego;
+            unsigned int Posicion;
+            Iterador(Juego* j,Nat p = 0):juego(j),Posicion(p){}
+            friend typename Juego::Iterador Juego::CrearIt();
       };
 
-      class IteradorExp{
 
-      public:
+        //iterador expulsados idem a Iterador pero con los expulsados//
 
-        bool HaySiguiente();
-        void Siguiente();
-        void Avanzar();
-      private:
-
-            //***************//
-            //***definirestr*//
-            //***************//
-        };
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///*****************estructura*******///
       private:
 
-        bool PuedeAtrapar(const coordenada &c1,const coordenada &c2);
+        bool PuedeAtrapar(coordenada c1,const coordenada &c2);
         void Capturar(const coordenada &c);
-
+        Conj<coordenada> ObtenerPosicionesCercanas(const coordenada c);
         struct InfoJug{
           Nat Sanciones;
           bool Conectado;
@@ -110,8 +94,8 @@ using namespace std;
           MultiC Atrapados;
           bool EstaCazando;
           Cola<Jugador>::Iterador CazaActual;
-          InfoJug():Sanciones(0),Conectado(false),Posicion(0,0){
-          }
+          InfoJug():Sanciones(0),Conectado(false),Posicion(0,0){}
+
         };
 
         struct InfoPos{

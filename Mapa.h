@@ -30,5 +30,4 @@ class Mapa {
               //longitud es y
 			        //Nat maxLongitud;
               void AgregarAdyacentes(Conj<coordenada> &Avisitar,const coordenada &c);
-
 };

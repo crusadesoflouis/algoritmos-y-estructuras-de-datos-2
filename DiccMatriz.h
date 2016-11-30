@@ -79,7 +79,7 @@ class DiccMatriz {
               Conj<coordenada> posicionesValidas;
 
               bool enRango(const coordenada & c)const{
-                return c.latitud() <= Latitud() && c.longitud() <= Longitud();
+                return c.latitud() <= Latitud() && c.longitud() <= Longitud() && c.latitud() != 0 && c.longitud() != 0;
               }
 };
 
