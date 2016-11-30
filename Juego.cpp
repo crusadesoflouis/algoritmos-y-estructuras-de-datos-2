@@ -276,6 +276,12 @@ Conj<coordenada> Juego::ObtenerPosicionesCercanas(const coordenada c){
    return validas;
 }
 
+
+
+Conj <Jugador> Expulsados(){
+
+
+}
 bool Juego::HayPokemonCercano( const coordenada &c){
 
   //TODO
@@ -283,7 +289,9 @@ bool Juego::HayPokemonCercano( const coordenada &c){
   return true;
 }
 
-
+Nat Juego::CantPokemonTotales(){
+  return TotalPokemones;
+}
 /**************************************************************************************************/
 /**************************************************************************************************/
 /**************************************************ITERADOR****************************/

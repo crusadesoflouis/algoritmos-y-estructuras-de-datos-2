@@ -188,6 +188,19 @@ Nodo* ultimo = raiz;
 	*/
 }
 
+	void Destruir(Nodo* nodulo){
+
+	if (nodulo != NULL) {
+		if (nodulo->der != NULL) {
+			Destruir(nodulo->der);
+		}
+		if (nodulo->izq != NULL) {
+			Destruir(nodulo->izq);
+		}
+	}
+	delete nodulo;
+}
+
 	void mostrarNodo(Nodo* nodulo){
 		if (!(nodulo == NULL)) {
 			mostrarNodo(nodulo->izq);
@@ -252,7 +265,7 @@ Cola<T>::Cola() : raiz(NULL),card(0){
 ///////////////////////////////////////////////////////////////////////////////////
 template <class T>
 Cola<T>::~Cola(){
-//TODO
+	Destruir(this->raiz);
 }
 
 template <class T>

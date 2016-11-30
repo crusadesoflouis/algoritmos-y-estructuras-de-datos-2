@@ -54,6 +54,8 @@ using namespace std;
 
       bool HayPokemonCercano(const coordenada &c);
 
+      Conj<Jugador> Expulsados();
+
       Conj<Jugador> EntrenadoresPosibles(const coordenada &c, const Conj<Jugador> &JugPosibeles);
 
       Nat IndiceRareza (const Pokemon p);
