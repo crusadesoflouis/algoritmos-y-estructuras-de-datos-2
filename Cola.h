@@ -78,10 +78,12 @@ bool TieneHijos(Nodo* padre){
 	return !SinHijos(padre);
 }
 
-bool EsRaiz(Nodo* & padre){
+bool EsRaiz(Nodo* padre){
 	return padre == raiz;
 }
-
+bool eshoja(Nodo* padre){
+	return padre->der == NULL && padre->izq == NULL;
+}
 bool HijoDerecho(Nodo* auxiliar){
 return auxiliar->padre->der == auxiliar;
 }
@@ -118,6 +120,21 @@ void EncolarEnPosicion(Nodo* &encolado,const T clave){
 	}
 }
 
+bool UltimoAgregado(Nodo* &encolado){
+	Lista<bool> l;
+	Nat tamanio = card;
+	bool flag = false;
+	to_binary(l,tamanio);
+	Lista<bool>::const_Iterador IT = l.CrearIt();
+	IT.Avanzar();
+	while (IT.HaySiguiente()) {
+		flag = IT.Siguiente();
+		IT.Siguiente() ? encolado = encolado->der: encolado = encolado->izq;
+		IT.Avanzar();
+	}
+	return flag;
+}
+
 void sift_UP(Nodo* &puntero){
 	Lista<bool> l;
 	Nat tamanio = card + 1;
@@ -129,6 +146,42 @@ void sift_UP(Nodo* &puntero){
 		swap(puntero,puntero->padre,IT.Anterior());
 		cont++;
 		IT.Retroceder();
+	}
+}
+
+void sift_UP_borrando(Nodo* &puntero){
+	while (puntero != raiz && puntero->valor < puntero->padre->valor) {
+		bool flag = HijoDerecho(puntero) ? true:false;
+		cout << "yay"<< endl;
+		swap(puntero,puntero->padre,flag);
+	}
+}
+bool elMinimo(Nodo* puntero,Nodo* &minimo){
+	bool flag = false;
+	if (puntero->der != NULL && puntero->der != NULL) {
+		if (puntero->der->valor < puntero->izq->valor) {
+			minimo = puntero->der;
+			flag = true;
+		}
+		else{
+			minimo = puntero->izq;
+			flag = false;
+		}
+	}
+	//un else de mas pero no importa lo dejo asi por si las dudas
+	else{
+		minimo = puntero->izq;
+		flag = false;
+	}
+	return flag;
+}
+
+void sift_DOWN(Nodo* puntero){
+	Nodo* minimo = NULL;
+	bool flag = elMinimo(puntero,minimo);
+	while (!eshoja(puntero) && puntero->valor>minimo->valor) {
+		swap(minimo,puntero,flag);
+		puntero = minimo;
 	}
 }
 
@@ -181,24 +234,46 @@ void swap(Nodo* A, Nodo* B,bool flag){
 	}
 }
 //************************************************************************//
-
-void Remover(Nodo* Aborrar){
-/*
-Nodo* ultimo = raiz;
-	if (raiz == Aborrar) {
-		raiz = NULL;
-		delete Aborrar;
+void deleteSwap(Nodo* A, Nodo* B){
+	if (A == raiz) {
+		raiz = B;
 	}
-	else{
-		UltimoAgregado(ultimo);
-		Aborrar->valor = ultimo->valor;
-		HijoDerecho(ultimo) ? ultimo->padre->der = NULL:ultimo->padre->izq = NULL;
-		delete ultimo;
-		sift_UP(Aborrar);
-		sift_DOWN(Aborrar);
+	HijoDerecho(B) ? B->padre->der = NULL: B->padre->izq = NULL;
+	B->padre = A->padre;
+	if (B->padre != NULL) {
+		HijoDerecho(B)? B->padre->der = B: B->padre->izq = B;
+	}
+	B->der = A->der;
+	if (B->der != NULL)
+		B->der->padre = B;
+	B->izq = A->izq;
+	if (B->izq != NULL)
+		B->izq->padre = B;
+		delete A;
+}
+void Remover(Nodo* Aborrar){
+	//flag si es falso entonces ultimo es hijo izquierdo
+	//flag si es verdadero entonces ultimo es hijo derecho
+Nodo* ultimo = raiz;
+if (card == 1) {
+	raiz = NULL;
+	delete Aborrar;
+}
+else{
+		bool flag = false;
+		flag = UltimoAgregado(ultimo);
+		if (Aborrar == ultimo) {
+		flag ? ultimo->padre->izq = NULL: ultimo->padre->der = NULL;
+		delete Aborrar;
+		}
+		else{
+			deleteSwap(Aborrar,ultimo);
+		}
+		sift_UP_borrando(ultimo);
+		sift_DOWN(ultimo);
 	}
 	card--;
-	*/
+
 }
 
 	void Destruir(Nodo* nodulo){
@@ -234,10 +309,6 @@ Conj<T> DameTodos(Nodo* nodulo,Conj<T> & elems){
 			mostrarNodo(nodulo->der);
 		}
 	}
-
-void sift_DOWN(Nodo* &baja){
-}
-
 
 };
 ///////////////////////////////////////////class Iterador/////////////////////////////////
@@ -291,7 +362,9 @@ Cola<T>::Cola() : raiz(NULL),card(0){
 ///////////////////////////////////////////////////////////////////////////////////
 template <class T>
 Cola<T>::~Cola(){
-	//Destruir(this->raiz);
+	while (card != 0) {
+		Remover(this->raiz);
+	}
 }
 
 template <class T>

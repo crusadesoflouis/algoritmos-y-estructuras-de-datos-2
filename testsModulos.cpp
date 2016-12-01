@@ -32,10 +32,18 @@ void encolar_y_borrar() {
   Cola<int>::Iterador IT_26 = c.Encolar(26);
   ASSERT_EQ(c.Tope(),26);
   Cola<int>::Iterador IT_10 = c.Encolar(10);
+  ASSERT_EQ(c.Cardinal(),9);
   ASSERT_EQ(c.Tope(),10);
-  //IT_51.EliminarSiguiente();
-//  ASSERT_EQ(c.Cardinal(),8);
-//  ASSERT_EQ(c.Tope(),26);
+  IT_10.EliminarSiguiente();
+  ASSERT_EQ(c.Cardinal(),8);
+  ASSERT_EQ(c.Tope(),26);
+  IT_51.EliminarSiguiente();
+  ASSERT_EQ(c.Cardinal(),7);
+  ASSERT_EQ(c.Tope(),26);
+
+
+
+
 }
 /*
 void diccString(){
