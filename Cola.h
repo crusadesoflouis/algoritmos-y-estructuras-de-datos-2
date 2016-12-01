@@ -128,7 +128,6 @@ void sift_UP(Nodo* &puntero){
 	while ((cont < stop)&&(puntero->valor < puntero->padre->valor)) {
 		swap(puntero,puntero->padre,IT.Anterior());
 		cont++;
-		cout << " el flag es: " << IT.Anterior() << endl;
 		IT.Retroceder();
 	}
 }
@@ -153,19 +152,32 @@ void swap(Nodo* A, Nodo* B,bool flag){
  	A->padre = padre;
 
 	if (padre != NULL) {
-		HijoDerecho(A) ? A->padre->der = A: A->padre->izq = A;
+		HijoDerecho(B) ? A->padre->der = A: A->padre->izq = A;
 	}
 	B->padre = A;
 	B->der = auxiliarDer;
 	B->izq = auxiliarIzq;
 
+	if (auxiliarDer != NULL) {
+		auxiliarDer->padre = B;
+	}
+	if (auxiliarIzq != NULL) {
+		auxiliarIzq->padre = B;
+	}
+
 	if (flag) {
 		A->der = B;
 		A->izq = izquierdo;
+		if (izquierdo != NULL) {
+			izquierdo->padre = A;
+		}
 	}
 	else{
 		A->izq = B;
 		A->der = derecho;
+		if (derecho != NULL) {
+			derecho->padre = A;
+		}
 	}
 }
 //************************************************************************//
@@ -279,7 +291,7 @@ Cola<T>::Cola() : raiz(NULL),card(0){
 ///////////////////////////////////////////////////////////////////////////////////
 template <class T>
 Cola<T>::~Cola(){
-	Destruir(this->raiz);
+	//Destruir(this->raiz);
 }
 
 template <class T>

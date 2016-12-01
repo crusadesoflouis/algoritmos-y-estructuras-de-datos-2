@@ -11,22 +11,31 @@ using namespace ::std;
 void encolar_y_borrar() {
   Cola<int> c;
   Cola<int>::Iterador IT_42 = c.Encolar(42);
-  cout << "encole el primer nodo voy al segundo"<< endl;
   Cola<int>::Iterador IT_40 = c.Encolar(40);
+  ASSERT_EQ(c.Cardinal(),2);
+  ASSERT_EQ(c.Tope(),40);
   Cola<int>::Iterador IT_51 = c.Encolar(51);
+  ASSERT_EQ(c.Cardinal(),3);
+  ASSERT_EQ(c.Tope(),40);
   Cola<int>::Iterador IT_30 = c.Encolar(30);
+  ASSERT_EQ(c.Cardinal(),4);
+  ASSERT_EQ(c.Tope(),30);
   Cola<int>::Iterador IT_29 = c.Encolar(29);
+  ASSERT_EQ(c.Cardinal(),5);
+  ASSERT_EQ(c.Tope(),29);
   Cola<int>::Iterador IT_28 = c.Encolar(28);
- cout << "sali del 28"<< endl;
-
-  /*
-  Cola<int>::Iterador IT_27 = c.Encolar(27);
-  Cola<int>::Iterador IT_26 = c.Encolar(26);
-  */
-  //c.mostrar();
-  //IT_51.EliminarSiguiente();
   ASSERT_EQ(c.Cardinal(),6);
   ASSERT_EQ(c.Tope(),28);
+  Cola<int>::Iterador IT_27 = c.Encolar(27);
+  ASSERT_EQ(c.Cardinal(),7);
+  ASSERT_EQ(c.Tope(),27);
+  Cola<int>::Iterador IT_26 = c.Encolar(26);
+  ASSERT_EQ(c.Tope(),26);
+  Cola<int>::Iterador IT_10 = c.Encolar(10);
+  ASSERT_EQ(c.Tope(),10);
+  //IT_51.EliminarSiguiente();
+//  ASSERT_EQ(c.Cardinal(),8);
+//  ASSERT_EQ(c.Tope(),26);
 }
 /*
 void diccString(){
