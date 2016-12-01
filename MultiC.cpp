@@ -34,6 +34,10 @@ void MultiC::Eliminar(const String k){
   }
 }
 
+void MultiC::EliminarTodos(const String k){
+  trie.Borrar(k);
+}
+
 bool MultiC::Definido(const String k){
   return trie.Definido(k);
 }

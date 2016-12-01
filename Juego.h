@@ -89,6 +89,7 @@ using namespace std;
         bool PuedeAtrapar(Coordenada c1,const Coordenada &c2);
         void Capturar(const Coordenada &c);
         Conj<Coordenada> ObtenerPosicionesCercanas(const Coordenada c);
+        void EliminarJugador(const Jugador &j);
         struct InfoJug{
           Nat Sanciones;
           bool Conectado;

@@ -18,6 +18,8 @@ class MultiC{
 
     void Eliminar(const String k);
 
+    void EliminarTodos(const String k);
+
     bool Definido(const String k);
     //otras operaciones
     Nat Cardinal() const;
