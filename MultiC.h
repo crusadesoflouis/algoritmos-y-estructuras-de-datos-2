@@ -16,6 +16,8 @@ class MultiC{
 
     void Agregar(const String k);
 
+    void Eliminar(const String k);
+
     bool Definido(const String k);
     //otras operaciones
     Nat Cardinal() const;
@@ -24,7 +26,7 @@ class MultiC{
 
     typename Conj<String>::const_Iterador CrearIt() const;
 
-    
+
 /*
 
 

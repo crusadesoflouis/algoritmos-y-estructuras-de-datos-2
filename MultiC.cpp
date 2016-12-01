@@ -23,6 +23,17 @@ void MultiC::Agregar(const String k){
 
 }
 
+void MultiC::Eliminar(const String k){
+  if (trie.Significado(k) == 1) {
+    trie.Borrar(k);
+  }
+  else{
+    Nat Valor = trie.Significado(k) -1;
+    trie.Borrar(k);
+    trie.Definir(k,Valor);
+  }
+}
+
 bool MultiC::Definido(const String k){
   return trie.Definido(k);
 }

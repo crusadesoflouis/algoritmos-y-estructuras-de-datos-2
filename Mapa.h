@@ -1,4 +1,6 @@
 #include <iostream>
+#include "aed2.h"
+#include "TiposJuego.h"
 #include "DiccMatriz.h"
 using namespace std;
 
@@ -13,11 +15,11 @@ class Mapa {
 
                 bool Vacia() const;
 
-                void AgregarCoord(const coordenada& c);
+                void AgregarCoord(const Coordenada& c);
 
-                bool PosExistente(const coordenada& c) const;
+                bool PosExistente(const Coordenada& c) const;
 
-                bool HayCamino(const coordenada &c,const coordenada &d) const;
+                bool HayCamino(const Coordenada &c,const Coordenada &d) const;
 
 
               //  void mostrar();
@@ -29,5 +31,5 @@ class Mapa {
               //Nat maxLatitud;
               //longitud es y
 			        //Nat maxLongitud;
-              void AgregarAdyacentes(Conj<coordenada> &Avisitar,const coordenada &c);
+              void AgregarAdyacentes(Conj<Coordenada> &Avisitar,const Coordenada &c);
 };

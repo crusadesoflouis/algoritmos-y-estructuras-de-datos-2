@@ -19,6 +19,7 @@ class Cola
 		typename Cola<T>::Iterador Encolar(const T);
 		Nat Cardinal() const;
 		void mostrar();
+		Conj<T> Elementos();
 		Iterador CrearIt();
 		Iterador CrearIt(typename Cola<T>::Nodo* );
 
@@ -201,6 +202,19 @@ Nodo* ultimo = raiz;
 	delete nodulo;
 }
 
+Conj<T> DameTodos(Nodo* nodulo,Conj<T> & elems){
+	if (nodulo != NULL) {
+		elems.AgregarRapido();
+		if (nodulo->der != NULL) {
+			DameTodos(nodulo->der,elems);
+		}
+		if (nodulo->izq != NULL) {
+			DameTodos(nodulo->izq,elems);
+		}
+	}
+
+}
+
 	void mostrarNodo(Nodo* nodulo){
 		if (!(nodulo == NULL)) {
 			mostrarNodo(nodulo->izq);
@@ -274,6 +288,13 @@ return raiz == NULL;
 }
 
 template <class T>
+Conj<T> Cola<T>::Elementos(){
+	Conj<T> elems;
+ 	DameTodos(this->raiz, elems);
+	return elems;
+}
+
+template <class T>
 typename Cola<T>::Iterador Cola<T>::Encolar(const T clave){
 	Cola<T>::Iterador IT;
 	if (esVacia()) {
@@ -288,11 +309,8 @@ typename Cola<T>::Iterador Cola<T>::Encolar(const T clave){
 		sift_UP(to_add);
 		IT = CrearIt(to_add);
 	}
-			cout << "creeIT"<<endl;
 	card++;
-			cout << "creeIT"<<endl;
 	return IT;
-			cout << "creeIT"<<endl;
 
 }
 
