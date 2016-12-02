@@ -12,8 +12,8 @@ void testVacio(){
 int main(){
 
   Mapa m;
-  coordenada c_1_1(1,1);
-  coordenada c_3_3(3,3);
+  Coordenada c_1_1(1,1);
+  Coordenada c_3_3(3,3);
   ASSERT_EQ(m.Vacia(),true);
   m.AgregarCoord(c_1_1);
   m.AgregarCoord(c_3_3);

@@ -40,6 +40,14 @@ Conj < Coordenada > Driver::mapa() const{
     return c;
 }
 
+bool Driver::hayCamino(const Coordenada &c1, const Coordenada &c2)const{
+  return jueg->HayCamino(c1,c2);
+}
+
+bool Driver::posExistente(const Coordenada &c)const{
+  return jueg->PosExistente(c);
+}
+
 bool Driver::estaConectado(const Jugador & j)const {
   return jueg->EstaConectado(j);
 }
@@ -62,8 +70,6 @@ Dicc <Pokemon, Nat> Driver::pokemons(const Jugador & j)const{
 ////////////////////////////////////////////////////////////////////////////////
 Conj <Jugador> Driver::expulsados()const{
   Conj<Jugador> a;
-  Jugador b = 10;
-  a.AgregarRapido(b);
   return a;
 }
 ////////////////////////////////////////////////////////////////////////////////

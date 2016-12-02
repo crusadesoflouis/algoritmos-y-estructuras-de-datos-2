@@ -1,5 +1,4 @@
 #include "aed2.h"
-#include "TiposJuego.h"
 
 
 template <class T>
@@ -15,6 +14,8 @@ public:
   unsigned int Identificacion();
 
   bool operator< (Tupla<T>& t2) const;
+
+  bool operator> (Tupla<T>& t2) const;
 
 private:
   T jugador;
@@ -49,5 +50,15 @@ bool Tupla<T>::operator< (Tupla<T>& t2) const {
   }
   else{
     return Atrapados < t2.Capturados();
+  }
+}
+
+template <class T>
+bool Tupla<T>::operator> (Tupla<T>& t2) const{
+  if (Atrapados == t2.Atrapados) {
+    return ID > t2.Identificacion();
+  }
+  else{
+    return Atrapados > t2.Capturados();
   }
 }

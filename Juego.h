@@ -1,7 +1,6 @@
 #include <iostream>
 #include <cassert>
 #include "aed2.h"
-#include "TiposJuego.h"
 #include "MultiC.h"
 #include "Mapa.h"
 #include "DiccMatriz.h"
@@ -13,11 +12,14 @@ using namespace std;
     public:
       class Iterador;
 
+      class Iterador_Exp;
+
       Iterador CrearIt();
+
+      Iterador_Exp CrearIt();
 
       Juego();
       Juego(Mapa &map);
-
       ~Juego();
       //
       void AgregarPokemon(Coordenada c, const Pokemon &p);
@@ -32,8 +34,11 @@ using namespace std;
       //
       Mapa MAPA();
 
+      bool HayCamino(const Coordenada &c1, const Coordenada &c2);
       //IteradorJug Jugadores();
-      //
+
+      bool PosExistente(const Coordenada &c1);
+
       bool EstaConectado(const Jugador j);
       //
       Nat Sanciones(const Jugador j);
@@ -79,7 +84,20 @@ using namespace std;
             Iterador(Juego* j,Nat p = 0):juego(j),Posicion(p){}
             friend typename Juego::Iterador Juego::CrearIt();
       };
+      class Iterador_Exp{
 
+        public:
+
+          Iterador_Exp();
+          bool HaySiguiente();
+          Jugador Siguiente();
+          void Avanzar();
+        private:
+          Juego* juego;
+          unsigned int Posicion;
+          Iterador(Juego* j,Nat p = 0):juego(j),Posicion(p){}
+          friend typename Juego::Iterador_Exp Juego::CrearIt();
+    };
 
         //iterador expulsados idem a Iterador pero con los expulsados//
 

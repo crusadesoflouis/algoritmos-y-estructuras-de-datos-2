@@ -244,6 +244,13 @@ Mapa Juego::MAPA(){
   return Mundo;
 }
 
+bool Juego::HayCamino(const Coordenada &c1,const Coordenada &c2){
+  return Mundo.HayCamino(c1,c2);
+}
+
+bool Juego::PosExistente(const Coordenada &c1){
+  return Mundo.PosExistente(c1);
+}
 
 bool Juego::EstaConectado(const Jugador j){
   return Jugadores[j]->Conectado;
@@ -379,10 +386,48 @@ bool Juego::Iterador::HaySiguiente(){
 
 void Juego::Iterador::Avanzar(){
   assert(HaySiguiente());
-  Posicion++;
+  while (juego->Jugadores[Posicion]->Sanciones > 4) {
+    Posicion++;
+  }
 }
 
 Jugador Juego::Iterador::Siguiente(){
+  assert(HaySiguiente());
+  return Posicion;
+}
+
+
+//*******************************Iterador expulsados*************************/
+typename Juego::Iterador_Exp Juego::CrearIt(){
+  return Iterador_Exp(this);
+}
+
+bool Juego::Iterador_Exp::HaySiguiente(){
+  unsigned int cont = Posicion;
+  unsigned int sig = cont++;
+  unsigned int guarda = juego.Jugadores.Longitud();
+  if (Posicion > guarda) {
+    return false;
+  }
+  else{
+      while (sig < guarda && juego->Jugadores[sig]->Sanciones < 4) {
+        sig++;
+      }
+      if (sig < guarda) {
+        return true;
+      }
+      return false;
+  }
+}
+
+void Juego::Iterador_Exp::Avanzar(){
+  assert(HaySiguiente());
+  while (juego->Jugadores[Posicion]->Sanciones < 4) {
+    Posicion++;
+  }
+}
+
+Jugador Juego::Iterador_Exp::Siguiente(){
   assert(HaySiguiente());
   return Posicion;
 }

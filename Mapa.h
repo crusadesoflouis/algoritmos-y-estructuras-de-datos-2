@@ -1,6 +1,5 @@
 #include <iostream>
 #include "aed2.h"
-#include "TiposJuego.h"
 #include "DiccMatriz.h"
 using namespace std;
 
