@@ -67,6 +67,16 @@ Dicc <Pokemon, Nat> Driver::pokemons(const Jugador & j)const{
   return a;
 }
 
+Conj < Coordenada > Juego::posConPokemons() const{
+  return jueg->posConPokemons();
+}
+
+	Conj< Jugador > Driver::jugadores() const{
+    Conj<Jugador> a;
+    return a;  
+  }
+
+Conj < Jugador >
 ////////////////////////////////////////////////////////////////////////////////
 Conj <Jugador> Driver::expulsados()const{
   Conj<Jugador> a;
