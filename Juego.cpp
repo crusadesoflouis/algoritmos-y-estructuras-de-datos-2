@@ -5,32 +5,32 @@
 /**************************************************FUNCIONES AUXILIARES****************************/
 /**************************************************************************************************/
 /**************************************************************************************************/
-bool MovimientoInvalido(const Coordenada &c1,const Coordenada &c2){
+bool MovimientoInvalido(const coordenada &c1,const coordenada  &c2){
   return true;
 }
 
-Nat DistanciaEuclidea(const Coordenada c1, const Coordenada c2){
+Nat DistanciaEuclidea(const coordenada c1, const coordenada c2){
   Nat a = 0;
   Nat b = 0;
-  if (c1.latitud > c2.latitud) {
-    a = ( ( c1.latitud - c2.latitud ) ^ 2 );
+  if (c1.latitud() > c2.latitud()) {
+    a = ( ( c1.latitud() - c2.latitud() ) ^ 2 );
   }
   else
-    a =  ( (c2.latitud - c1.latitud) ^ 2 );
+    a =  ( (c2.latitud() - c1.latitud()) ^ 2 );
 
-  if (c1.longitud > c2.longitud)
-    b =	 ( (c1.longitud - c2.longitud) ^ 2 );
+  if (c1.longitud() > c2.longitud())
+    b =	 ( (c1.longitud() - c2.longitud()) ^ 2 );
   else
-    b =  ( (c2.longitud - c1.longitud) ^ 2 );
+    b =  ( (c2.longitud() - c1.longitud()) ^ 2 );
   return a+b;
 }
 
-bool Juego::PuedeAtrapar (Coordenada c1,const Coordenada &c2){
+bool Juego::PuedeAtrapar (coordenada c1,const coordenada &c2){
   return DistanciaEuclidea(c1,c2) <= 4 &&  Mundo.HayCamino(c1,c2);
 }
 
 
-void Juego::Capturar(const Coordenada &c){
+void Juego::Capturar(const coordenada &c){
  InfoJug* aux = FuturasCapturas.Obtener(c)->PosiblesEntrenadores.Tope().Iter();
  aux->EstaCazando = false;
  aux->CazaActual.EliminarSiguiente();
@@ -65,8 +65,8 @@ Juego::~Juego(){
   for (Nat i = 1; i < Jugadores.Longitud(); i++) {
     delete Jugadores[i];
   }
-  Conj<Coordenada> C = FuturasCapturas.Claves();
-  Conj<Coordenada>::Iterador IT = C.CrearIt();
+  Conj<coordenada> C = FuturasCapturas.Claves();
+  Conj<coordenada>::Iterador IT = C.CrearIt();
   while (IT.HaySiguiente()) {
      delete FuturasCapturas.Obtener(IT.Siguiente());
      IT.Avanzar();
@@ -82,7 +82,7 @@ Jugador Juego::AgregarJugador(){
   return  ID;
 }
 
-void Juego::AgregarPokemon(Coordenada c, const Pokemon &p){
+void Juego::AgregarPokemon(coordenada c, const Pokemon &p){
 //agrego el pokemon en el mc donde estan las pos de pokemones salvajes
 PosSalvajes.AgregarRapido(c);
 // si estaba definido aumento en 1 su "cardinal" sino lo defino
@@ -119,7 +119,7 @@ PosSalvajes.AgregarRapido(c);
 
 }
 
-void Juego::Conectarse(const Coordenada &c,const Jugador j){
+void Juego::Conectarse(const coordenada &c,const Jugador j){
   //assert(Jugadores[j]->Sanciones < 5);
   Jugadores[j]->Conectado = true;
   Jugadores[j]->Posicion = c;
@@ -142,12 +142,12 @@ void Juego::Desconectarse(const Jugador j){
 }
 
 
-void Juego::Moverse(const Coordenada &c,const Jugador j){
+void Juego::Moverse(const coordenada &c,const Jugador j){
   assert(Jugadores[j]->Sanciones < 5);
   bool HayPokemon = false;
   bool HayPokemonNuevo = false;
-  Coordenada vieja(0,0);
-  Coordenada nueva(0,0);
+  coordenada vieja(0,0);
+  coordenada nueva(0,0);
 
   if (MovimientoInvalido(c,Jugadores[j]->Posicion)) {
     Jugadores[j]->Sanciones++;
@@ -157,7 +157,7 @@ if (Jugadores[j]->Sanciones < 5) {
 
     if (HayPokemonCercano(Jugadores[j]->Posicion)) {
     HayPokemon = true;
-    Coordenada e(PosPokemonCercano(Jugadores[j]->Posicion).latitud,PosPokemonCercano(Jugadores[j]->Posicion).longitud);
+    coordenada e(PosPokemonCercano(Jugadores[j]->Posicion).latitud(),PosPokemonCercano(Jugadores[j]->Posicion).longitud());
     vieja = e;
     }
 
@@ -167,7 +167,7 @@ if (Jugadores[j]->Sanciones < 5) {
     }
 
     if (HayPokemonNuevo && HayPokemon && vieja == nueva) {
-      Conj<Coordenada>::Iterador IT = PosSalvajes.CrearIt();
+      Conj<coordenada>::Iterador IT = PosSalvajes.CrearIt();
       while (IT.HaySiguiente()) {
         if (IT.Siguiente() != c) {
           FuturasCapturas.Obtener(IT.Siguiente())->Turnos++;
@@ -193,7 +193,7 @@ if (Jugadores[j]->Sanciones < 5) {
         FuturasCapturas.Obtener(nueva)->Turnos = 0;
         Tupla<InfoJug*> t(Jugadores[j],Jugadores[j]->Atrapados.Cardinal(),j);
         FuturasCapturas.Obtener(nueva)->PosiblesEntrenadores.Encolar(t);
-        Conj<Coordenada>::Iterador IT = PosSalvajes.CrearIt();
+        Conj<coordenada>::Iterador IT = PosSalvajes.CrearIt();
         while (IT.HaySiguiente()) {
           if (IT.Siguiente()!= vieja && IT.Siguiente() != nueva) {
             FuturasCapturas.Obtener(IT.Siguiente())->Turnos++;
@@ -210,7 +210,7 @@ if (Jugadores[j]->Sanciones < 5) {
           //salgo de una posicion con pokemon a un lugar donde no hay pokemon
           if (HayPokemon) {
             Jugadores[j]->CazaActual.EliminarSiguiente();
-            Conj<Coordenada>::Iterador IT = PosSalvajes.CrearIt();
+            Conj<coordenada>::Iterador IT = PosSalvajes.CrearIt();
             while (IT.HaySiguiente()) {
               FuturasCapturas.Obtener(IT.Siguiente())->Turnos++;
               if (FuturasCapturas.Obtener(IT.Siguiente())->Turnos == 10) {
@@ -244,11 +244,11 @@ Mapa Juego::MAPA(){
   return Mundo;
 }
 
-bool Juego::HayCamino(const Coordenada &c1,const Coordenada &c2){
+bool Juego::HayCamino(const coordenada &c1,const coordenada &c2){
   return Mundo.HayCamino(c1,c2);
 }
 
-bool Juego::PosExistente(const Coordenada &c1){
+bool Juego::PosExistente(const coordenada &c1){
   return Mundo.PosExistente(c1);
 }
 
@@ -260,16 +260,16 @@ Nat Juego::Sanciones(const Jugador j){
   return Jugadores[j]->Sanciones;
 }
 
-Coordenada Juego::Posicion(const Jugador j){
+coordenada Juego::Posicion(const Jugador j){
   return Jugadores[j]->Posicion;
 }
 
 
-Coordenada Juego::PosPokemonCercano(const Coordenada &c){
+coordenada Juego::PosPokemonCercano(const coordenada &c){
 
-  Conj<Coordenada> PosValidas(ObtenerPosicionesCercanas(c));
+  Conj<coordenada> PosValidas(ObtenerPosicionesCercanas(c));
 
-  Conj<Coordenada>::Iterador IT = PosValidas.CrearIt();
+  Conj<coordenada>::Iterador IT = PosValidas.CrearIt();
   while (IT.HaySiguiente() && FuturasCapturas.Obtener(IT.Siguiente()) == NULL) {
       IT.Avanzar();
   }
@@ -287,35 +287,35 @@ Coordenada Juego::PosPokemonCercano(const Coordenada &c){
 /**************************************************************************************************/
 /**************************************************************************************************/
 
-Conj<Coordenada> Juego::ObtenerPosicionesCercanas(const Coordenada c){
-  Conj<Coordenada> Posiciones;
+Conj<coordenada> Juego::ObtenerPosicionesCercanas(const coordenada c){
+  Conj<coordenada> Posiciones;
   Posiciones.Agregar(c);
-   Coordenada a(c.latitud-1,c.longitud);
+   coordenada a(c.latitud()-1,c.longitud());
    Posiciones.Agregar(a);
-   Coordenada b(c.latitud-2,c.longitud);
+   coordenada b(c.latitud()-2,c.longitud());
    Posiciones.Agregar(b);
-   Coordenada d(c.latitud-1,c.longitud-1);
+   coordenada d(c.latitud()-1,c.longitud()-1);
    Posiciones.Agregar(d);
-   Coordenada e(c.latitud,c.longitud-1);
+   coordenada e(c.latitud(),c.longitud()-1);
    Posiciones.Agregar(e);
-   Coordenada f(c.latitud,c.longitud-2);
+   coordenada f(c.latitud(),c.longitud()-2);
    Posiciones.Agregar(f);
-   Coordenada g(c.latitud+1,c.longitud-1);
+   coordenada g(c.latitud()+1,c.longitud()-1);
    Posiciones.Agregar(g);
-   Coordenada h(c.latitud+1,c.longitud);
+   coordenada h(c.latitud()+1,c.longitud());
    Posiciones.Agregar(h);
-   Coordenada i(c.latitud+2,c.longitud);
+   coordenada i(c.latitud()+2,c.longitud());
    Posiciones.Agregar(i);
-   Coordenada j(c.latitud+1,c.longitud+1);
+   coordenada j(c.latitud()+1,c.longitud()+1);
    Posiciones.Agregar(j);
-   Coordenada k(c.latitud,c.longitud+1);
+   coordenada k(c.latitud(),c.longitud()+1);
    Posiciones.Agregar(k);
-   Coordenada l(c.latitud,c.longitud+2);
+   coordenada l(c.latitud(),c.longitud()+2);
    Posiciones.Agregar(l);
-   Coordenada m(c.latitud-1,c.longitud+1);
+   coordenada m(c.latitud()-1,c.longitud()+1);
    Posiciones.Agregar(m);
-   Conj<Coordenada> validas;
-   Conj<Coordenada>::Iterador IT = Posiciones.CrearIt();
+   Conj<coordenada> validas;
+   Conj<coordenada>::Iterador IT = Posiciones.CrearIt();
    while (IT.HaySiguiente()) {
      if (Mundo.PosExistente(IT.Siguiente())) {
        validas.Agregar(IT.Siguiente());
@@ -338,7 +338,11 @@ Conj <Jugador> Juego::Expulsados(){
 
 return expulsados;
 }
-bool Juego::HayPokemonCercano( const Coordenada &c){
+
+
+
+
+bool Juego::HayPokemonCercano( const coordenada &c){
 
   //TODO
 
@@ -355,6 +359,19 @@ Nat Juego::IndiceRareza(const Pokemon &p){
 Nat Juego::CantPokemonTotales(){
   return TotalPokemones;
 }
+
+
+
+typename Conj<String>::const_Iterador Juego::Pokemons(const Jugador j){
+  return Jugadores[j]->Atrapados.CrearIt();
+}
+
+Nat cantMismaEspecie(const Pokemon &p)const{
+  return Pokedex.Obtener(p);
+}
+
+
+
 /**************************************************************************************************/
 /**************************************************************************************************/
 /**************************************************ITERADOR****************************/
@@ -398,14 +415,14 @@ Jugador Juego::Iterador::Siguiente(){
 
 
 //*******************************Iterador expulsados*************************/
-typename Juego::Iterador_Exp Juego::CrearIt(){
+typename Juego::Iterador_Exp Juego::CrearIt_Exp(){
   return Iterador_Exp(this);
 }
 
 bool Juego::Iterador_Exp::HaySiguiente(){
   unsigned int cont = Posicion;
   unsigned int sig = cont++;
-  unsigned int guarda = juego.Jugadores.Longitud();
+  unsigned int guarda = juego->Jugadores.Longitud();
   if (Posicion > guarda) {
     return false;
   }
