@@ -23,6 +23,8 @@ return d;
 
 bool Mapa::PosExistente(const coordenada &c)const{
   coordenada d = PosicionReal(c,mapa.Longitud());
+  std::cout << "la coordenada original es de lat: " << c.latitud()<< " de long: " << c.longitud()<< std::endl;
+  std::cout << " real: la lontitud es: " << d.longitud() << " la latitud  es: "<< d.latitud()<< std::endl;
   return mapa.Definido(d);
 }
 
@@ -97,9 +99,11 @@ void  Mapa::AgregarAdyacentes(Conj<coordenada> &Avisitar,const coordenada &c){
 void Mapa::AgregarCoord(const coordenada &c){
 
   Nat lat = mapa.Longitud();
+
   coordenada d = PosicionReal(c,lat);
   mapa.Definir(d,true);
-
+  std::cout << "la longitud del mapa es: " << mapa.Longitud() << std::endl;
+  std::cout << "la latitud del mapa es: " << mapa.Latitud() << std::endl;
   Conj<coordenada> Visitadas;
   Conj<coordenada> Avisitar;
   Visitadas.Agregar(d);

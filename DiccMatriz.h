@@ -4,7 +4,6 @@
 #include <iostream>
 #include <cassert>
 #include "aed2.h"
-#include "coordenada.h"
 
 
 
