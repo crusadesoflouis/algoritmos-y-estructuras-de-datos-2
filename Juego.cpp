@@ -366,10 +366,13 @@ typename Conj<String>::const_Iterador Juego::Pokemons(const Jugador j){
   return Jugadores[j]->Atrapados.CrearIt();
 }
 
-Nat cantMismaEspecie(const Pokemon &p)const{
-  return Pokedex.Obtener(p);
+Nat Juego::cantMismaEspecie(const Pokemon &p)const{
+  return Pokedex.Significado(p);
 }
 
+Pokemon PokemonEnPos (const coordenada &c){
+  return
+}
 
 
 /**************************************************************************************************/
