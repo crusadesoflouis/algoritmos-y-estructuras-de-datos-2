@@ -1,45 +1,45 @@
 #include "aed2.h"
-#include "coordenada.h"
+#include "Coordenada.h"
 
 
-coordenada::coordenada(Nat lat, Nat lon): latitu(lat),longitu(lon){
+Coordenada::Coordenada(Nat lat, Nat lon): latitu(lat),longitu(lon){
 
 }
 
-Nat coordenada::latitud()const {
+Nat Coordenada::latitud()const {
   return latitu;
 }
 
-Nat coordenada::longitud()const{
+Nat Coordenada::longitud()const{
   return longitu;
 }
 
-coordenada coordenada::operator = (const coordenada &c2){
+Coordenada Coordenada::operator = (const Coordenada &c2){
   latitu = c2.latitud();
   longitu = c2.longitud();
   return *this;
 }
-bool coordenada::operator == (const coordenada& c2)const{
+bool Coordenada::operator == (const Coordenada& c2)const{
   return latitu == c2.latitud() and longitu == c2.longitud();
 }
 
-bool coordenada::operator != (const coordenada& c2)const{
+bool Coordenada::operator != (const Coordenada& c2)const{
 return ! (latitu == c2.latitud()) && (longitu==c2.longitud());
 }
 
 /*
-Nat coordenada::cuadRestaLat(const coordenada &c2){
+Nat Coordenada::cuadRestaLat(const Coordenada &c2){
   latitu > c2.latitud() ? return ( (latitu - c2.latitud()) ^ 2 ): return ( (c2.latitud() - latitu) ^ 2 )
 }
 */
-Nat coordenada::cuadRestaLat(const coordenada& c2){
+Nat Coordenada::cuadRestaLat(const Coordenada& c2){
 		if (latitu > c2.latitud())
 			return ( (latitu - c2.latitud()) ^ 2 );
 		else
 			return ( (c2.latitud() - latitu) ^ 2 );
 }
 
-Nat coordenada::cuadRestaLong (const coordenada& c2 ){
+Nat Coordenada::cuadRestaLong (const Coordenada& c2 ){
 		if (longitu > c2.longitud())
 			return ( (longitu - c2.longitud()) ^ 2 );
 		else
@@ -47,7 +47,7 @@ Nat coordenada::cuadRestaLong (const coordenada& c2 ){
 }
 
 
-Nat coordenada::distEuclidea(const coordenada& c2 ){
+Nat Coordenada::distEuclidea(const Coordenada& c2 ){
     Nat a = 0;
     Nat b = 0;
     if (latitu > c2.latitud())

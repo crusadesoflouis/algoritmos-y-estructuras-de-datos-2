@@ -22,30 +22,30 @@ using namespace std;
       Juego(Mapa &map);
       ~Juego();
       //
-      void AgregarPokemon(coordenada c, const Pokemon &p);
+      void AgregarPokemon(Coordenada c, const Pokemon &p);
       //
       Jugador AgregarJugador();
       //
-      void Conectarse(const coordenada &c,const Jugador j);
+      void Conectarse(const Coordenada &c,const Jugador j);
       //
       void Desconectarse(const Jugador j);
       //
-      void Moverse(const coordenada &c, const Jugador j);
+      void Moverse(const Coordenada &c, const Jugador j);
       //
       Mapa MAPA();
 
       typename Conj<String>::const_Iterador Pokemons(const Jugador j);
 
-      bool HayCamino(const coordenada &c1, const coordenada &c2);
+      bool HayCamino(const Coordenada &c1, const Coordenada &c2);
       //IteradorJug Jugadores();
 
-      bool PosExistente(const coordenada &c1);
+      bool PosExistente(const Coordenada &c1);
 
       bool EstaConectado(const Jugador j);
       //
       Nat Sanciones(const Jugador j);
       //
-      coordenada Posicion (const Jugador j);
+      Coordenada Posicion (const Jugador j);
       //**********************************************************************************************************************
       //IteradorMulticonjunto<Pokemon> Pokemons(const Jugador j);
       //**********************************************************************************************************************
@@ -53,21 +53,21 @@ using namespace std;
       //Conj<Jugador>::IteradorExp Expulsados();
       //
 
-      Pokemon PokemonEnPos(const coordenada &c);
+      Pokemon PokemonEnPos(const Coordenada &c);
 
-      Nat CantMovimientosParaCaptura(const coordenada &c);
+      Nat CantMovimientosParaCaptura(const Coordenada &c);
 
-      bool PuedoAgregarPokemon(const coordenada &c);
+      bool PuedoAgregarPokemon(const Coordenada &c);
 
-      bool HayPokemonCercano(const coordenada &c);
+      bool HayPokemonCercano(const Coordenada &c);
 
-      coordenada PosPokemonCercano(const coordenada &c);
+      Coordenada PosPokemonCercano(const Coordenada &c);
 
       Conj<Jugador> Expulsados();
 
-      Conj<coordenada> posConPokemons()const;
+      Conj<Coordenada> posConPokemons()const;
 
-      Conj<Jugador> EntrenadoresPosibles(const coordenada &c, const Conj<Jugador> &JugPosibeles);
+      Conj<Jugador> EntrenadoresPosibles(const Coordenada &c, const Conj<Jugador> &JugPosibeles);
 
       Nat IndiceRareza (const Pokemon &p);
 
@@ -109,14 +109,14 @@ using namespace std;
         ///*****************estructura*******///
       private:
 
-        bool PuedeAtrapar(coordenada c1,const coordenada &c2);
-        void Capturar(const coordenada &c);
-        Conj<coordenada> ObtenerPosicionesCercanas(const coordenada c);
+        bool PuedeAtrapar(Coordenada c1,const Coordenada &c2);
+        void Capturar(const Coordenada &c);
+        Conj<Coordenada> ObtenerPosicionesCercanas(const Coordenada c);
         void EliminarJugador(const Jugador &j);
         struct InfoJug{
           Nat Sanciones;
           bool Conectado;
-          coordenada Posicion;
+          Coordenada Posicion;
           MultiC Atrapados;
           bool EstaCazando;
           Cola<Jugador>::Iterador CazaActual;
@@ -138,7 +138,7 @@ using namespace std;
         //conjunto con todos los jugadores incluso los expulsados
         Vector<InfoJug*> Jugadores;
         //conjunto con todas las posiciones con pokemones
-        Conj<coordenada> PosSalvajes;
+        Conj<Coordenada> PosSalvajes;
         // capaz que hay que hacer otra clase
         // especializando el template diccS en Nat
         //diccionario clave pokemon significado cantidad de dicha especie

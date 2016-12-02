@@ -7,7 +7,7 @@ typedef unsigned int Jugador;
 typedef std::string Pokemon;
 
 
-
+/*
 struct Coordenada
 {
 	Nat latitud;
@@ -16,7 +16,7 @@ struct Coordenada
 	}
 
 };
-/*
+
 bool operator == (const Coordenada& c1, const Coordenada& c2){
  return c1.latitud == c2.latitud and c1.longitud == c2.longitud;
 }
