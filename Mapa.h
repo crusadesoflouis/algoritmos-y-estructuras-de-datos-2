@@ -31,4 +31,7 @@ class Mapa {
               //longitud es y
 			        //Nat maxLongitud;
               void AgregarAdyacentes(Conj<Coordenada> &Avisitar,const Coordenada &c);
+              Nat FDX(const Nat x,const Nat y)const ;
+              Coordenada PosicionReal(const Coordenada &c)const ;
+              Coordenada PosicionReal_A(const Coordenada &c)const;
 };

@@ -30,8 +30,6 @@ class DiccS
 
     typename Conj<String>::const_Iterador ClavesDicc() const; // Devuelve iterador de conjunto
 
-    bool operator == (const DiccS<T>& otro) const;
-
   private:
 
     struct Nodo{
@@ -78,62 +76,62 @@ DiccS<T>::DiccS(const DiccS<T>& otro){
 template<class T>
 DiccS<T>::~DiccS(){
   Conj<String>::const_Iterador it = ClavesDicc();
-  String remove;
+  String remover;
   while(it.HaySiguiente()){
-    remove = it.Siguiente();
+    remover = it.Siguiente();
     it.Avanzar();
-    Borrar(remove);
+    Borrar(remover);
   }
   delete raiz;
 }
 
 template<class T>
 void DiccS<T>::Definir(const String k, const T& v){
-  Nodo* tr = raiz;
+  Nodo* aux = raiz;
   for (unsigned int i = 0; i < k.length(); ++i){
     int s = (int)k[i];
-    if (tr->chars[s] == NULL){
-      tr->chars[s] = new Nodo();
+    if (aux->chars[s] == NULL){
+      aux->chars[s] = new Nodo();
     }
-    tr = tr->chars[s];
+    aux = aux->chars[s];
   }
   T* x = new T(v);
-  tr->val = x;
-  tr->nombre = ConjClaves.AgregarRapido(k);
+  aux->val = x;
+  aux->nombre = ConjClaves.AgregarRapido(k);
 }
 
 template<class T>
 void DiccS<T>::Borrar(const String k){
-  Nodo* tr = raiz;
+  Nodo* aux = raiz;
   for (unsigned int i=0; i < k.length(); ++i){
-    tr = tr->chars[ (int)k[i] ];
+    aux = aux->chars[ (int)k[i] ];
   }
-  tr->nombre.EliminarSiguiente();
+  aux->nombre.EliminarSiguiente();
 
-  delete tr->val;
-  tr->val = NULL;
-  tr->nombre = Conj<String>::Iterador();
+  delete aux->val;
+  aux->val = NULL;
+  aux->nombre = Conj<String>::Iterador();
 
   int l = k.length();
   Nodo* padre;
   bool puedoBorrar = true;
   int j;
   while (l>0 && puedoBorrar){
-    tr = raiz;
+    aux = raiz;
     for (int i=0; i<l; ++i){
-      padre = tr;
-      tr = tr->chars[ (int)k[i] ];
+      padre = aux;
+      aux = aux->chars[ (int)k[i] ];
     }
     j=0;
-    if (tr->val == NULL){
-      while (j<256 && tr->chars[j]==NULL){
+    if (aux->val == NULL){
+      while (j<256 && aux->chars[j]==NULL){
         j++;
       }
     }
     puedoBorrar = j==256;
     if(puedoBorrar){
       padre->chars[(int)k[l-1]] = NULL;
-      delete tr;
+      delete aux;
     }
     l--;
   }
@@ -143,22 +141,22 @@ template<class T>
 bool DiccS<T>::Definido(const String k) const{
   int i = 0;
   int len = k.length();
-  Nodo* tr = raiz;
-  while (i < len && tr->chars[(int)k[i]] != NULL){
-    tr = tr->chars[ (int)k[i] ];
+  Nodo* aux = raiz;
+  while (i < len && aux->chars[(int)k[i]] != NULL){
+    aux = aux->chars[ (int)k[i] ];
     i++;
   }
-  return (i==len && tr->val!=NULL);
+  return (i==len && aux->val!=NULL);
 }
 
 template<class T>
 T& DiccS<T>::Significado(const String k) const{
-  Nodo* tr = raiz;
+  Nodo* aux = raiz;
   for (unsigned int i = 0; i < k.length(); ++i){
     int s = (int)k[i];
-    tr = tr->chars[ s ];
+    aux = aux->chars[ s ];
   }
-  return *tr->val;
+  return *aux->val;
 }
 
 template<class T>
@@ -166,19 +164,5 @@ Conj<String>::const_Iterador DiccS<T>::ClavesDicc() const{
   return ConjClaves.CrearIt();
 }
 
-template<class T>
-bool DiccS<T>::operator==(const DiccS<T>& otro) const {
-  bool res = true;
-  if (ConjClaves == otro.ConjClaves){
-    Conj<String>::const_Iterador it = ClavesDicc();
-    while (it.HaySiguiente() && res){
-      res = Significado(it.Siguiente()) == otro.Significado(it.Siguiente());
-      it.Avanzar();
-    }
-  } else{
-    res = false;
-  }
-  return res;
-}
 
 #endif	//DICCSTRING_H_INCLUDED

@@ -15,15 +15,17 @@ void diccmatriz(){
   Coordenada c_7_2(7,2);
   Coordenada c_2_2(2,2);
   Coordenada c_2_1(2,1);
+  Coordenada c_10_10(10,10);
 
   ASSERT_EQ(m.Vacia(),true);
-  std::cout << "/* vamos a agregar c_1_1 */" << std::endl;
-  m.AgregarCoord(c_1_1);
+  std::cout << "/* vamos a agregar c_10_10 */" << std::endl;
+  m.AgregarCoord(c_10_10);
   ASSERT_EQ(m.Vacia(),false);
   ASSERT_EQ(m.PosExistente(c_3_3),false);
-  ASSERT_EQ(m.PosExistente(c_1_1),true);
-  std::cout << "voy a agregar c_3_3" << std::endl;
-  m.AgregarCoord(c_3_3);
+  ASSERT_EQ(m.PosExistente(c_1_1),false);
+  //m.AgregarCoord(c_3_3);
+//  m.AgregarCoord(c_3_3);
+  //m.AgregarCoord(c_2_2);
     /*
   m.AgregarCoord(c_3_2);
   ASSERT_EQ(m.HayCamino(c_3_3,c_3_2),true);

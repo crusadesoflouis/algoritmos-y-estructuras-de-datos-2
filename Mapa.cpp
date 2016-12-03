@@ -15,25 +15,31 @@ bool Mapa::Vacia()const{
 }
 ///////////////////////////////////// terminar de arreglar posicion real////////////////////////////////////////
 
-Nat FDX(Nat x,Nat y,Nat z){
-  return (z*(x-1) + y);
+Nat Mapa::FDX(const Nat x,const Nat y) const {
+  if (x == 0 && y == 0) {
+    return 0;
+  }
+  else{
+    return (x * mapa.Longitud() ) + y + 1;
+  }
+
 }
 
-Coordenada PosicionReal(const Coordenada &c,Nat longitud){
-Nat P = FDX (c.latitud() ,c.longitud(),longitud );
+Coordenada Mapa::PosicionReal(const Coordenada &c)const {
+Nat P = FDX (c.latitud() ,c.longitud());
 Coordenada d(P,P);
 return d;
 }
 
 bool Mapa::PosExistente(const Coordenada &c)const{
-  Coordenada d = PosicionReal(c,mapa.Longitud());
+  Coordenada d = PosicionReal(c);
   return mapa.Definido(d);
 }
 
 
 bool Mapa::HayCamino(const Coordenada &c,const Coordenada &d)const{
-Coordenada e = PosicionReal(c,mapa.Longitud());
-Coordenada f = PosicionReal(d,mapa.Longitud());
+Coordenada e = PosicionReal(c);
+Coordenada f = PosicionReal(d);
 Coordenada g(e.latitud(),f.longitud());
   return mapa.Definido(g);
 }
@@ -47,7 +53,7 @@ void  Mapa::AgregarAdyacentes(Conj<Coordenada> &Avisitar,const Coordenada &c){
   std::cout << "c_Der(" << c_Der.latitud()<< ","<< c_Der.longitud()<<")"<< endl;
 */
   if (!mapa.FueraDeRango(c_Der)) {
-    Coordenada Derecha = PosicionReal(c_Der,lon);
+    Coordenada Derecha = PosicionReal(c_Der);
     if (mapa.Definido(Derecha)) {
   //    std::cout << "agregue algo" << std::endl;
       Avisitar.Agregar(Derecha);
@@ -61,7 +67,7 @@ void  Mapa::AgregarAdyacentes(Conj<Coordenada> &Avisitar,const Coordenada &c){
   std::cout << "c_Izq(" << c_Izq.latitud()<< ","<< c_Izq.longitud()<<")"<< endl;
 */
   if (!mapa.FueraDeRango(c_Izq)) {
-    Coordenada Izquierda = PosicionReal(c_Izq,lon);
+    Coordenada Izquierda = PosicionReal(c_Izq);
     if (mapa.Definido(Izquierda)) {
   //          std::cout << "agregue algo" << std::endl;
       Avisitar.Agregar(Izquierda);
@@ -73,7 +79,7 @@ void  Mapa::AgregarAdyacentes(Conj<Coordenada> &Avisitar,const Coordenada &c){
   std::cout << "c_Arr(" << c_Arr.latitud()<< ","<< c_Arr.longitud()<<")"<< endl;
 */
   if (!mapa.FueraDeRango(c_Arr)) {
-    Coordenada Arriba = PosicionReal(c_Arr,lon);
+    Coordenada Arriba = PosicionReal(c_Arr);
     if (mapa.Definido(Arriba)) {
   //          std::cout << "agregue algo" << std::endl;
       Avisitar.Agregar(Arriba);
@@ -84,7 +90,7 @@ void  Mapa::AgregarAdyacentes(Conj<Coordenada> &Avisitar,const Coordenada &c){
   /*std::cout << "el valor de c_Abj es: " << std::endl;
   std::cout << "c_Abj(" << c_Abj.latitud()<< ","<< c_Abj.longitud()<<")"<< endl;
   */if (!mapa.FueraDeRango(c_Abj)) {
-    Coordenada Abajo = PosicionReal(c_Abj,lon);
+    Coordenada Abajo = PosicionReal(c_Abj);
     if (mapa.Definido(Abajo)) {
     //        std::cout << "agregue algo" << std::endl;
       Avisitar.Agregar(Abajo);
@@ -99,10 +105,12 @@ void  Mapa::AgregarAdyacentes(Conj<Coordenada> &Avisitar,const Coordenada &c){
 
 
 void Mapa::AgregarCoord(const Coordenada &c){
-
-  Nat lat = mapa.Longitud();
-  Coordenada d = PosicionReal(c,lat);
+  Coordenada d = PosicionReal(c);
+  std::cout << "la posicion real de es : " << d.latitud() << "," << d.longitud() <<std::endl;
+  std::cout << "antes de definir a: " << c.latitud() << "," <<c.longitud() <<std::endl;
   mapa.Definir(d,true);
+  std::cout << "despues de definir a: " << c.latitud() << "," <<c.longitud() <<std::endl;
+  mapa.mostrar();
   std::cout << "la longitud del mapa es: " << mapa.Longitud() << std::endl;
 std::cout << "la latitud del mapa es: " << mapa.Latitud() << std::endl;
   Conj<Coordenada> Visitadas;
@@ -125,9 +133,9 @@ std::cout << "entre" << std::endl;
   Conj<Coordenada>::Iterador IT_Agregar = Visitadas.CrearIt();
   while (IT_Agregar.HaySiguiente()) {
     Conj<Coordenada>::Iterador IT_Recorre = Visitadas.CrearIt();
-    Coordenada primero = PosicionReal(IT_Agregar.Siguiente(),lat);
+    Coordenada primero = PosicionReal(IT_Agregar.Siguiente());
     while (IT_Recorre.HaySiguiente()) {
-      Coordenada segundo = PosicionReal(IT_Recorre.Siguiente(),lat);
+      Coordenada segundo = PosicionReal(IT_Recorre.Siguiente());
       Coordenada a(primero.latitud(),segundo.longitud());
       Coordenada b(segundo.latitud(),primero.longitud());
       mapa.Definir(a,true);
