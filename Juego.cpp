@@ -352,9 +352,7 @@ bool Juego::HayPokemonCercano( const Coordenada &c){
 Nat Juego::IndiceRareza(const Pokemon &p){
   Nat TipoPokemon = Pokedex.Significado(p);
   Nat Total = TotalPokemones;
-  std::cout << "TipoPokemon: "  << TipoPokemon <<  std::endl;
-  std::cout << "Total" << Total << std::endl;
-  return TipoPokemon/Total;
+  return TipoPokemon* 100 / Total;
 }
 
 

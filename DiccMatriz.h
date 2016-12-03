@@ -22,6 +22,8 @@ class DiccMatriz {
                 * Construye un diccionario vacio.
                 **/
                 DiccMatriz();
+
+                DiccMatriz(T default_value);
                 /**
                 DEFINIR
                 * Recibe una clave con su significado de tipo T y la define.
@@ -69,6 +71,7 @@ class DiccMatriz {
         private:
 
               Vector < Vector <T> > grilla;
+              T default_value;
               //latitud es x
               //Nat Latitud;
               //longitud es y
@@ -91,6 +94,7 @@ class DiccMatriz {
     return true;
   }
 }*/
+
 
 template <typename T>
 bool DiccMatriz<T>::Vacio() const{
@@ -115,35 +119,53 @@ bool DiccMatriz<T>::FueraDeRango(const Coordenada & c) const {
 //creo que no hace falta definir tampoco el constructor
 
 template <typename T>
-DiccMatriz<T>::DiccMatriz(): grilla(),posicionesValidas(){
+DiccMatriz<T>::DiccMatriz(){};
+
+
+template <typename T>
+DiccMatriz<T>::DiccMatriz(T default_value): grilla(), default_value(default_value),posicionesValidas(){
 }
 
 template <typename T>
 void DiccMatriz<T>::Definir(const Coordenada & c, const T& significado){
 
   if (grilla.EsVacio()) {
+    cout << " la grilla es vacia" << endl;
       Vector<T> aux;
       grilla.AgregarAtras(aux);
-      grilla[0].AgregarAtras(NULL);
-      grilla[0][0] = significado;
+      grilla[0].AgregarAtras(default_value);
+    }
+    cout << "latitud de la coordenada " << c.latitud() <<endl;
+        cout << "longitud de la coordenada " << c.longitud() <<endl;
+    cout << "salimos, la longitud de la grilla es  " << grilla.Longitud() << endl;
+    cout << "la latitud de la grilla es:" << grilla[0].Longitud()<<endl;
+  if (c.latitud() < (Latitud() - 1) && c.longitud() < (Longitud() - 1)) {
+    cout << " estoy en rango "<< endl;
+    grilla[c.latitud()][c.longitud()] = significado;
   }
   else{
-    if (c.latitud() < Latitud() && c.longitud() < Longitud()) {
-      grilla[c.latitud() - 1][c.longitud() - 1] = significado;
+    cout << " no estoy en rango  "<< endl;
+    Vector<T> aux;
+    for (unsigned int i = Latitud() -1; i < c.latitud(); i++) {
+      cout << "agregue atras " << endl;
+      grilla.AgregarAtras(aux);
     }
-    else{
-      Vector<T> aux;
-      for (unsigned int i = Latitud(); i < c.latitud(); i++) {
-        grilla.AgregarAtras(aux);
+    cout << " la latitud es " << c.latitud() << endl;
+    for (unsigned int i = 0; i < c.latitud(); i++) {
+      cout << "grilla sub i . longitud: " << grilla[i].Longitud() << endl;
+      for (unsigned int j = grilla[i].Longitud() - 1 ; j < c.longitud(); j++) {
+                cout << " entre al segundo for " << endl;
+        grilla[i].AgregarAtras(default_value);
       }
-      for (unsigned int i = 0; i < c.latitud(); i++) {
-        for (unsigned int j = grilla[i].Longitud() ; j < c.longitud(); j++) {
-          grilla[i].AgregarAtras(NULL);
-        }
-      }
-      grilla[c.latitud()-1][c.longitud()-1] = significado;
     }
+    cout << "bom" << endl;
+    cout << "la latitud es: "<< grilla.Longitud()<<endl;
+    cout << "la longitud es: "<< grilla[0].Longitud()<<endl;
+    cout << "la longitud es: "<< grilla[1].Longitud()<<endl;
+        cout << "bom" << endl;
+    grilla[c.latitud()][c.longitud()] = significado;
   }
+
   posicionesValidas.Agregar(c);
 }
 
@@ -153,21 +175,21 @@ bool DiccMatriz<T>::Definido(const Coordenada & c) const{
     return false;
   }
   else{
-    return grilla[c.latitud()-1][c.longitud()-1] != NULL;
+    return grilla[c.latitud()][c.longitud()] != default_value;
   }
 }
 
 template <typename T>
 void DiccMatriz<T>::Borrar(const Coordenada & c) {
 assert(Definido(c));
-grilla[c.latitud()-1][c.longitud()-1] = NULL;
+grilla[c.latitud()][c.longitud()] = default_value;
 posicionesValidas.Eliminar(c);
 }
 
 template <typename T>
 T& DiccMatriz<T>::Obtener(const Coordenada & c) {
 assert(Definido(c));
-return grilla[c.latitud()-1][c.longitud()-1];
+return grilla[c.latitud()][c.longitud()];
 }
 
 template <typename T>

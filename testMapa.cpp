@@ -17,10 +17,12 @@ void diccmatriz(){
   Coordenada c_2_1(2,1);
 
   ASSERT_EQ(m.Vacia(),true);
+  std::cout << "/* vamos a agregar c_1_1 */" << std::endl;
   m.AgregarCoord(c_1_1);
   ASSERT_EQ(m.Vacia(),false);
   ASSERT_EQ(m.PosExistente(c_3_3),false);
   ASSERT_EQ(m.PosExistente(c_1_1),true);
+  std::cout << "voy a agregar c_3_3" << std::endl;
   m.AgregarCoord(c_3_3);
     /*
   m.AgregarCoord(c_3_2);

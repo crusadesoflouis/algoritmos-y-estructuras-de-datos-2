@@ -73,10 +73,9 @@ Conj < Coordenada > Juego::posConPokemons() const{
 
 	Conj< Jugador > Driver::jugadores() const{
     Conj<Jugador> a;
-    return a;  
+    return a;
   }
 
-Conj < Jugador >
 ////////////////////////////////////////////////////////////////////////////////
 Conj <Jugador> Driver::expulsados()const{
   Conj<Jugador> a;

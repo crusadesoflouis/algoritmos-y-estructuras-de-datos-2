@@ -1,8 +1,12 @@
 #include "Mapa.h"
 
 Mapa::Mapa(){
+    DiccMatriz < bool > mapa0(false);
+    mapa = mapa0;
 }
-
+/*
+Mapa::Mapa():mapa(DiccMatriz<bool> mapa0(false)){}
+*/
 Mapa::~Mapa(){
 
 }
@@ -99,31 +103,25 @@ void Mapa::AgregarCoord(const Coordenada &c){
   Nat lat = mapa.Longitud();
   Coordenada d = PosicionReal(c,lat);
   mapa.Definir(d,true);
-
+  std::cout << "la longitud del mapa es: " << mapa.Longitud() << std::endl;
+std::cout << "la latitud del mapa es: " << mapa.Latitud() << std::endl;
   Conj<Coordenada> Visitadas;
   Conj<Coordenada> Avisitar;
   Visitadas.Agregar(d);
   AgregarAdyacentes(Avisitar,c);
-//std::cout << "sali de agregar adyacentes" << std::endl;
   Conj<Coordenada>::Iterador IT = Avisitar.CrearIt();
-//  std::cout << "el cardinal de Avisitar es: " << Avisitar.Cardinal() <<std::endl;
   while (IT.HaySiguiente()) {
-  //  std::cout << "entre si hay siguientes a visitar" << std::endl;
-
+std::cout << "entre" << std::endl;
     Visitadas.Agregar(IT.Siguiente());
     AgregarAdyacentes(Avisitar,IT.Siguiente());
-  //  std::cout << "sali de agregar adyacentes" << std::endl;
     Conj<Coordenada>::Iterador IT_Visitadas = Visitadas.CrearIt();
     while (IT_Visitadas.HaySiguiente()) {
-    //  std::cout << "si hay visitadas las elimino de avisitar" << std::endl;
       Avisitar.Eliminar(IT_Visitadas.Siguiente());
-  //    std::cout << "sali del eliminar" << std::endl;
       IT_Visitadas.Avanzar();
     }
     Conj<Coordenada>::Iterador IT_Nuevo = Avisitar.CrearIt();
     IT=IT_Nuevo;
   }
-//  std::cout << "llegue aca" << std::endl;
   Conj<Coordenada>::Iterador IT_Agregar = Visitadas.CrearIt();
   while (IT_Agregar.HaySiguiente()) {
     Conj<Coordenada>::Iterador IT_Recorre = Visitadas.CrearIt();
