@@ -26,12 +26,14 @@ class Mapa {
         private:
 
               DiccMatriz <bool> mapa;
+              Nat max;
               //latitud es x
               //Nat maxLatitud;
               //longitud es y
 			        //Nat maxLongitud;
               void AgregarAdyacentes(Conj<Coordenada> &Avisitar,const Coordenada &c);
-              Nat FDX(const Nat x,const Nat y)const ;
+              Nat FDX(const Nat x,const Nat y, const bool FDR )const ;
               Coordenada PosicionReal(const Coordenada &c)const ;
-              Coordenada PosicionReal_A(const Coordenada &c)const;
+              Nat Maximo(const Nat x, const Nat y )const;
+              Coordenada correccion(const Coordenada &c)const;
 };

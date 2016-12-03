@@ -92,12 +92,33 @@ void diccmatriz(){
   Coordenada c_3_1(3,1);
   Coordenada c_3_2(3,2);
   Coordenada c_7_2(7,2);
+  Coordenada c_2_2(2,2);
+  Coordenada c_4_4(4,4);
+  Coordenada c_9_9(9,9);
   Coordenada c_10_10(10,10);
   ASSERT_EQ(mat.Vacio(),true);
-  
-  //fin inicializacion datos
 
+
+  mat.Definir(c_4_4,a);
+  mat.Definir(c_0_0,a);
+  mat.mostrar();
+  ASSERT_EQ(mat.Definido(c_4_4),true);
+  ASSERT_EQ(mat.Definido(c_0_0),true);
+  /*
+  mat.Definir(c_2_2,a);
+  mat.Definir(c_3_3,a);
+  mat.Definir(c_9_9,a);
   mat.Definir(c_10_10,a);
+
+  ASSERT_EQ(mat.Definido(c_1_1),true);
+  ASSERT_EQ(mat.Definido(c_3_3),true);
+  ASSERT_EQ(mat.Definido(c_2_2),true);
+  ASSERT_EQ(mat.Definido(c_9_9),true);
+  ASSERT_EQ(mat.Definido(c_10_10),true);
+*/
+  //fin inicializacion datos
+/*
+  mat.Definir(c_2_2,a);
   mat.mostrar();
   mat.Definir(c_1_1,a);
   ASSERT_EQ(mat.Vacio(),false);
@@ -114,11 +135,41 @@ void diccmatriz(){
   ASSERT_EQ(mat.Definido(c_0_0),false);
   mat.Definir(c_0_0,a);
   ASSERT_EQ(mat.Definido(c_0_0),true);
+
+  */
 }
+
+void diccmatriz_2(){
+  //inicializacion de datos
+  DiccMatriz<bool> mat;
+  Coordenada c_0_0(0,0);
+  Coordenada c_1_1(1,1);
+  Coordenada c_3_3(3,3);
+  Coordenada c_3_1(3,1);
+  Coordenada c_3_2(3,2);
+  Coordenada c_7_2(7,2);
+  Coordenada c_2_2(2,2);
+  Coordenada c_4_4(4,4);
+  Coordenada c_9_9(9,9);
+  Coordenada c_10_10(10,10);
+  ASSERT_EQ(mat.Vacio(),true);
+
+  mat.Definir(c_0_0,true);
+  mat.Definir(c_4_4,true);
+  mat.mostrar();
+  ASSERT_EQ(mat.Definido(c_4_4),true);
+  ASSERT_EQ(mat.Definido(c_0_0),true);
+
+}
+
+
+
+
 
 int main() {
 
-  RUN_TEST(diccmatriz);
+//  RUN_TEST(diccmatriz);
+  RUN_TEST(diccmatriz_2);
 //	RUN_TEST(diccString);
 //  RUN_TEST(encolar_y_borrar);
 

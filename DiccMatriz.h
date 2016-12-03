@@ -126,16 +126,19 @@ DiccMatriz<T>::DiccMatriz(T default_value): grilla(), default_value(default_valu
 template <typename T>
 void DiccMatriz<T>::Definir(const Coordenada & c, const T& significado){
 
+
   if (grilla.EsVacio()) {
       Vector<T> aux;
       grilla.AgregarAtras(aux);
       grilla[0].AgregarAtras(default_value);
+    //  cout << " es vacio entre aca y agregue el prmer elemento por defalt el valor de la longitud es :"<< grilla.Longitud()<< endl;
     }
 
   if (c.latitud() < (Latitud()) && c.longitud() < (Longitud())) {
     grilla[c.latitud()][c.longitud()] = significado;
   }
   else{
+    //cout << "como no estoy en rango tengo que agrandar y la longitud aca es:"<< grilla.Longitud();
     Vector<T> aux;
     unsigned int guarda = grilla.Longitud();
     for (unsigned int i = guarda; i < c.longitud()+1; i++) {
@@ -164,6 +167,7 @@ void DiccMatriz<T>::Definir(const Coordenada & c, const T& significado){
     cout << "bom" << endl;
 */
     grilla[c.latitud()][c.longitud()] = significado;
+    cout << "defini en : (" <<  c.latitud()<< ","<< c.longitud()<< ")"<< endl;
   }
 
   posicionesValidas.Agregar(c);
@@ -175,6 +179,7 @@ bool DiccMatriz<T>::Definido(const Coordenada & c) const{
     return false;
   }
   else{
+    cout << "voy a buscar el dato a  : (" <<  c.latitud()<< ","<< c.longitud()<< ")"<< endl;
     return grilla[c.latitud()][c.longitud()] != default_value;
   }
 }
