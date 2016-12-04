@@ -169,7 +169,6 @@ void DiccMatriz<T>::Definir(const Coordenada & c, const T& significado){
     grilla[c.latitud()][c.longitud()] = significado;
   //  cout << "defini en : (" <<  c.latitud()<< ","<< c.longitud()<< ")"<< endl;
   }
-
   posicionesValidas.Agregar(c);
 }
 

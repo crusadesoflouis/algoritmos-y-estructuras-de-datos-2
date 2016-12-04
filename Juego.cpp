@@ -94,7 +94,6 @@ Jugador Juego::AgregarJugador(){
 
 void Juego::AgregarPokemon(const Coordenada &c, const Pokemon &p){
   assert(PosExistente(c));
-  std::cout << "puedo agregar" << std::endl;
   assert(PuedoAgregarPokemon(c));
 //agrego el pokemon en el mc donde estan las pos de pokemones salvajes
 PosSalvajes.AgregarRapido(c);
@@ -288,6 +287,11 @@ Coordenada Juego::PosPokemonCercano(const Coordenada &c){
 
 }
 
+Conj< Coordenada > Juego::posConPokemons() const{
+  return PosSalvajes;
+}
+
+
 //falta iterador a Posiciones salvajes
 
 //falta iterador a Expulsados
@@ -314,15 +318,15 @@ Conj<Coordenada> Juego::ObtenerPosicionesCercanas(const Coordenada c){
 
 Conj<Coordenada> Juego::ObtenerPosicionesCercanas_25(const Coordenada c){
   Conj<Coordenada> Posiciones;
-  /*
-  Conj<Coordenada>::const_Iterador IT = PosicionesValidas();
+
+  Conj<Coordenada>::const_Iterador IT = PosSalvajes.CrearIt();
   while (IT.HaySiguiente()) {
     //std::cout << "la distancia a : " << IT.Siguiente().latitud() <<"," << IT.Siguiente().longitud()<< ")"<< "es:"<<DistanciaEuclidea(c,IT.Siguiente()) <<std::endl;
     if (DistanciaEuclidea(c,IT.Siguiente()) <= 25) {
       Posiciones.AgregarRapido(IT.Siguiente());
     }
     IT.Avanzar();
-  }*/
+  }
    return Posiciones;
 }
 
@@ -356,17 +360,14 @@ while (IT.HaySiguiente()) {
 
 
 bool Juego::PuedoAgregarPokemon(const Coordenada &c){
-  Conj<Coordenada> PosValidas(ObtenerPosicionesCercanas_25(c));
-  Conj<Coordenada>::const_Iterador IT = PosValidas.CrearIt();
-  Nat i = 1;
+  Conj<Coordenada>::const_Iterador IT = PosSalvajes.CrearIt();
   while (IT.HaySiguiente()) {
-    std::cout << "veces que entre: " <<i <<std::endl;
-    std::cout << "la distancia es " << DistanciaEuclidea(c,IT.Siguiente()) <<std::endl;
-    if (DistanciaEuclidea(c,IT.Siguiente()) <= 25 && FuturasCapturas.Definido( IT.Siguiente() ) ) {
+    //  std::cout << IT.Siguiente().longitud() <<"," <<IT.Siguiente().latitud()<<std::endl;
+  //  std::cout << "la distancia es " << DistanciaEuclidea(c,IT.Siguiente()) <<std::endl;
+    if (DistanciaEuclidea(c,IT.Siguiente()) <= 25) {
       return false;
     }
     IT.Avanzar();
-    i++;
   }
   return true;
 }

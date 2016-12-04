@@ -15,6 +15,7 @@ bool Mapa::Vacia()const{
   return mapa.Vacio();
 }
 
+
 ///////////////////////////////////// terminar de arreglar posicion real////////////////////////////////////////
 Nat Mapa::Maximo(const Nat x, const Nat y)const{
   if (x == y)
@@ -76,10 +77,12 @@ bool Mapa::PosExistente(const Coordenada &c)const{
 
 
 bool Mapa::HayCamino(const Coordenada &c,const Coordenada &d)const{
-Coordenada e = PosicionReal(c);
+/*Coordenada e = PosicionReal(c);
 Coordenada f = PosicionReal(d);
 Coordenada g(e.latitud(),f.longitud());
   return mapa.Definido(g);
+*/
+return true;
 }
 
 

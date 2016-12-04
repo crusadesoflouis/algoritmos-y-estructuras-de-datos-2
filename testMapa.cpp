@@ -29,6 +29,8 @@ void diccmatriz(){
 
   ASSERT_EQ(m.Vacia(),true);
   m.AgregarCoord(c_10_10);
+
+  /*
   m.AgregarCoord(c_0_0);
   m.AgregarCoord(c_1_1);
   ASSERT_EQ(m.PosExistente(c_1_1),true);
@@ -41,6 +43,12 @@ void diccmatriz(){
   ASSERT_EQ(m.PosExistente(c_3_3),true);
   ASSERT_EQ(m.PosExistente(c_10_10),true);
   ASSERT_EQ(m.PosExistente(c_7_2),false);
+
+  Conj<Coordenada>::const_Iterador IT = m.PosDef().CrearIt();
+  while (IT.HaySiguiente()) {
+    IT.Avanzar();
+  }
+*/
 //  ASSERT_EQ(m.HayCamino(c_1_1,c_1_1),true);
 //  ASSERT_EQ(m.HayCamino(c_3_3,c_2_1),true);
 //  ASSERT_EQ(m.HayCamino(c_2_1,c_3_3),true);

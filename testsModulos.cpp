@@ -104,6 +104,7 @@ void diccmatriz(){
   mat.mostrar();
   ASSERT_EQ(mat.Definido(c_4_4),true);
   ASSERT_EQ(mat.Definido(c_0_0),true);
+
   /*
   mat.Definir(c_2_2,a);
   mat.Definir(c_3_3,a);

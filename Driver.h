@@ -24,21 +24,21 @@ class Driver {
 
 	/* Agrega el pokemon pasado por parametro en su coordenada al juego. */
 	void agregarPokemon(const Pokemon & p, const Coordenada & c);
-
+	//
 	/* Agrega un nuevo jugador, asignandole el id correspondiente.
 	 * Esta función deberá cambiar su aridad respecto del TAD devolviendo:
 	 * el id del jugador agregado. */
 	Jugador agregarJugador();
-
+	//
 	/* Al jugador pasado por parametro, lo conecta en la coordenada indicada.
 	 * Requiere que el jugador este en el juego desconectado y
 	 * que la Coordenada pasada este en el mapa. */
 	void conectarse(const Jugador & j, const Coordenada & c);
-
+	//
 	/* Al jugador pasado por parametro, lo desconecta.
 	 * Requiere que el jugador este en el juego conectado. */
 	void desconectarse(const Jugador & j);
-
+	//
 	/* Al jugador pasado por parametro, lo intenta mover hacia la coordenada indicada.
 	 * Requiere que el jugador este en el juego conectado y
 	 * que la Coordenada pasada este en el mapa. */
@@ -50,25 +50,25 @@ class Driver {
 	/* Indica si hay un camino posible entre dos coordenadas
 	*  Requiere que las coordenadas existan en el mapa */
 	bool hayCamino(const Coordenada & c1, const Coordenada & c2) const;
-
+	//
 	/* Indica si una coordenada existe o no en el mapa */
 	bool posExistente(const Coordenada & c) const;
-
+	//
 	/* Devuelve los jugadores que fueron insertados en el juego y no fueron eliminados. */
 	Conj< Jugador > jugadores() const;
 
 	/* Dado el jugador pasado como parametro, retorna si esta conectado o no.
 	 * Requiere que el jugador este entre jugadores() del juego. */
 	bool estaConectado(const Jugador & j) const;
-
+	//
 	/* Dado el jugador pasado como parametro, devuelve la cantidad de sanciones que recibio.
 	 * Requiere que el jugador este entre jugadores() del juego. */
 	Nat sanciones(const Jugador & j) const;
-
+	//
 	/* Dado el jugador pasado como parametro, devuelve la coordenada donde se ubica.
 	 * Requiere que el jugador este entre jugadores() del juego y este conectado. */
 	Coordenada posicion(const Jugador & j) const;
-
+	//
 	/* Dado el jugador pasado como parametro, devuelve un MultiConjunto con los
 	 * pokemons que capturo.
 	 * Requiere que el jugador este entre jugadores() del juego. */
@@ -79,20 +79,20 @@ class Driver {
 
 	/* Devuelve todas las coordenadaes del mapa que tienen un pokemon en ella. */
 	Conj< Coordenada > posConPokemons() const;
-
+	//
 	/* Dada una coordenada del mapa, devuelve al pokemon situado en ella.
 	 * Es requisito que la coordenada exista en el mapa y que exista un pokemon alli. */
 	Pokemon pokemonEnPos(const Coordenada & c) const;
-
+	//
  	/* Dada una coordenada, devuelve el valor del contador de movimientos fuera del rango.
 	* Es requisito que en la coordenada pasada como parametro haya un pokemon. */
 	Nat cantMovimientosParaCaptura(const Coordenada & c) const;
-
+	//
 	/* Dada una coordenada cualquiera, indica si la coordenada existe en el mapa y
 	 * que hay un pokemon a distancia menor o igual a 5. */
 
 	bool puedoAgregarPokemon(const Coordenada & c) const;
-
+//done
 	/* Devuelve si hay un pokemon a distancia menor o igual a 2
 	 * de la Coordenada pasada como parametro. */
 	bool hayPokemonCercano(const Coordenada & c) const;

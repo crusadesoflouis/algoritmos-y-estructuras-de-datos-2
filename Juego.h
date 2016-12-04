@@ -65,7 +65,7 @@ using namespace std;
 
       Conj<Jugador> Expulsados();
 
-      Coordenada posConPokemons()const;
+	    Conj< Coordenada > posConPokemons() const;
 
       Conj<Jugador> EntrenadoresPosibles(const Coordenada &c, const Conj<Jugador> &JugPosibeles);
 
@@ -143,6 +143,8 @@ using namespace std;
         Vector<InfoJug*> Jugadores;
         //conjunto con todas las posiciones con pokemones
         Conj<Coordenada> PosSalvajes;
+
+        Conj<Coordenada> Ayuda;
         // capaz que hay que hacer otra clase
         // especializando el template diccS en Nat
         //diccionario clave pokemon significado cantidad de dicha especie

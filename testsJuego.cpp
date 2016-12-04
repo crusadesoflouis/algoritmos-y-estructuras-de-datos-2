@@ -20,10 +20,13 @@ Coordenada c_3_2(3,2);
 Coordenada c_3_3(3,3);
 Coordenada c_4_4(4,4);
 Coordenada c_6_6(6,6);
+Coordenada c_6_7(6,7);
 Coordenada c_7_2(7,2);
 Coordenada c_8_8(8,8);
 Coordenada c_10_10(10,10);
+Coordenada c_11_11(11,11);
 Coordenada c_12_12(12,12);
+Coordenada c_20_20(20,20);
 Coordenada c_50_50(50,50);
 
 
@@ -65,15 +68,20 @@ void testsAgregarBasico(){
   Pokemon Abra = "Abra";
   m.AgregarCoord(c_10_10);
   m.AgregarCoord(c_1_1);
+  m.AgregarCoord(c_1_2);
   Juego j(m);
   j.AgregarPokemon(c_1_1,Abra);
+  ASSERT_EQ(j.HayPokemonCercano(c_1_2),true);
+  std::cout << "latitud: " <<j.PosPokemonCercano(c_1_2).latitud() <<std::endl;
+  std::cout << "longitud: " <<j.PosPokemonCercano(c_1_2).longitud() <<std::endl;
+
 }
 
 void testAgregarPokemon(){
   Mapa m;
   Pokemon Pikachu = "Pikachu";
   Pokemon Abra = "Abra";
-  m.AgregarCoord(c_50_50);
+  m.AgregarCoord(c_11_11);
   m.AgregarCoord(c_1_1);
   m.AgregarCoord(c_6_6);
   m.AgregarCoord(c_3_3);
@@ -91,8 +99,8 @@ void testAgregarPokemon(){
   j.AgregarPokemon(c_1_1,Abra);
 //  std::cout << "puedo agregar 3 0 " << std::endl;
 //  ASSERT_EQ(j.PuedoAgregarPokemon(c_3_0),false);
-  std::cout << "puedo agregar c 10 10 ?" << std::endl;
   ASSERT_EQ(j.PuedoAgregarPokemon(c_10_10),true);
+  j.AgregarPokemon(c_10_10,Pikachu);
 //  std::cout << "puedo agregar 50 50 " << std::endl;
 //  ASSERT_EQ(j.PuedoAgregarPokemon(c_50_50),true);
 
@@ -100,7 +108,6 @@ void testAgregarPokemon(){
 
 void testcompleto(){
   Mapa m;
-
   Pokemon Pikachu = "Pikachu";
   Pokemon Abra = "Abra";
   m.AgregarCoord(c_10_10);
@@ -115,46 +122,83 @@ void testcompleto(){
   Jugador pepe = j.AgregarJugador();
   j.AgregarPokemon(c_1_1,Abra);
   j.AgregarPokemon(c_6_6,Abra);
-
-  //j.AgregarPokemon(c_12_12,Abra);
   ASSERT_EQ(j.EstaConectado(pepe),false);
   j.Conectarse(c_1_1,pepe);
-  std::cout << "conecte a pepe en c_1_1" << std::endl;
   ASSERT_EQ(m.PosExistente(c_1_1),true);
   ASSERT_EQ(m.PosExistente(c_6_6),true);
   ASSERT_EQ(m.PosExistente(c_12_12),false);
-  std::cout << "pregunte si algunas posociones existen" << std::endl;
   ASSERT_EQ(j.EstaConectado(manolo),false);
   ASSERT_EQ(j.EstaConectado(pepe),true);
-  std::cout << "los jugadores estan conectados o no " << std::endl;
   ASSERT_EQ(j.Sanciones(manolo),0);
   ASSERT_EQ(j.Sanciones(pepe),0);
-  std::cout << "la cantidad de sanciones hasta ahora" << std::endl;
-  //porque no me lo reconoce?
-  //ASSERT_EQ(j.Posicion(pepe),c_1_1);
   ASSERT_EQ(j.PokemonEnPos(c_1_1),Abra);
-  std::cout << "abra esta en posicion" << std::endl;
-  //ASSERT_EQ(j.HayPokemonCercano(c_1_1),true);
   ASSERT_EQ(j.cantMismaEspecie(Abra),2);
-  std::cout << "hay dos abras" << std::endl;
   ASSERT_EQ(j.IndiceRareza(Abra),100);
-  std::cout << "indice" << std::endl;
   ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),10);
 }
-/*
 
 
-
+void testConectar() {
+  Mapa m;
+  Pokemon Pikachu = "Pikachu";
+  Pokemon Abra = "Abra";
+  m.AgregarCoord(c_20_20);
+  m.AgregarCoord(c_1_2);
+  m.AgregarCoord(c_1_1);
+  m.AgregarCoord(c_6_6);
+  Juego j(m);
+  Jugador manolo = j.AgregarJugador();
+  Jugador pepe = j.AgregarJugador();
   j.AgregarPokemon(c_1_1,Abra);
   j.Conectarse(c_1_1,manolo);
-  std::cout << "voy a conectar a pepe" << std::endl;
-  j.Conectarse(c_1_1,pepe);
-*/
+  j.Conectarse(c_6_6,pepe);
+  ASSERT_EQ(j.EstaConectado(manolo),true);
+  ASSERT_EQ(j.EstaConectado(pepe),true);
+  ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),10);
+  ASSERT_EQ(j.Sanciones(manolo),0);
+  j.Desconectarse(manolo);
+  std::cout << "latitud: " <<j.PosPokemonCercano(c_1_2).latitud() <<std::endl;
+  std::cout << "longitud: " <<j.PosPokemonCercano(c_1_2).longitud() <<std::endl;
+  ASSERT_EQ(j.EstaConectado(manolo),false);
+  ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),10);
+}
 
+void testMover(){
+  Mapa m;
+  Pokemon Pikachu = "Pikachu";
+  Pokemon Abra = "Abra";
+  m.AgregarCoord(c_20_20);
+  m.AgregarCoord(c_1_2);
+  m.AgregarCoord(c_1_1);
+  m.AgregarCoord(c_6_6);
+  m.AgregarCoord(c_6_7);
+  Juego j(m);
+  Jugador manolo = j.AgregarJugador();
+  Jugador pepe = j.AgregarJugador();
+  j.AgregarPokemon(c_1_1,Abra);
+  j.Conectarse(c_1_1,manolo);
+  j.Conectarse(c_6_6,pepe);
+  ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),10);
+  j.Moverse(c_6_7,pepe);
+  ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),9);
+  ASSERT_EQ(j.Sanciones(pepe),0);
+  j.Moverse(c_20_20,pepe);
+  ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),8);
+  ASSERT_EQ(j.Sanciones(pepe),1);
+  j.Moverse(c_1_1,pepe);
+  ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),10);
+  ASSERT_EQ(j.Sanciones(pepe),2);
+  j.Moverse(c_6_6,pepe);
+  ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),9);
+  ASSERT_EQ(j.Sanciones(pepe),3);
+}
 
 int main(){
-  //RUN_TEST(testVacio);
-//  RUN_TEST(testAgregarCoordenada);
+  RUN_TEST(testVacio);
+  RUN_TEST(testAgregarCoordenada);
   RUN_TEST(testAgregarPokemon);
-//  RUN_TEST(testsAgregarBasico);
+  RUN_TEST(testsAgregarBasico);
+  RUN_TEST(testcompleto);
+  RUN_TEST(testConectar);
+
 }
