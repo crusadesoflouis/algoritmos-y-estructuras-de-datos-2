@@ -167,7 +167,7 @@ void DiccMatriz<T>::Definir(const Coordenada & c, const T& significado){
     cout << "bom" << endl;
 */
     grilla[c.latitud()][c.longitud()] = significado;
-    cout << "defini en : (" <<  c.latitud()<< ","<< c.longitud()<< ")"<< endl;
+  //  cout << "defini en : (" <<  c.latitud()<< ","<< c.longitud()<< ")"<< endl;
   }
 
   posicionesValidas.Agregar(c);
@@ -175,11 +175,12 @@ void DiccMatriz<T>::Definir(const Coordenada & c, const T& significado){
 
 template <typename T>
 bool DiccMatriz<T>::Definido(const Coordenada & c) const{
+  //cout << "voy a buscar el dato a  : (" <<  c.latitud()<< ","<< c.longitud()<< ")"<< endl;
   if (FueraDeRango(c)) {
     return false;
+  //  cout << "esta fuera de rango "<< endl;
   }
   else{
-    cout << "voy a buscar el dato a  : (" <<  c.latitud()<< ","<< c.longitud()<< ")"<< endl;
     return grilla[c.latitud()][c.longitud()] != default_value;
   }
 }

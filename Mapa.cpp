@@ -14,6 +14,7 @@ Mapa::~Mapa(){
 bool Mapa::Vacia()const{
   return mapa.Vacio();
 }
+
 ///////////////////////////////////// terminar de arreglar posicion real////////////////////////////////////////
 Nat Mapa::Maximo(const Nat x, const Nat y)const{
   if (x == y)
@@ -84,15 +85,15 @@ Coordenada g(e.latitud(),f.longitud());
 
 void  Mapa::AgregarAdyacentes(Conj<Coordenada> &Avisitar,const Coordenada &c){
   Coordenada c_Der(c.latitud()+1,c.longitud());
-  std::cout << "el valor de c_Der es: " << std::endl;
-  std::cout << "c_Der(" << c_Der.latitud()<< ","<< c_Der.longitud()<<")"<< endl;
+//  std::cout << "el valor de c_Der es: " << std::endl;
+  //std::cout << "c_Der(" << c_Der.latitud()<< ","<< c_Der.longitud()<<")"<< endl;
 
   if (!mapa.FueraDeRango(c_Der)) {
 
     Coordenada Derecha = PosicionReal(c_Der);
-    std::cout << "entro al if" << std::endl;
+//    std::cout << "entro al if" << std::endl;
     if (mapa.Definido(Derecha)) {
-      std::cout << "agregue algo" << std::endl;
+  //    std::cout << "agregue algo" << std::endl;
       Avisitar.Agregar(Derecha);
     }
   }
@@ -131,26 +132,20 @@ void  Mapa::AgregarAdyacentes(Conj<Coordenada> &Avisitar,const Coordenada &c){
       Avisitar.Agregar(Abajo);
     }
   }
-
-
-
 }
-
-
 
 
 void Mapa::AgregarCoord(const Coordenada &c){
   Nat M = Maximo(c.latitud(),c.longitud());
-  std::cout << "el maximo de la coordneada es : " << M <<std::endl;
+//  std::cout << "el maximo de la coordneada es : " << M <<std::endl;
   if (M > max) {
     max = M;
   }
-  std::cout << "me guarde el maximo? " << max <<std::endl;
+//  std::cout << "me guarde el maximo? " << max <<std::endl;
   Coordenada d = PosicionReal(c);
   //std::cout << "la posicion real de c : " << d.latitud() << "," << d.longitud() <<std::endl;
   //std::cout << "antes de definir a: " << c.latitud() << "," <<c.longitud() <<std::endl;
   mapa.Definir(d,true);
-
 //  std::cout << "despues de definir a: " << c.latitud() << "," <<c.longitud() <<std::endl;
 //  mapa.mostrar();
 //  std::cout << "la longitud del mapa es: " << mapa.Longitud() << std::endl;
@@ -190,4 +185,5 @@ void Mapa::AgregarCoord(const Coordenada &c){
   }
   */
 //  mapa.mostrar();
+
 }

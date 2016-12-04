@@ -5,7 +5,13 @@
 /**************************************************FUNCIONES AUXILIARES****************************/
 /**************************************************************************************************/
 /**************************************************************************************************/
-bool MovimientoInvalido(const Coordenada &c1,const Coordenada  &c2){
+
+
+bool Juego::JugadorExistente(const Jugador j)const{
+  return j<= Jugadores.Longitud();
+}
+
+bool Juego::MovimientoInvalido(const Coordenada &c1,const Coordenada  &c2)const{
   return true;
 }
 
@@ -13,15 +19,15 @@ Nat DistanciaEuclidea(const Coordenada c1, const Coordenada c2){
   Nat a = 0;
   Nat b = 0;
   if (c1.latitud() > c2.latitud()) {
-    a = ( ( c1.latitud() - c2.latitud() ) ^ 2 );
+    a = ( ( c1.latitud() - c2.latitud() ) * (c1.latitud() - c2.latitud() ) );
   }
   else
-    a =  ( (c2.latitud() - c1.latitud()) ^ 2 );
+    a =  ( (c2.latitud() - c1.latitud()) * (c2.latitud() - c1.latitud()));
 
   if (c1.longitud() > c2.longitud())
-    b =	 ( (c1.longitud() - c2.longitud()) ^ 2 );
+    b =	 ( (c1.longitud() - c2.longitud()) * (c1.longitud() - c2.longitud()) );
   else
-    b =  ( (c2.longitud() - c1.longitud()) ^ 2 );
+    b =  ( (c2.longitud() - c1.longitud()) * (c2.longitud() - c1.longitud()) );
   return a+b;
 }
 
@@ -59,7 +65,11 @@ Conj<String>::const_Iterador IT = Jugadores[j]->Atrapados.CrearIt();
 /**************************************************************************************************/
 /**************************************************************************************************/
 
-Juego::Juego(Mapa &map):Mundo(map),TotalPokemones(0){}
+Juego::Juego(Mapa &map):Mundo(map){
+  TotalPokemones = 0;
+  DiccMatriz < InfoPos* > mapa0(NULL);
+  FuturasCapturas = mapa0;
+}
 
 Juego::~Juego(){
   for (Nat i = 1; i < Jugadores.Longitud(); i++) {
@@ -82,7 +92,10 @@ Jugador Juego::AgregarJugador(){
   return  ID;
 }
 
-void Juego::AgregarPokemon(Coordenada c, const Pokemon &p){
+void Juego::AgregarPokemon(const Coordenada &c, const Pokemon &p){
+  assert(PosExistente(c));
+  std::cout << "puedo agregar" << std::endl;
+  assert(PuedoAgregarPokemon(c));
 //agrego el pokemon en el mc donde estan las pos de pokemones salvajes
 PosSalvajes.AgregarRapido(c);
 // si estaba definido aumento en 1 su "cardinal" sino lo defino
@@ -123,7 +136,6 @@ void Juego::Conectarse(const Coordenada &c,const Jugador j){
   //assert(Jugadores[j]->Sanciones < 5);
   Jugadores[j]->Conectado = true;
   Jugadores[j]->Posicion = c;
-
   if (HayPokemonCercano(c)) {
       Tupla<InfoJug*> t(Jugadores[j],Jugadores[j]->Atrapados.Cardinal(),j);
       FuturasCapturas.Obtener(PosPokemonCercano(c))->PosiblesEntrenadores.Encolar(t);
@@ -252,7 +264,9 @@ bool Juego::PosExistente(const Coordenada &c1){
   return Mundo.PosExistente(c1);
 }
 
+
 bool Juego::EstaConectado(const Jugador j){
+  assert(JugadorExistente(j));
   return Jugadores[j]->Conectado;
 }
 
@@ -266,15 +280,12 @@ Coordenada Juego::Posicion(const Jugador j){
 
 
 Coordenada Juego::PosPokemonCercano(const Coordenada &c){
-
-  Conj<Coordenada> PosValidas(ObtenerPosicionesCercanas(c));
-
-  Conj<Coordenada>::Iterador IT = PosValidas.CrearIt();
-  while (IT.HaySiguiente() && FuturasCapturas.Obtener(IT.Siguiente()) == NULL) {
+  Conj<Coordenada>::Iterador IT = PosSalvajes.CrearIt();
+  while (IT.HaySiguiente() && DistanciaEuclidea(c,IT.Siguiente()) > 4) {
       IT.Avanzar();
   }
-
   return IT.Siguiente();
+
 }
 
 //falta iterador a Posiciones salvajes
@@ -289,40 +300,30 @@ Coordenada Juego::PosPokemonCercano(const Coordenada &c){
 
 Conj<Coordenada> Juego::ObtenerPosicionesCercanas(const Coordenada c){
   Conj<Coordenada> Posiciones;
-  Posiciones.Agregar(c);
-   Coordenada a(c.latitud()-1,c.longitud());
-   Posiciones.Agregar(a);
-   Coordenada b(c.latitud()-2,c.longitud());
-   Posiciones.Agregar(b);
-   Coordenada d(c.latitud()-1,c.longitud()-1);
-   Posiciones.Agregar(d);
-   Coordenada e(c.latitud(),c.longitud()-1);
-   Posiciones.Agregar(e);
-   Coordenada f(c.latitud(),c.longitud()-2);
-   Posiciones.Agregar(f);
-   Coordenada g(c.latitud()+1,c.longitud()-1);
-   Posiciones.Agregar(g);
-   Coordenada h(c.latitud()+1,c.longitud());
-   Posiciones.Agregar(h);
-   Coordenada i(c.latitud()+2,c.longitud());
-   Posiciones.Agregar(i);
-   Coordenada j(c.latitud()+1,c.longitud()+1);
-   Posiciones.Agregar(j);
-   Coordenada k(c.latitud(),c.longitud()+1);
-   Posiciones.Agregar(k);
-   Coordenada l(c.latitud(),c.longitud()+2);
-   Posiciones.Agregar(l);
-   Coordenada m(c.latitud()-1,c.longitud()+1);
-   Posiciones.Agregar(m);
-   Conj<Coordenada> validas;
-   Conj<Coordenada>::Iterador IT = Posiciones.CrearIt();
-   while (IT.HaySiguiente()) {
-     if (Mundo.PosExistente(IT.Siguiente())) {
-       validas.Agregar(IT.Siguiente());
-     }
-     IT.Avanzar();
-   }
-   return validas;
+  /*
+  Conj<Coordenada>::const_Iterador IT = PosicionesValidas();
+  while (IT.HaySiguiente()) {
+    //std::cout << "la distancia a : " << IT.Siguiente().latitud() <<"," << IT.Siguiente().longitud()<< ")"<< "es:"<<DistanciaEuclidea(c,IT.Siguiente()) <<std::endl;
+    if (DistanciaEuclidea(c,IT.Siguiente()) <= 4) {
+      Posiciones.AgregarRapido(IT.Siguiente());
+    }
+    IT.Avanzar();
+  }*/
+   return Posiciones;
+}
+
+Conj<Coordenada> Juego::ObtenerPosicionesCercanas_25(const Coordenada c){
+  Conj<Coordenada> Posiciones;
+  /*
+  Conj<Coordenada>::const_Iterador IT = PosicionesValidas();
+  while (IT.HaySiguiente()) {
+    //std::cout << "la distancia a : " << IT.Siguiente().latitud() <<"," << IT.Siguiente().longitud()<< ")"<< "es:"<<DistanciaEuclidea(c,IT.Siguiente()) <<std::endl;
+    if (DistanciaEuclidea(c,IT.Siguiente()) <= 25) {
+      Posiciones.AgregarRapido(IT.Siguiente());
+    }
+    IT.Avanzar();
+  }*/
+   return Posiciones;
 }
 
 Conj <Jugador> Juego::Expulsados(){
@@ -341,13 +342,35 @@ return expulsados;
 
 
 
+bool Juego::HayPokemonCercano(const Coordenada &c){
+Conj<Coordenada>::const_Iterador IT = PosSalvajes.CrearIt();
+while (IT.HaySiguiente()) {
+  if (DistanciaEuclidea(c,IT.Siguiente()) <= 4  ) {
+    return true;
+  }
+  IT.Avanzar();
+}
+  return false;
+}
 
-bool Juego::HayPokemonCercano( const Coordenada &c){
 
-  //TODO
 
+bool Juego::PuedoAgregarPokemon(const Coordenada &c){
+  Conj<Coordenada> PosValidas(ObtenerPosicionesCercanas_25(c));
+  Conj<Coordenada>::const_Iterador IT = PosValidas.CrearIt();
+  Nat i = 1;
+  while (IT.HaySiguiente()) {
+    std::cout << "veces que entre: " <<i <<std::endl;
+    std::cout << "la distancia es " << DistanciaEuclidea(c,IT.Siguiente()) <<std::endl;
+    if (DistanciaEuclidea(c,IT.Siguiente()) <= 25 && FuturasCapturas.Definido( IT.Siguiente() ) ) {
+      return false;
+    }
+    IT.Avanzar();
+    i++;
+  }
   return true;
 }
+
 
 Nat Juego::IndiceRareza(const Pokemon &p){
   Nat TipoPokemon = Pokedex.Significado(p);

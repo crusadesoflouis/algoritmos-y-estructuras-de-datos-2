@@ -22,7 +22,7 @@ using namespace std;
       Juego(Mapa &map);
       ~Juego();
       //
-      void AgregarPokemon(Coordenada c, const Pokemon &p);
+      void AgregarPokemon(const Coordenada &c, const Pokemon &p);
       //
       Jugador AgregarJugador();
       //
@@ -65,7 +65,7 @@ using namespace std;
 
       Conj<Jugador> Expulsados();
 
-      Conj<Coordenada> posConPokemons()const;
+      Coordenada posConPokemons()const;
 
       Conj<Jugador> EntrenadoresPosibles(const Coordenada &c, const Conj<Jugador> &JugPosibeles);
 
@@ -74,6 +74,7 @@ using namespace std;
       Nat CantPokemonTotales();
 
       Nat cantMismaEspecie(const Pokemon &p)const;
+
 
         class Iterador{
 
@@ -111,8 +112,10 @@ using namespace std;
 
         bool PuedeAtrapar(Coordenada c1,const Coordenada &c2);
         void Capturar(const Coordenada &c);
-        Conj<Coordenada> ObtenerPosicionesCercanas(const Coordenada c);
         void EliminarJugador(const Jugador &j);
+        Conj<Coordenada> ObtenerPosicionesCercanas(const Coordenada c);
+        Conj<Coordenada> ObtenerPosicionesCercanas_25(const Coordenada c);
+        Conj<Coordenada> PosicionesValidas()const;
         struct InfoJug{
           Nat Sanciones;
           bool Conectado;
@@ -133,7 +136,8 @@ using namespace std;
             Bicho = p;}
         };
 
-
+        bool JugadorExistente(const Jugador j)const;
+        bool MovimientoInvalido(const Coordenada &c1,const Coordenada &c2)const;
         Mapa Mundo;
         //conjunto con todos los jugadores incluso los expulsados
         Vector<InfoJug*> Jugadores;

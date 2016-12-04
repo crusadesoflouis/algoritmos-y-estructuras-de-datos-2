@@ -5,6 +5,7 @@
 #include "aed2/Dicc.h"
 #include "aed2/TiposBasicos.h"
 */
+
 #include "aed2.h"
 #include "TiposJuego.h"
 #include "Juego.h"
@@ -95,26 +96,26 @@ class Driver {
 	/* Devuelve si hay un pokemon a distancia menor o igual a 2
 	 * de la Coordenada pasada como parametro. */
 	bool hayPokemonCercano(const Coordenada & c) const;
-
+//DONE
 	/* Dada una Coordenada, devuelve la coordenada del pokemon cercano.
 	 * Requiere que haya un pokemon a distancia menor o igual a 2. */
 	Coordenada posPokemonCercano(const Coordenada & c) const;
-
+//DONE
 	/* Devuelve todos los jugadores que esten a distancia menor o igual a 2 de
 	 * la coordenada indicada, que tengan un camino hasta ella.
 	 * Requiere que haya un pokemon a distancia menor o igual a 2 de la Coordenada. */
 	Conj<Jugador> entrenadoresPosibles(const Coordenada & c) const;
-
+//falta
 	/* Devuelve el indice de rarez del pokemon pasado como parametro.
 	 * Requiere que haya al menos un pokemon de la especie en el juego. */
 	Nat indiceRareza(const Pokemon & p) const;
-
+//DONE
 	/* Devuelve la cantidad de pokemons totales en el juego. */
 	Nat cantPokemonsTotales() const;
-
+//DONE
 	/* Indica cuantos pokemons de la especie de unPokemon hay en pokemons. */
 	Nat cantMismaEspecie(const Pokemon & p) const;
-
+	//DONE
 
 	private:
 
