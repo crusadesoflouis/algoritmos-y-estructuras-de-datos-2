@@ -61,24 +61,44 @@ Coordenada Driver::posicion(const Jugador &j)const{
 }
 
 Dicc <Pokemon, Nat> Driver::pokemons(const Jugador & j)const{
-
+  Conj<String>::const_Iterador IT = jueg->Pokemons(j);
   Dicc <Pokemon, Nat> a;
-  a.Definir("pikachu",10);
+  while (IT.HaySiguiente()) {
+    if (a.Definido(IT.Siguiente())) {
+      Nat valor = a.Significado(IT.Siguiente())++;
+      a.Borrar(IT.Siguiente());
+      a.Definir(IT.Siguiente(),valor);
+    }
+    else{
+      a.Definir(IT.Siguiente(),1);
+    }
+    IT.Avanzar();
+  }
   return a;
 }
 
-Conj < Coordenada > Juego::posConPokemons() const{
+Conj < Coordenada > Driver::posConPokemons() const{
   return jueg->posConPokemons();
 }
 
 	Conj< Jugador > Driver::jugadores() const{
     Conj<Jugador> a;
+    Juego::Iterador IT = jueg->CrearIt();
+    while (IT.HaySiguiente()) {
+    a.Agregar(IT.Siguiente());
+    IT.Avanzar();
+    }
     return a;
   }
 
 ////////////////////////////////////////////////////////////////////////////////
 Conj <Jugador> Driver::expulsados()const{
   Conj<Jugador> a;
+  Juego::Iterador_Exp IT = jueg->CrearIt_Exp();
+  while (IT.HaySiguiente()) {
+  a.Agregar(IT.Siguiente());
+  IT.Avanzar();
+  }
   return a;
 }
 ////////////////////////////////////////////////////////////////////////////////
@@ -92,8 +112,7 @@ Nat Driver::cantMovimientosParaCaptura(const Coordenada &c)const{
 
 ////////////////////////////////////////////////////////////////////////////////
 bool Driver::puedoAgregarPokemon(const Coordenada & c)const{
-  return true;
-  //  return jueg->PuedoAgregarPokemon(c);
+    return jueg->PuedoAgregarPokemon(c);
 }
 ////////////////////////////////////////////////////////////////////////////////
 bool Driver::hayPokemonCercano(const Coordenada & c)const{

@@ -52,10 +52,6 @@ class DiccS
 };
 
 template<class T>
-bool operator==(const DiccS<T>&, const DiccS<T>&);
-
-
-template<class T>
 DiccS<T>::DiccS(){
   Nodo* n = new Nodo();
   raiz = n;

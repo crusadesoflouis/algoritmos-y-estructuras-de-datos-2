@@ -67,7 +67,7 @@ using namespace std;
 
 	    Conj< Coordenada > posConPokemons() const;
 
-      Conj<Jugador> EntrenadoresPosibles(const Coordenada &c, const Conj<Jugador> &JugPosibeles);
+      Conj<Jugador> EntrenadoresPosibles(const Coordenada &c, const Conj<Jugador> &muestra);
 
       Nat IndiceRareza (const Pokemon &p);
 

@@ -19,7 +19,7 @@ class Cola
 		typename Cola<T>::Iterador Encolar(const T);
 		Nat Cardinal() const;
 		void mostrar();
-		Conj<T> Elementos();
+		Lista<T> Elementos();
 		Iterador CrearIt();
 		Iterador CrearIt(typename Cola<T>::Nodo* );
 
@@ -289,16 +289,21 @@ else{
 	delete nodulo;
 }
 
-Conj<T> DameTodos(Nodo* nodulo,Conj<T> & elems){
+Lista<T> DameTodos(Nodo* nodulo,Lista<T> & elems){
 	if (nodulo != NULL) {
-		elems.AgregarRapido();
+		cout << "entre aca0" << endl;
+		elems.AgregarAdelante(nodulo->valor);
+		cout <<"sali"<< endl;
 		if (nodulo->der != NULL) {
+			cout << "no tuve que entrar aca 0"<< endl;
 			DameTodos(nodulo->der,elems);
 		}
 		if (nodulo->izq != NULL) {
+		cout << "no tuve que entrar aca 0"<< endl;
 			DameTodos(nodulo->izq,elems);
 		}
 	}
+	cout << " end" << endl;
 
 }
 
@@ -373,9 +378,10 @@ return raiz == NULL;
 }
 
 template <class T>
-Conj<T> Cola<T>::Elementos(){
-	Conj<T> elems;
+Lista<T> Cola<T>::Elementos(){
+	Lista<T> elems;
  	DameTodos(this->raiz, elems);
+	cout << "ase rompe aca " << endl;
 	return elems;
 }
 

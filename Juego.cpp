@@ -73,7 +73,6 @@ else{
   }
 
 }
-
 }
 
 
@@ -87,7 +86,7 @@ void Juego::Capturar(const Coordenada &c){
  aux->Atrapados.Agregar(capturado);
  delete FuturasCapturas.Obtener(c);
  FuturasCapturas.Borrar(c);
-
+ //PosSalvajes.Eliminar(c);
 }
 
 
@@ -125,6 +124,7 @@ Juego::~Juego(){
      delete FuturasCapturas.Obtener(IT.Siguiente());
      IT.Avanzar();
   }
+
 }
 
 
@@ -156,13 +156,14 @@ PosSalvajes.AgregarRapido(c);
 // creo un puntero a InfoPos que es donde hay que gener
 //un heap con todos los jugadores cercanos a donde agregue
 //dicho pokemon
+//std::cout << "ya defini al pokemon " << std::endl;
   InfoPos* info = new InfoPos(p);
   bool online = false;
   FuturasCapturas.Definir(c,info);
 
   //creo un iterador al vector donde estan todos los jugadores
   Vector<InfoJug*>::const_Iterador IT = Jugadores.CrearIt();
-  Nat pos = 1;
+  Nat pos = 0;
   while (IT.HaySiguiente()) {
     online = IT.Siguiente()->Conectado;
     if (online && PuedeAtrapar(c,IT.Siguiente()->Posicion)) {
@@ -274,7 +275,6 @@ if (Jugadores[j]->Sanciones < 5) {
               ActualizarPosSalvajes(nueva,vieja,b,libre);
             }
             else{
-            //  std::cout << "libre" << std::endl;
               Jugadores[j]->Posicion = c;
               bool b = false;
               bool libre = true;
@@ -330,6 +330,21 @@ Coordenada Juego::PosPokemonCercano(const Coordenada &c){
   }
   return IT.Siguiente();
 
+}
+
+Conj <Jugador> Juego::EntrenadoresPosibles(const Coordenada &c, const Conj<Jugador> &muestra){
+  Conj <Jugador> ConjDeJugadores;
+
+//  Lista < Tupla <InfoJug*> > entrenadores = FuturasCapturas.Obtener(c)->PosiblesEntrenadores.Elementos();
+/*
+  Lista < Tupla <InfoJug*> >::Iterador IT = entrenadores.CrearIt();
+
+  while (IT.HaySiguiente()) {
+    std::cout << "El jugador es: " <<IT.Siguiente().Identificacion() <<std::endl;
+    IT.Avanzar();
+  }
+  */
+  return ConjDeJugadores;
 }
 
 Conj< Coordenada > Juego::posConPokemons() const{
@@ -415,6 +430,7 @@ bool Juego::PuedoAgregarPokemon(const Coordenada &c){
     IT.Avanzar();
   }
   return true;
+
 }
 
 

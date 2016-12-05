@@ -1,13 +1,13 @@
 #include <iostream>
 #include "mini_test.h"
 //#include "DiccString.h"
-//#include "Cola.h"
-#include "DiccMatriz.h"
+#include "Cola.h"
+//#include "DiccMatriz.h"
 //#include "Multiconjunto.h"
 using namespace ::std;
 
 
-/*
+
 void encolar_y_borrar() {
   Cola<int> c;
   Cola<int>::Iterador IT_42 = c.Encolar(42);
@@ -34,14 +34,17 @@ void encolar_y_borrar() {
   Cola<int>::Iterador IT_10 = c.Encolar(10);
   ASSERT_EQ(c.Cardinal(),9);
   ASSERT_EQ(c.Tope(),10);
+
+/*
   IT_10.EliminarSiguiente();
   ASSERT_EQ(c.Cardinal(),8);
   ASSERT_EQ(c.Tope(),26);
   IT_51.EliminarSiguiente();
   ASSERT_EQ(c.Cardinal(),7);
   ASSERT_EQ(c.Tope(),26);
-}
 */
+}
+
 /*
 void diccString(){
   DiccS<int> trie;
@@ -81,6 +84,7 @@ void diccString(){
 */
 
 void diccmatriz(){
+  /*
   //inicializacion de datos
   DiccMatriz<int*> mat;
   int* a = NULL;
@@ -104,7 +108,7 @@ void diccmatriz(){
   mat.mostrar();
   ASSERT_EQ(mat.Definido(c_4_4),true);
   ASSERT_EQ(mat.Definido(c_0_0),true);
-
+*/
   /*
   mat.Definir(c_2_2,a);
   mat.Definir(c_3_3,a);
@@ -141,6 +145,7 @@ void diccmatriz(){
 }
 
 void diccmatriz_2(){
+  /*
   //inicializacion de datos
   DiccMatriz<bool> mat;
   Coordenada c_0_0(0,0);
@@ -160,19 +165,23 @@ void diccmatriz_2(){
   mat.mostrar();
   ASSERT_EQ(mat.Definido(c_4_4),true);
   ASSERT_EQ(mat.Definido(c_0_0),true);
-
+*/
 }
 
 
-
+void elems(){
+  Cola<int> c;
+  Cola<int>::Iterador IT_42 = c.Encolar(42);
+  Lista<int> a(c.Elementos());
+}
 
 
 int main() {
 
 //  RUN_TEST(diccmatriz);
-  RUN_TEST(diccmatriz_2);
+//  RUN_TEST(diccmatriz_2);
 //	RUN_TEST(diccString);
-//  RUN_TEST(encolar_y_borrar);
+  RUN_TEST(elems);
 
 
   return 0;
