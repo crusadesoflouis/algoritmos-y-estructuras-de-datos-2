@@ -35,7 +35,7 @@ using namespace std;
       Mapa MAPA();
 
       typename Conj<String>::const_Iterador Pokemons(const Jugador j);
-
+      //
       bool HayCamino(const Coordenada &c1, const Coordenada &c2);
       //IteradorJug Jugadores();
 

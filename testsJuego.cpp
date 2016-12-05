@@ -163,7 +163,7 @@ void testConectar() {
   ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),10);
 }
 
-void testMover(){
+void testMoverYcapturar(){
   Mapa m;
   Pokemon Pikachu = "Pikachu";
   Pokemon Abra = "Abra";
@@ -180,9 +180,7 @@ void testMover(){
   j.Conectarse(c_1_1,manolo);
   j.Conectarse(c_6_6,pepe);
   ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),10);
-std::cout << "pepe se mueve a c_6_7" << std::endl;
   j.Moverse(c_6_7,pepe);
-  std::cout << "movi a 6 7" << std::endl;
   ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),9);
   ASSERT_EQ(j.Sanciones(pepe),1);
   j.Moverse(c_20_20,pepe);
@@ -193,7 +191,6 @@ std::cout << "pepe se mueve a c_6_7" << std::endl;
   ASSERT_EQ(j.Sanciones(pepe),3);
   j.Moverse(c_20_20,pepe);
   ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),6);
-  std::cout << "me muevo de 20 a 6,7" << std::endl;
   j.Moverse(c_6_7,pepe);
   ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),6);
   ASSERT_EQ(j.Sanciones(pepe),5);
@@ -212,7 +209,12 @@ std::cout << "pepe se mueve a c_6_7" << std::endl;
   j.Moverse(c_20_20,manola);
   ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),1);
   j.Moverse(c_6_7,manola);
-
+  //Conj<String>::const_Iterador IT = j.Pokemons(manolo);
+  //std::cout << "El pokemon es: " << IT.Siguiente() <<std::endl;
+  //j.AgregarPokemon(c_1_1,Abra);
+//  ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),10);
+  //j.Moverse(c_1_2,manolo);
+//  ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),10);
 }
 
 void testJugadores(){
@@ -245,10 +247,8 @@ void testJugadores(){
   ASSERT_EQ(j.Sanciones(pepe),5);
   Juego::Iterador IT = j.CrearIt();
   while (IT.HaySiguiente()) {
-    IT.Avanzar();
-    if (IT.HaySiguiente()) {
-      std::cout << "siguiente: " <<IT.Siguiente() <<std::endl;
-    }
+  std::cout << "siguiente: " <<IT.Siguiente() <<std::endl;
+  IT.Avanzar();
   }
 }
 
@@ -280,6 +280,11 @@ void testExpulsados(){
   j.Moverse(c_6_6,pepe);
   ASSERT_EQ(j.Sanciones(manolo),5);
   ASSERT_EQ(j.Sanciones(pepe),5);
+  Juego::Iterador_Exp IT = j.CrearIt_Exp();
+  while (IT.HaySiguiente()) {
+    std::cout << "el jugador expulsado es: " <<IT.Siguiente() <<std::endl;
+    IT.Avanzar();
+  }
 }
 
 int main(){/*
@@ -289,9 +294,8 @@ int main(){/*
   RUN_TEST(testsAgregarBasico);
   RUN_TEST(testcompleto);
   RUN_TEST(testConectar);
-  RUN_TEST(testMover);
-    */
   RUN_TEST(testJugadores);
-
-  //RUN_TEST(testExpulsados);
+  RUN_TEST(testExpulsados);
+    */
+  RUN_TEST(testMoverYcapturar);
 }

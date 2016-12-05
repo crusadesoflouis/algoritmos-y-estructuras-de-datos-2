@@ -460,28 +460,23 @@ typename Juego::Iterador Juego::CrearIt() {
 }
 
 bool Juego::Iterador::HaySiguiente(){
-  unsigned int cont = Posicion;
-  unsigned int sig = cont++;
   unsigned int guarda = juego->Jugadores.Longitud();
   if (Posicion > guarda) {
     return false;
   }
   else{
-      while (sig < guarda && juego->Jugadores[sig]->Sanciones > 4) {
-        sig++;
-      }
-      if (sig < guarda) {
-        return true;
-      }
-      return false;
-  }
+    while (Posicion < guarda && juego->Jugadores[Posicion]->Sanciones > 4) {
+      Posicion++;
+    }
+    if (Posicion < guarda) {
+      return true;
+    }
+    return false;
+}
 }
 
 void Juego::Iterador::Avanzar(){
   assert(HaySiguiente());
-  while (juego->Jugadores[Posicion]->Sanciones > 4) {
-    Posicion++;
-  }
   Posicion++;
 }
 
@@ -497,28 +492,23 @@ typename Juego::Iterador_Exp Juego::CrearIt_Exp(){
 }
 
 bool Juego::Iterador_Exp::HaySiguiente(){
-  unsigned int cont = Posicion;
-  unsigned int sig = cont++;
   unsigned int guarda = juego->Jugadores.Longitud();
   if (Posicion > guarda) {
     return false;
   }
   else{
-      while (sig < guarda && juego->Jugadores[sig]->Sanciones < 4) {
-        sig++;
-      }
-      if (sig < guarda) {
-        return true;
-      }
-      return false;
-  }
+    while (Posicion < guarda && juego->Jugadores[Posicion]->Sanciones < 4) {
+      Posicion++;
+    }
+    if (Posicion < guarda) {
+      return true;
+    }
+    return false;
+}
 }
 
 void Juego::Iterador_Exp::Avanzar(){
   assert(HaySiguiente());
-  while (juego->Jugadores[Posicion]->Sanciones < 4) {
-    Posicion++;
-  }
   Posicion++;
 }
 
