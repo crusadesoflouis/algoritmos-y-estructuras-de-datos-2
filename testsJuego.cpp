@@ -175,30 +175,123 @@ void testMover(){
   Juego j(m);
   Jugador manolo = j.AgregarJugador();
   Jugador pepe = j.AgregarJugador();
+  Jugador pepita = j.AgregarJugador();
   j.AgregarPokemon(c_1_1,Abra);
   j.Conectarse(c_1_1,manolo);
   j.Conectarse(c_6_6,pepe);
   ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),10);
+std::cout << "pepe se mueve a c_6_7" << std::endl;
   j.Moverse(c_6_7,pepe);
+  std::cout << "movi a 6 7" << std::endl;
   ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),9);
-  ASSERT_EQ(j.Sanciones(pepe),0);
+  ASSERT_EQ(j.Sanciones(pepe),1);
   j.Moverse(c_20_20,pepe);
   ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),8);
-  ASSERT_EQ(j.Sanciones(pepe),1);
-  j.Moverse(c_1_1,pepe);
-  ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),10);
   ASSERT_EQ(j.Sanciones(pepe),2);
-  j.Moverse(c_6_6,pepe);
-  ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),9);
+  j.Moverse(c_6_7,pepe);
+  ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),7);
   ASSERT_EQ(j.Sanciones(pepe),3);
+  j.Moverse(c_20_20,pepe);
+  ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),6);
+  std::cout << "me muevo de 20 a 6,7" << std::endl;
+  j.Moverse(c_6_7,pepe);
+  ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),6);
+  ASSERT_EQ(j.Sanciones(pepe),5);
+  j.Conectarse(c_6_6,pepita);
+  ASSERT_EQ(j.EstaConectado(pepita),true);
+  ASSERT_EQ(j.Sanciones(pepe),5);
+  j.Moverse(c_20_20,pepita);
+  j.Moverse(c_6_7,pepita);
+  j.Moverse(c_20_20,pepita);
+  j.Moverse(c_6_7,pepita);
+  j.Moverse(c_20_20,pepita);
+  ASSERT_EQ(j.Sanciones(pepita),5);
+  ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),2);
+  Jugador manola = j.AgregarJugador();
+  j.Conectarse(c_6_6,manola);
+  j.Moverse(c_20_20,manola);
+  ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),1);
+  j.Moverse(c_6_7,manola);
+
 }
 
-int main(){
+void testJugadores(){
+  Mapa m;
+  m.AgregarCoord(c_20_20);
+  m.AgregarCoord(c_1_2);
+  m.AgregarCoord(c_1_1);
+  m.AgregarCoord(c_6_6);
+  m.AgregarCoord(c_6_7);
+  Juego j(m);
+  Jugador manolo = j.AgregarJugador();
+  Jugador pepe = j.AgregarJugador();
+  Jugador pepita = j.AgregarJugador();
+  Jugador manola = j.AgregarJugador();
+  j.Conectarse(c_1_2,manolo);
+  j.Conectarse(c_1_2,pepe);
+  j.Conectarse(c_1_2,pepita);
+  j.Conectarse(c_1_2,manola);
+  j.Moverse(c_6_6,manolo);
+  j.Moverse(c_20_20,manolo);
+  j.Moverse(c_6_6,manolo);
+  j.Moverse(c_20_20,manolo);
+  j.Moverse(c_6_6,manolo);
+  j.Moverse(c_6_6,pepe);
+  j.Moverse(c_20_20,pepe);
+  j.Moverse(c_6_6,pepe);
+  j.Moverse(c_20_20,pepe);
+  j.Moverse(c_6_6,pepe);
+  ASSERT_EQ(j.Sanciones(manolo),5);
+  ASSERT_EQ(j.Sanciones(pepe),5);
+  Juego::Iterador IT = j.CrearIt();
+  while (IT.HaySiguiente()) {
+    IT.Avanzar();
+    if (IT.HaySiguiente()) {
+      std::cout << "siguiente: " <<IT.Siguiente() <<std::endl;
+    }
+  }
+}
+
+void testExpulsados(){
+  Mapa m;
+  m.AgregarCoord(c_20_20);
+  m.AgregarCoord(c_1_2);
+  m.AgregarCoord(c_1_1);
+  m.AgregarCoord(c_6_6);
+  m.AgregarCoord(c_6_7);
+  Juego j(m);
+  Jugador manolo = j.AgregarJugador();
+  Jugador pepe = j.AgregarJugador();
+  Jugador pepita = j.AgregarJugador();
+  Jugador manola = j.AgregarJugador();
+  j.Conectarse(c_1_2,manolo);
+  j.Conectarse(c_1_2,pepe);
+  j.Conectarse(c_1_2,pepita);
+  j.Conectarse(c_1_2,manola);
+  j.Moverse(c_6_6,manolo);
+  j.Moverse(c_20_20,manolo);
+  j.Moverse(c_6_6,manolo);
+  j.Moverse(c_20_20,manolo);
+  j.Moverse(c_6_6,manolo);
+  j.Moverse(c_6_6,pepe);
+  j.Moverse(c_20_20,pepe);
+  j.Moverse(c_6_6,pepe);
+  j.Moverse(c_20_20,pepe);
+  j.Moverse(c_6_6,pepe);
+  ASSERT_EQ(j.Sanciones(manolo),5);
+  ASSERT_EQ(j.Sanciones(pepe),5);
+}
+
+int main(){/*
   RUN_TEST(testVacio);
   RUN_TEST(testAgregarCoordenada);
   RUN_TEST(testAgregarPokemon);
   RUN_TEST(testsAgregarBasico);
   RUN_TEST(testcompleto);
   RUN_TEST(testConectar);
+  RUN_TEST(testMover);
+    */
+  RUN_TEST(testJugadores);
 
+  //RUN_TEST(testExpulsados);
 }

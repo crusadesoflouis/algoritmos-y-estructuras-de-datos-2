@@ -43,7 +43,7 @@ class Driver {
 	 * Requiere que el jugador este en el juego conectado y
 	 * que la Coordenada pasada este en el mapa. */
 	void moverse(const Jugador & j, const Coordenada & c);
-
+	//
 	/* Devuelve todas las coordenadas que posee el mapa del Juego. */
 	Conj< Coordenada > mapa() const;
 

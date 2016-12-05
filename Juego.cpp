@@ -35,15 +35,59 @@ bool Juego::PuedeAtrapar (Coordenada c1,const Coordenada &c2){
   return DistanciaEuclidea(c1,c2) <= 4 &&  Mundo.HayCamino(c1,c2);
 }
 
+void Juego::ActualizarPosSalvajes(const Coordenada &c1,const Coordenada &c2, bool b,bool libre ){
+//si b es verdadero, significa que no tengo que tocar ninguna de las dos coordenadas
+//si no es verdadero, tengo que que usar solo la primer coordenada
+Conj<Coordenada>::const_Iterador IT = PosSalvajes.CrearIt();
+if (libre) {
+  while (IT.HaySiguiente()) {
+      FuturasCapturas.Obtener(IT.Siguiente())->Turnos ++;
+      if (FuturasCapturas.Obtener(IT.Siguiente())->Turnos == 10) {
+        Capturar(IT.Siguiente());
+      }
+      IT.Avanzar();
+  }
+}
+else{
+  if (b) {
+    while (IT.HaySiguiente()) {
+      if (IT.Siguiente() != c1 && IT.Siguiente() != c2) {
+        FuturasCapturas.Obtener(IT.Siguiente())->Turnos ++;
+      }
+      if (FuturasCapturas.Obtener(IT.Siguiente())->Turnos == 10) {
+        Capturar(IT.Siguiente());
+      }
+      IT.Avanzar();
+    }
+  }
+  else{
+    while (IT.HaySiguiente()) {
+      if (IT.Siguiente()!=c1) {
+        FuturasCapturas.Obtener(IT.Siguiente())->Turnos ++;
+      }
+      if (FuturasCapturas.Obtener(IT.Siguiente())->Turnos == 10) {
+        Capturar(IT.Siguiente());
+      }
+      IT.Avanzar();
+    }
+  }
+
+}
+
+}
+
+
 
 void Juego::Capturar(const Coordenada &c){
+ //std::cout << "entre a capturar" << std::endl;
  InfoJug* aux = FuturasCapturas.Obtener(c)->PosiblesEntrenadores.Tope().Iter();
+ //Jugador j = FuturasCapturas.Obtener(c)->PosiblesEntrenadores.Tope().Identificacion();
  aux->EstaCazando = false;
- aux->CazaActual.EliminarSiguiente();
  Pokemon capturado = FuturasCapturas.Obtener(c)->Bicho;
  aux->Atrapados.Agregar(capturado);
  delete FuturasCapturas.Obtener(c);
  FuturasCapturas.Borrar(c);
+
 }
 
 
@@ -139,6 +183,7 @@ void Juego::Conectarse(const Coordenada &c,const Jugador j){
       Tupla<InfoJug*> t(Jugadores[j],Jugadores[j]->Atrapados.Cardinal(),j);
       FuturasCapturas.Obtener(PosPokemonCercano(c))->PosiblesEntrenadores.Encolar(t);
   }
+
 }
 
 
@@ -154,9 +199,11 @@ void Juego::Desconectarse(const Jugador j){
 
 
 void Juego::Moverse(const Coordenada &c,const Jugador j){
-  assert(Jugadores[j]->Sanciones < 5);
-  bool HayPokemon = false;
-  bool HayPokemonNuevo = false;
+  assert(Sanciones(j) < 5 );
+  assert(EstaConectado(j));
+//  std::cout << "entre moverse " << j <<std::endl;
+  bool HayPokemonAlmoverme = false;
+  bool HayPokemonAlEntrar = false;
   Coordenada vieja(0,0);
   Coordenada nueva(0,0);
 
@@ -165,36 +212,34 @@ void Juego::Moverse(const Coordenada &c,const Jugador j){
   }
 
 if (Jugadores[j]->Sanciones < 5) {
-
+//  std::cout << "sanciones de jugador menor a 5" << std::endl;
     if (HayPokemonCercano(Jugadores[j]->Posicion)) {
-    HayPokemon = true;
+    HayPokemonAlmoverme = true;
     Coordenada e(PosPokemonCercano(Jugadores[j]->Posicion).latitud(),PosPokemonCercano(Jugadores[j]->Posicion).longitud());
     vieja = e;
-    }
 
+
+    }
     if (HayPokemonCercano(c)) {
-      HayPokemonNuevo = true;
+  //    std::cout << "hay pokemon cercano en la poscion" << std::endl;
+      HayPokemonAlEntrar = true;
       nueva = PosPokemonCercano(c);
     }
-
-    if (HayPokemonNuevo && HayPokemon && vieja == nueva) {
-      Conj<Coordenada>::Iterador IT = PosSalvajes.CrearIt();
-      while (IT.HaySiguiente()) {
-        if (IT.Siguiente() != c) {
-          FuturasCapturas.Obtener(IT.Siguiente())->Turnos++;
-          if (FuturasCapturas.Obtener(IT.Siguiente())->Turnos == 10 && IT.Siguiente() != vieja) {
-             Capturar(IT.Siguiente());
-          }
-        }
-        IT.Avanzar();
-      }
+    if (HayPokemonAlEntrar && HayPokemonAlmoverme && vieja == nueva) {
+  //    std::cout << "si me muevo dentro de una posicion cercana a un pokemon" << std::endl;
+        bool b = false;
+        bool libre = false;
+        ActualizarPosSalvajes(vieja,nueva,b,libre);
     }
     else{
+  //    std::cout << "no entre al casode que me muevo dentro del rango del pokemon" << std::endl;
       //esto implica que en la posicion nueva y vieja son distintas
       //osea puede ser que ambas sean vacias
       //o que salgo de una cola y entro a otra
       //o que de no estar en nada voy a una nueva capturas
-      if (HayPokemon && HayPokemonNuevo) {
+      if (HayPokemonAlmoverme && HayPokemonAlEntrar) {
+    //      std::cout << "si salgo de una cola y entro en otra" << std::endl;
+
         // caso en el que salgo de una cola y entro a otra
         Jugadores[j]->CazaActual.EliminarSiguiente();
         FuturasCapturas.Obtener(vieja)->Turnos++;
@@ -204,37 +249,37 @@ if (Jugadores[j]->Sanciones < 5) {
         FuturasCapturas.Obtener(nueva)->Turnos = 0;
         Tupla<InfoJug*> t(Jugadores[j],Jugadores[j]->Atrapados.Cardinal(),j);
         FuturasCapturas.Obtener(nueva)->PosiblesEntrenadores.Encolar(t);
-        Conj<Coordenada>::Iterador IT = PosSalvajes.CrearIt();
-        while (IT.HaySiguiente()) {
-          if (IT.Siguiente()!= vieja && IT.Siguiente() != nueva) {
-            FuturasCapturas.Obtener(IT.Siguiente())->Turnos++;
-          }
-
-          if (FuturasCapturas.Obtener(IT.Siguiente())->Turnos == 10) {
-            ////////////////////////////////// CAPTURAR /////////////////////////
-            Capturar(IT.Siguiente());
-          }
-          IT.Avanzar();
-        }
+        bool b = true;
+        bool libre = false;
+        ActualizarPosSalvajes(nueva,vieja,b,libre);
       }
       else{
+      //    std::cout << "salgo de una cola a una posicion libre o vole libre" << std::endl;
           //salgo de una posicion con pokemon a un lugar donde no hay pokemon
-          if (HayPokemon) {
+          if (HayPokemonAlmoverme) {
             Jugadores[j]->CazaActual.EliminarSiguiente();
-            Conj<Coordenada>::Iterador IT = PosSalvajes.CrearIt();
-            while (IT.HaySiguiente()) {
-              FuturasCapturas.Obtener(IT.Siguiente())->Turnos++;
-              if (FuturasCapturas.Obtener(IT.Siguiente())->Turnos == 10) {
-                Capturar(IT.Siguiente());
-              }
-              IT.Avanzar();
-            }
+            bool b = true;
+            bool libre = true;
+            ActualizarPosSalvajes(nueva,vieja,b,libre);
           }
           else{
-            // entro a una posición con un pokemon y lo encolado
-            FuturasCapturas.Obtener(nueva)->Turnos = 0;
-            Tupla<InfoJug*> t(Jugadores[j],Jugadores[j]->Atrapados.Cardinal(),j);
-            FuturasCapturas.Obtener(nueva)->PosiblesEntrenadores.Encolar(t);
+
+            if (HayPokemonAlEntrar) {
+                // entro a una posición con un pokemon y lo encolado
+              FuturasCapturas.Obtener(nueva)->Turnos = 0;
+              Tupla<InfoJug*> t(Jugadores[j],Jugadores[j]->Atrapados.Cardinal(),j);
+              FuturasCapturas.Obtener(nueva)->PosiblesEntrenadores.Encolar(t);
+              bool b = false;
+              bool libre = false;
+              ActualizarPosSalvajes(nueva,vieja,b,libre);
+            }
+            else{
+            //  std::cout << "libre" << std::endl;
+              Jugadores[j]->Posicion = c;
+              bool b = false;
+              bool libre = true;
+              ActualizarPosSalvajes(nueva,vieja,b,libre);
+            }
           }
       }
     }
@@ -437,6 +482,7 @@ void Juego::Iterador::Avanzar(){
   while (juego->Jugadores[Posicion]->Sanciones > 4) {
     Posicion++;
   }
+  Posicion++;
 }
 
 Jugador Juego::Iterador::Siguiente(){
@@ -473,6 +519,7 @@ void Juego::Iterador_Exp::Avanzar(){
   while (juego->Jugadores[Posicion]->Sanciones < 4) {
     Posicion++;
   }
+  Posicion++;
 }
 
 Jugador Juego::Iterador_Exp::Siguiente(){

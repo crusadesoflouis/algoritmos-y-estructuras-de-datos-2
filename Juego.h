@@ -89,6 +89,7 @@ using namespace std;
             unsigned int Posicion;
             Iterador(Juego* j,Nat p = 0):juego(j),Posicion(p){}
             friend typename Juego::Iterador Juego::CrearIt();
+
       };
       class Iterador_Exp{
 
@@ -103,6 +104,7 @@ using namespace std;
           unsigned int Posicion;
           Iterador_Exp(Juego * j,Nat p = 0):juego(j),Posicion(p){}
           friend typename Juego::Iterador_Exp Juego::CrearIt_Exp();
+
     };
 
         //iterador expulsados idem a Iterador pero con los expulsados//
@@ -138,6 +140,7 @@ using namespace std;
 
         bool JugadorExistente(const Jugador j)const;
         bool MovimientoInvalido(const Coordenada &c1,const Coordenada &c2)const;
+        void ActualizarPosSalvajes(const Coordenada &c1, const Coordenada &c2, bool b,bool libre);
         Mapa Mundo;
         //conjunto con todos los jugadores incluso los expulsados
         Vector<InfoJug*> Jugadores;
