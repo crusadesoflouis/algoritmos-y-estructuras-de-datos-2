@@ -23,6 +23,7 @@ Coordenada c_6_6(6,6);
 Coordenada c_6_7(6,7);
 Coordenada c_7_2(7,2);
 Coordenada c_8_8(8,8);
+Coordenada(c_10_0)(10,0);
 Coordenada c_10_10(10,10);
 Coordenada c_11_11(11,11);
 Coordenada c_12_12(12,12);
@@ -52,11 +53,13 @@ void testAgregarCoordenada(){
   m.AgregarCoord(c_3_3);
   m.AgregarCoord(c_6_6);
   m.AgregarCoord(c_8_8);
+  m.AgregarCoord(c_10_0);
   ASSERT_EQ(m.Vacia(),false);
   ASSERT_EQ(m.PosExistente(c_1_1),true);
   Juego j(m);
-  ASSERT_EQ(j.PosExistente(c_1_1),true);
-
+  ASSERT_EQ(j.PosExistente(c_3_3),true);
+  ASSERT_EQ(j.PosExistente(c_1_0),true);
+  ASSERT_EQ(j.PosExistente(c_10_0),true);
 //  ASSERT_EQ(m.HayCamino(c_1_1,c_3_3),false);
 /*
 Conj<Coordenada> a = j.ObtenerPosicionesCercanas(c_1_0);
@@ -334,12 +337,66 @@ void testEntrePosibles(){
 //Conj< Jugador > a(j.EntrenadoresPosibles(c_1_1,b));
 }
 
+void test_puedo_agregar_pokemons_1()
+{
+    Coordenada c0(0,0); // sector 0
+    Coordenada c1(1,0); // sector 0
+    Coordenada c2(2,0); // sector 0
+    Coordenada c3(12,0); // sector 1
+    Coordenada c4(12,1); // sector 1
+    Coordenada c5(12,2); // sector 1
+    Coordenada c6(20,2); // sector 2
+    Coordenada c7(22,22); // sector 3
 
+    Mapa m;
+    m.AgregarCoord(c7);
+    m.AgregarCoord(c0);
+    m.AgregarCoord(c1);
+    m.AgregarCoord(c2);
+    m.AgregarCoord(c3);
+    m.AgregarCoord(c4);
+    m.AgregarCoord(c5);
+    m.AgregarCoord(c6);
+
+
+    Juego j(m);
+
+    j.AgregarPokemon(c0,"Squirtle");
+    ASSERT( j.PuedoAgregarPokemon(c0) == false );
+    ASSERT( j.PuedoAgregarPokemon(c1) == false );
+    ASSERT( j.PuedoAgregarPokemon(c2) == false );
+    ASSERT( j.PuedoAgregarPokemon(c3) == true );
+    ASSERT( j.PuedoAgregarPokemon(c4) == true );
+    ASSERT( j.PuedoAgregarPokemon(c5) == true );
+    ASSERT( j.PuedoAgregarPokemon(c6) == true );
+    std::cout << "vamos a agregar l segundo pokemon" << std::endl;
+    j.AgregarPokemon(c3,"Metapod");
+    std::cout << "ya agregue al tercero" << std::endl;
+    ASSERT( j.PuedoAgregarPokemon(c0) == false );
+    ASSERT( j.PuedoAgregarPokemon(c1) == false );
+    ASSERT( j.PuedoAgregarPokemon(c2) == false );
+    ASSERT( j.PuedoAgregarPokemon(c3) == false );
+    ASSERT( j.PuedoAgregarPokemon(c4) == false );
+    ASSERT( j.PuedoAgregarPokemon(c5) == false );
+    ASSERT( j.PuedoAgregarPokemon(c6) == true );
+    std::cout << "vamos a agregar al tercero" << std::endl;
+    j.AgregarPokemon( c6,"Chikorita");
+    std::cout << "agergamos al tercero ya" << std::endl;
+    ASSERT( j.PuedoAgregarPokemon(c0) == false );
+    ASSERT( j.PuedoAgregarPokemon(c1) == false );
+    ASSERT( j.PuedoAgregarPokemon(c2) == false );
+    ASSERT( j.PuedoAgregarPokemon(c3) == false );
+    ASSERT( j.PuedoAgregarPokemon(c4) == false );
+    ASSERT( j.PuedoAgregarPokemon(c5) == false );
+    ASSERT( j.PuedoAgregarPokemon(c6) == false );
+
+}
 
 int main(){
+    RUN_TEST(test_puedo_agregar_pokemons_1);
 /*
   RUN_TEST(testVacio);
-  RUN_TEST(testAgregarCoordenada);
+
   RUN_TEST(testAgregarPokemon);
   RUN_TEST(testsAgregarBasico);
   RUN_TEST(testcompleto);
@@ -348,6 +405,7 @@ int main(){
   RUN_TEST(testExpulsados);
   RUN_TEST(testMoverYcapturar);
   RUN_TEST(testEntrePosibles);
-  */
+    RUN_TEST(testAgregarCoordenada);
     RUN_TEST(pokemones);
+    */
 }

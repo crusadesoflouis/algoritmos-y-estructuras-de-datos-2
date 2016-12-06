@@ -19,7 +19,7 @@ class Cola
 		typename Cola<T>::Iterador Encolar(const T);
 		Nat Cardinal() const;
 		void mostrar();
-		Lista<T> Elementos();
+	//	Lista<T> Elementos();
 		Iterador CrearIt();
 		Iterador CrearIt(typename Cola<T>::Nodo* );
 
@@ -376,7 +376,7 @@ template <class T>
 bool Cola<T>::esVacia() const{
 return raiz == NULL;
 }
-
+/*
 template <class T>
 Lista<T> Cola<T>::Elementos(){
 	Lista<T> elems;
@@ -384,7 +384,7 @@ Lista<T> Cola<T>::Elementos(){
 	cout << "ase rompe aca " << endl;
 	return elems;
 }
-
+*/
 template <class T>
 typename Cola<T>::Iterador Cola<T>::Encolar(const T clave){
 	Cola<T>::Iterador IT;

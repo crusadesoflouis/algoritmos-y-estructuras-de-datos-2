@@ -26,7 +26,6 @@ void diccmatriz(){
   Coordenada c_3_3(3,3);
   Coordenada c_7_2(7,2);
   Coordenada c_10_10(10,10);
-
   ASSERT_EQ(m.Vacia(),true);
   m.AgregarCoord(c_10_10);
 

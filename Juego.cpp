@@ -156,15 +156,19 @@ PosSalvajes.AgregarRapido(c);
 // creo un puntero a InfoPos que es donde hay que gener
 //un heap con todos los jugadores cercanos a donde agregue
 //dicho pokemon
-//std::cout << "ya defini al pokemon " << std::endl;
+std::cout << "ya defini al pokemon " << std::endl;
   InfoPos* info = new InfoPos(p);
   bool online = false;
+  std::cout << "voy a definir" << std::endl;
+  std::cout << "latitud" <<c.latitud() <<std::endl;
+  std::cout << "longitud" << c.longitud() <<std::endl;
   FuturasCapturas.Definir(c,info);
-
-  //creo un iterador al vector donde estan todos los jugadores
+  std::cout << "despues de definir" << std::endl;
+std::cout << "creo un iterador al vector donde estan todos los jugadores" << std::endl;
   Vector<InfoJug*>::const_Iterador IT = Jugadores.CrearIt();
   Nat pos = 0;
   while (IT.HaySiguiente()) {
+    std::cout << "asd" << std::endl;
     online = IT.Siguiente()->Conectado;
     if (online && PuedeAtrapar(c,IT.Siguiente()->Posicion)) {
       Tupla<InfoJug*> t(Jugadores[pos],IT.Siguiente()->Atrapados.Cardinal(),pos);
@@ -173,7 +177,9 @@ PosSalvajes.AgregarRapido(c);
     pos++;
     IT.Avanzar();
   }
+  std::cout << "/* message */" << std::endl;
   TotalPokemones ++;
+
 }
 
 void Juego::Conectarse(const Coordenada &c,const Jugador j){

@@ -100,12 +100,12 @@ bool DiccMatriz<T>::Vacio() const{
 }
 
 template <typename T>
-Nat DiccMatriz<T>::Latitud() const{
+Nat DiccMatriz<T>::Longitud() const{
 return grilla.EsVacio() ? 0 : grilla[0].Longitud();
 }
 
 template <typename T>
-Nat DiccMatriz<T>::Longitud() const{
+Nat DiccMatriz<T>::Latitud() const{
 return grilla.Longitud();
 }
 
@@ -126,48 +126,41 @@ DiccMatriz<T>::DiccMatriz(T default_value): grilla(), default_value(default_valu
 template <typename T>
 void DiccMatriz<T>::Definir(const Coordenada & c, const T& significado){
 
-
   if (grilla.EsVacio()) {
+    //cout << "solo una vez"<<  endl;
       Vector<T> aux;
       grilla.AgregarAtras(aux);
       grilla[0].AgregarAtras(default_value);
     //  cout << " es vacio entre aca y agregue el prmer elemento por defalt el valor de la longitud es :"<< grilla.Longitud()<< endl;
     }
+    //cout << "c.latitud()"<<c.latitud()<<endl;
+    //cout << "c.longitud()"<<c.longitud()<<endl;
 
   if (c.latitud() < (Latitud()) && c.longitud() < (Longitud())) {
+    //cout<< "estoy en rango "<< endl;
     grilla[c.latitud()][c.longitud()] = significado;
   }
   else{
-    //cout << "como no estoy en rango tengo que agrandar y la longitud aca es:"<< grilla.Longitud();
+    cout << "latitud"<<Latitud()<<endl;
+    cout << "longitud"<<Longitud()<<endl;
     Vector<T> aux;
     unsigned int guarda = grilla.Longitud();
-    for (unsigned int i = guarda; i < c.longitud()+1; i++) {
+    cout << "guarda"<< guarda << endl;
+    cout << "c.longitud(): " << c.longitud()<< endl;
+    cout << "c.latitud(): " << c.latitud()<< endl;
+    //cout << "como no estoy en rango tengo que agrandar y la longitud aca es:"<< grilla.Longitud();
+    //cout << " la latitud es: " << grilla[0].Longitud() << endl;
+    for (unsigned int i = guarda; i < c.latitud()+1; i++) {
       grilla.AgregarAtras(aux);
     }
+    cout << "ahora la latitud es: "<< Latitud()<< endl;
     Nat flag = c.latitud()+1;
     for (unsigned int i = 0; i < flag; i++) {
       for (unsigned int j = grilla[i].Longitud()  ; j < c.longitud()+1; j++) {
         grilla[i].AgregarAtras(default_value);
       }
     }
-/*
-    cout << "bom" << endl;
-    cout << "la latitud es: "<< grilla.Longitud()<<endl;
-    cout << "la longitud es: "<< grilla[0].Longitud()<<endl;
-    cout << "la longitud es: "<< grilla[1].Longitud()<<endl;
-
-    cout << "la longitud es: "<< grilla[3].Longitud()<<endl;
-    cout << "la longitud es: "<< grilla[4].Longitud()<<endl;
-    cout << "la longitud es: "<< grilla[5].Longitud()<<endl;
-    cout << "la longitud es: "<< grilla[6].Longitud()<<endl;
-    cout << "la longitud es: "<< grilla[7].Longitud()<<endl;
-    cout << "la longitud es: "<< grilla[8].Longitud()<<endl;
-    cout << "la longitud es: "<< grilla[9].Longitud()<<endl;
-    cout << "la longitud es: "<< grilla[10].Longitud()<<endl;
-    cout << "bom" << endl;
-*/
     grilla[c.latitud()][c.longitud()] = significado;
-  //  cout << "defini en : (" <<  c.latitud()<< ","<< c.longitud()<< ")"<< endl;
   }
   posicionesValidas.Agregar(c);
 }
