@@ -37,7 +37,7 @@ using namespace std;
       //
       Mapa MAPA();
 
-      typename Dicc< Pokemon , Nat > Pokemons(const Jugador j);
+       Dicc<Pokemon,Nat> Pokemons(const Jugador j);
       //
       bool HayCamino(const Coordenada &c1, const Coordenada &c2);
       //IteradorJug Jugadores();
@@ -152,8 +152,6 @@ using namespace std;
         Vector<InfoJug*> Jugadores;
         //conjunto con todas las posiciones con pokemones
         Conj<Coordenada> PosSalvajes;
-
-        Conj<Coordenada> Ayuda;
         // capaz que hay que hacer otra clase
         // especializando el template diccS en Nat
         //diccionario clave pokemon significado cantidad de dicha especie

@@ -43,12 +43,19 @@ void Juego::ActualizarPosSalvajes(const Coordenada &c1,const Coordenada &c2, boo
 //si no es verdadero, tengo que que usar solo la primer coordenada
 Conj<Coordenada>::const_Iterador IT = PosSalvajes.CrearIt();
 if (libre) {
+    std::cout << "soy libre" << std::endl;
+
   while (IT.HaySiguiente()) {
+    std::cout << "hay siguiente" << std::endl;
       FuturasCapturas.Obtener(IT.Siguiente())->Turnos ++;
       if (FuturasCapturas.Obtener(IT.Siguiente())->Turnos == 10) {
+        std::cout << "entreo a capturar" << std::endl;
         Capturar(IT.Siguiente());
+        std::cout << "salgo de capturar" << std::endl;
       }
-      IT.Avanzar();
+      if (IT.HaySiguiente()) {
+        IT.Avanzar();
+      }
   }
 }
 else{
@@ -89,7 +96,7 @@ void Juego::Capturar(const Coordenada &c){
  aux->Atrapados.Agregar(capturado);
  delete FuturasCapturas.Obtener(c);
  FuturasCapturas.Borrar(c);
- //PosSalvajes.Eliminar(c);
+ PosSalvajes.Eliminar(c);
 }
 
 
@@ -205,7 +212,7 @@ void Juego::Desconectarse(const Jugador j){
 void Juego::Moverse(const Coordenada &c,const Jugador j){
   assert(Sanciones(j) < 5 );
   assert(EstaConectado(j));
-//  std::cout << "entre moverse " << j <<std::endl;
+  std::cout << "entre moverse " << j <<std::endl;
   bool HayPokemonAlmoverme = false;
   bool HayPokemonAlEntrar = false;
   Coordenada vieja(0,0);
@@ -219,7 +226,7 @@ void Juego::Moverse(const Coordenada &c,const Jugador j){
     return;
   }
 if (Jugadores[j]->Sanciones < 5) {
-//  std::cout << "sanciones de jugador menor a 5" << std::endl;
+  std::cout << "sanciones de jugador menor a 5" << std::endl;
     if (HayPokemonCercano(Jugadores[j]->Posicion)) {
     HayPokemonAlmoverme = true;
     Coordenada e(PosPokemonCercano(Jugadores[j]->Posicion).latitud(),PosPokemonCercano(Jugadores[j]->Posicion).longitud());
@@ -230,7 +237,7 @@ if (Jugadores[j]->Sanciones < 5) {
       HayPokemonAlEntrar = true;
       nueva = PosPokemonCercano(c);
     }
-    std::cout << "pase haypokemoncercano(c)" << std::endl;
+  //  std::cout << "pase haypokemoncercano(c)" << std::endl;
     if (HayPokemonAlEntrar && HayPokemonAlmoverme && vieja == nueva) {
     //  std::cout << "si me muevo dentro de una posicion cercana a un pokemon" << std::endl;
         bool b = false;
@@ -263,9 +270,9 @@ if (Jugadores[j]->Sanciones < 5) {
           std::cout << "salgo de una cola a una posicion libre o vole libre" << std::endl;
           //salgo de una posicion con pokemon a un lugar donde no hay pokemon
           if (HayPokemonAlmoverme) {
-            std::cout << "salgo de una cola " << std::endl;
+        //    std::cout << "salgo de una cola " << std::endl;
             Jugadores[j]->CazaActual.EliminarSiguiente();
-            std::cout << "se rompio" << std::endl;
+        //    std::cout << "se rompio" << std::endl;
             bool b = true;
             bool libre = true;
             ActualizarPosSalvajes(nueva,vieja,b,libre);
@@ -280,9 +287,11 @@ if (Jugadores[j]->Sanciones < 5) {
               ActualizarPosSalvajes(nueva,vieja,b,libre);
             }
             else{
+              std::cout << "vole libre" << std::endl;
               Jugadores[j]->Posicion = c;
               bool b = false;
               bool libre = true;
+              std::cout << "antes de actualizar pos salvajes" << std::endl;
               ActualizarPosSalvajes(nueva,vieja,b,libre);
             }
           }
@@ -419,10 +428,8 @@ Conj <Jugador> Juego::jugadores(){
 
 
 bool Juego::HayPokemonCercano(const Coordenada &c){
-  std::cout << "entre en hay pokemon cercano la pregunta" << std::endl;
 Conj<Coordenada>::const_Iterador IT = PosSalvajes.CrearIt();
 while (IT.HaySiguiente()) {
-  std::cout << "latitud,lognitud " <<c.latitud() <<","<<c.longitud()<<std::endl;
   if (DistanciaEuclidea(c,IT.Siguiente()) <= 4  ) {
     return true;
   }
@@ -460,18 +467,12 @@ Nat Juego::CantPokemonTotales(){
 
 
 
-typename Dicc< Pokemon , Nat > Juego::Pokemons(const Jugador j){
+Dicc< Pokemon , Nat > Juego::Pokemons(const Jugador j){
   Conj<String>::const_Iterador IT = Jugadores[j]->Atrapados.CrearIt();
   Dicc <Pokemon, Nat> a;
   while (IT.HaySiguiente()) {
-    if (a.Definido(IT.Siguiente())) {
-      Nat valor = a.Significado(IT.Siguiente())++;
-      a.Borrar(IT.Siguiente());
-      a.Definir(IT.Siguiente(),valor);
-    }
-    else{
-      a.Definir(IT.Siguiente(),1);
-    }
+    Nat cantidad = Jugadores[j]->Atrapados.Repeticiones(IT.Siguiente());
+    a.Definir(IT.Siguiente(),cantidad);
     IT.Avanzar();
   }
   return a;

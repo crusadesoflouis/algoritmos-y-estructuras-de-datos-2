@@ -252,10 +252,10 @@ void deleteSwap(Nodo* A, Nodo* B){
 		delete A;
 }
 void Remover(Nodo* Aborrar){
-	cout << "entre a remover"<< endl;
-	cout << " dasdf"<< endl;
-	cout << "cardinal : "<< this->Cardinal() << endl;
-	cout << "despues de cardinal "<< endl;
+	//cout << "entre a remover"<< endl;
+	//cout << " dasdf"<< endl;
+	//cout << "cardinal : "<< this->Cardinal() << endl;
+	//cout << "despues de cardinal "<< endl;
 	//flag si es falso entonces ultimo es hijo izquierdo
 	//flag si es verdadero entonces ultimo es hijo derecho
 Nodo* ultimo = raiz;
@@ -264,7 +264,7 @@ if (this->card == 1) {
 	delete Aborrar;
 }
 else{
-	cout << " no es el ultimo nodo "<< endl;
+//	cout << " no es el ultimo nodo "<< endl;
 		bool flag = false;
 		flag = UltimoAgregado(ultimo);
 		if (Aborrar == ultimo) {

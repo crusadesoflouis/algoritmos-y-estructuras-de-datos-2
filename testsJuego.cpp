@@ -165,6 +165,7 @@ void testConectar() {
 }
 
 void testMoverYcapturar(){
+/*
   Mapa m;
   m.AgregarCoord(c_20_20);
   m.AgregarCoord(c_1_2);
@@ -195,8 +196,9 @@ void testMoverYcapturar(){
   j.Moverse(c_20_20,pepe);
 
   ASSERT_EQ(j.Sanciones(pepe),2);
-      /*
+
   ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),4);
+  //hasta aca
   j.Moverse(c_6_7,pepe);
 
   ASSERT_EQ(j.CantMovimientosParaCaptura(c_1_1),5);
@@ -1286,7 +1288,7 @@ void test_atrapar_pokemon_test_simple()
 
 	Juego d(cc);
 
-	d.AgregarPokemon("Squirtle", Coordenada(0,0));
+	d.AgregarPokemon(Coordenada(0,0),"Squirtle");
 
 	Nat j1 = d.AgregarJugador();
 	Nat j2 = d.AgregarJugador();
@@ -1314,6 +1316,79 @@ void test_atrapar_pokemon_test_simple()
 
 }
 
+
+
+void test_cantidad_de_pokemons_totales_usando_mover()
+{
+	Mapa cc;
+  cc.AgregarCoord(Coordenada(41,41));
+  cc.AgregarCoord(Coordenada(40,3));
+	cc.AgregarCoord(Coordenada(0,0));
+	cc.AgregarCoord(Coordenada(1,0));
+	cc.AgregarCoord(Coordenada(2,0));
+	cc.AgregarCoord(Coordenada(12,0));
+	cc.AgregarCoord(Coordenada(12,1));
+	cc.AgregarCoord(Coordenada(12,2));
+	cc.AgregarCoord(Coordenada(40,2));
+
+
+	Juego d(cc);
+
+	ASSERT(d.CantPokemonTotales() == 0);
+	d.AgregarPokemon( Coordenada(0,0),"Squirtle");
+	ASSERT(d.CantPokemonTotales() == 1);
+	d.AgregarPokemon(Coordenada(12,0),"Rattata");
+	ASSERT(d.CantPokemonTotales() == 2);
+
+	Nat j1 = d.AgregarJugador();
+	Nat j2 = d.AgregarJugador();
+	Nat j3 = d.AgregarJugador();
+
+	d.Conectarse(Coordenada(12,0),j1);
+	d.Conectarse(Coordenada(0,0),j2);
+
+	d.Moverse(Coordenada(12,0),j2); // Movimiento no válido, se teletransporta, se sanciona. Sanciones(j2) = 1
+	d.Moverse(Coordenada(40,2),j2); // Movimiento no válido, se teletransporta, se sanciona. Sanciones(j2) = 2
+  ASSERT_EQ(d.Sanciones(j2),2);
+	d.Conectarse(Coordenada(40,2),j3);
+
+	d.Moverse(Coordenada(12,1),j1); // Movimiento válido
+	d.Moverse(Coordenada(40,3),j1); // Movimiento no válido, se teletransporta, se sanciona. Sanciones(j1) = 1
+	d.Moverse(Coordenada(0,0),j1); // Movimiento no válido, se teletransporta, se sanciona. Sanciones(j1) = 2
+  ASSERT_EQ(d.Sanciones(j1),2);
+
+	ASSERT(d.CantPokemonTotales() == 2);
+  d.Moverse(Coordenada(40,2),j3); // Movimiento válido
+  d.Moverse(Coordenada(40,3),j3); // Movimiento válido
+  d.Moverse(Coordenada(40,2),j3); // Movimiento válido
+  d.Moverse(Coordenada(40,3),j3); // Movimiento válido
+  ASSERT_EQ(d.CantMovimientosParaCaptura(Coordenada(0,0)),9);
+  d.Moverse(Coordenada(40,2),j3);
+  ASSERT_EQ(d.PuedoAgregarPokemon(Coordenada(0,0)),true);
+  ASSERT_EQ(d.HayPokemonCercano(Coordenada(0,0)),false);
+  std::cout << "MOVER QUE CUELGA" << std::endl;
+  d.Moverse(Coordenada(40,3),j3);
+  //d.Moverse(Coordenada(40,3),j3);
+
+/*
+	for (int i = 0; i < 11; ++i)
+	{
+		d.Moverse(Coordenada(40,2),j3); // Movimiento válido
+		d.Moverse(Coordenada(40,3),j3); // Movimiento válido
+	}
+  */
+/*
+	ASSERT(d.Pokemons(j1).CantClaves() == 1);
+	ASSERT(d.Pokemons(j2).CantClaves() == 0 || d.Pokemons(j2).CantClaves() == 1); // SE CONSIDERAN AMBAS IMPLEMENTACIONES
+	ASSERT(d.CantPokemonTotales() == 2);
+
+	d.Moverse(Coordenada(40,2),j1); // Movimiento no válido, se teletransporta, se sanciona. Sanciones(j1) = 3
+	d.Moverse(Coordenada(0,0),j1); // Movimiento no válido, se teletransporta, se sanciona. Sanciones(j1) = 4
+	d.Moverse(Coordenada(40,2),j1); // Movimiento no válido, se teletransporta, se sanciona. Sanciones(j1) = 5
+
+	ASSERT(d.CantPokemonTotales() == 1);
+*/
+}
 
 
 int main(){
@@ -1347,6 +1422,7 @@ int main(){
   RUN_TEST(test_mover_jugador_asigna_correcta_coordenada);
   RUN_TEST(test_Sanciones);
   RUN_TEST(test_agregar_pokemones_y_jugadores);
+  RUN_TEST(test_atrapar_pokemon_test_simple);
   */
 
   /*
@@ -1362,8 +1438,7 @@ int main(){
 
   */
 
-  RUN_TEST(test_atrapar_pokemon_test_simple);
-
+  RUN_TEST(test_cantidad_de_pokemons_totales_usando_mover);
 
 
 
