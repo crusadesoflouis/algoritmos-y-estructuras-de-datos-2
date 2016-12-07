@@ -141,19 +141,14 @@ void DiccMatriz<T>::Definir(const Coordenada & c, const T& significado){
     grilla[c.latitud()][c.longitud()] = significado;
   }
   else{
-    cout << "latitud"<<Latitud()<<endl;
-    cout << "longitud"<<Longitud()<<endl;
+
     Vector<T> aux;
     unsigned int guarda = grilla.Longitud();
-    cout << "guarda"<< guarda << endl;
-    cout << "c.longitud(): " << c.longitud()<< endl;
-    cout << "c.latitud(): " << c.latitud()<< endl;
     //cout << "como no estoy en rango tengo que agrandar y la longitud aca es:"<< grilla.Longitud();
     //cout << " la latitud es: " << grilla[0].Longitud() << endl;
     for (unsigned int i = guarda; i < c.latitud()+1; i++) {
       grilla.AgregarAtras(aux);
     }
-    cout << "ahora la latitud es: "<< Latitud()<< endl;
     Nat flag = c.latitud()+1;
     for (unsigned int i = 0; i < flag; i++) {
       for (unsigned int j = grilla[i].Longitud()  ; j < c.longitud()+1; j++) {

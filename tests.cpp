@@ -26,12 +26,12 @@ using namespace aed2;
 void test_constructor_con_mapa()
 {
 	Conj<Coordenada> cc;
-	cc.Agregar(Coordenada(0,0));
-	cc.Agregar(Coordenada(0,1));
-	cc.Agregar(Coordenada(0,2));
-	cc.Agregar(Coordenada(1,2));
-	cc.Agregar(Coordenada(10,0));
-	cc.Agregar(Coordenada(1,4));
+	cc.AgregarCoord(Coordenada(0,0));
+	cc.AgregarCoord(Coordenada(0,1));
+	cc.AgregarCoord(Coordenada(0,2));
+	cc.AgregarCoord(Coordenada(1,2));
+	cc.AgregarCoord(Coordenada(10,0));
+	cc.AgregarCoord(Coordenada(1,4));
 	Driver d(cc);
 	ASSERT( d.mapa() == cc );
 }
@@ -53,56 +53,56 @@ void test_puedo_agregar_pokemons_1()
 	Coordenada c6(120,2); // sector 2
 
 	Conj<Coordenada> cc;
-	cc.Agregar(c0);
-	cc.Agregar(c1);
-	cc.Agregar(c2);
-	cc.Agregar(c3);
-	cc.Agregar(c4);
-	cc.Agregar(c5);
-	cc.Agregar(c6);
-	
+	cc.AgregarCoord(c0);
+	cc.AgregarCoord(c1);
+	cc.AgregarCoord(c2);
+	cc.AgregarCoord(c3);
+	cc.AgregarCoord(c4);
+	cc.AgregarCoord(c5);
+	cc.AgregarCoord(c6);
+
 	Driver d(cc);
 
-	d.agregarPokemon("Squirtle", c0);
-	ASSERT( d.puedoAgregarPokemon(c0) == false );
-	ASSERT( d.puedoAgregarPokemon(c1) == false );
-	ASSERT( d.puedoAgregarPokemon(c2) == false );
-	ASSERT( d.puedoAgregarPokemon(c3) == true );
-	ASSERT( d.puedoAgregarPokemon(c4) == true );
-	ASSERT( d.puedoAgregarPokemon(c5) == true );
-	ASSERT( d.puedoAgregarPokemon(c6) == true );
+	d.AgregarPokemon("Squirtle", c0);
+	ASSERT( d.PuedoAgregarPokemon(c0) == false );
+	ASSERT( d.PuedoAgregarPokemon(c1) == false );
+	ASSERT( d.PuedoAgregarPokemon(c2) == false );
+	ASSERT( d.PuedoAgregarPokemon(c3) == true );
+	ASSERT( d.PuedoAgregarPokemon(c4) == true );
+	ASSERT( d.PuedoAgregarPokemon(c5) == true );
+	ASSERT( d.PuedoAgregarPokemon(c6) == true );
 
-	d.agregarPokemon("Metapod", c3);
-	ASSERT( d.puedoAgregarPokemon(c0) == false );
-	ASSERT( d.puedoAgregarPokemon(c1) == false );
-	ASSERT( d.puedoAgregarPokemon(c2) == false );
-	ASSERT( d.puedoAgregarPokemon(c3) == false );
-	ASSERT( d.puedoAgregarPokemon(c4) == false );
-	ASSERT( d.puedoAgregarPokemon(c5) == false );
-	ASSERT( d.puedoAgregarPokemon(c6) == true );
+	d.AgregarPokemon("Metapod", c3);
+	ASSERT( d.PuedoAgregarPokemon(c0) == false );
+	ASSERT( d.PuedoAgregarPokemon(c1) == false );
+	ASSERT( d.PuedoAgregarPokemon(c2) == false );
+	ASSERT( d.PuedoAgregarPokemon(c3) == false );
+	ASSERT( d.PuedoAgregarPokemon(c4) == false );
+	ASSERT( d.PuedoAgregarPokemon(c5) == false );
+	ASSERT( d.PuedoAgregarPokemon(c6) == true );
 
-	d.agregarPokemon("Chikorita", c6);
-	ASSERT( d.puedoAgregarPokemon(c0) == false );
-	ASSERT( d.puedoAgregarPokemon(c1) == false );
-	ASSERT( d.puedoAgregarPokemon(c2) == false );
-	ASSERT( d.puedoAgregarPokemon(c3) == false );
-	ASSERT( d.puedoAgregarPokemon(c4) == false );
-	ASSERT( d.puedoAgregarPokemon(c5) == false );
-	ASSERT( d.puedoAgregarPokemon(c6) == false );
-	
+	d.AgregarPokemon("Chikorita", c6);
+	ASSERT( d.PuedoAgregarPokemon(c0) == false );
+	ASSERT( d.PuedoAgregarPokemon(c1) == false );
+	ASSERT( d.PuedoAgregarPokemon(c2) == false );
+	ASSERT( d.PuedoAgregarPokemon(c3) == false );
+	ASSERT( d.PuedoAgregarPokemon(c4) == false );
+	ASSERT( d.PuedoAgregarPokemon(c5) == false );
+	ASSERT( d.PuedoAgregarPokemon(c6) == false );
+
 }
 
 void test_puedo_agregar_pokemons_2()
 {
 	Conj<Coordenada> cc;
-	cc.Agregar(Coordenada(0,0));
-	cc.Agregar(Coordenada(0,1));
-	cc.Agregar(Coordenada(0,2));
-	cc.Agregar(Coordenada(1,2));
-	cc.Agregar(Coordenada(1,4));
-	cc.Agregar(Coordenada(4,3));
-	cc.Agregar(Coordenada(4,4));
-	cc.Agregar(Coordenada(10,0));
+	cc.AgregarCoord(Coordenada(0,0));
+	cc.AgregarCoord(Coordenada(0,1));
+	cc.AgregarCoord(Coordenada(0,2));
+	cc.AgregarCoord(Coordenada(1,2));
+	cc.AgregarCoord(Coordenada(1,4));
+	cc.AgregarCoord(Coordenada(4,3));
+	cc.AgregarCoord(Coordenada(4,4));
+	cc.AgregarCoord(Coordenada(10,0));
 	/*
 		- X - - - - - - - -
 		- - - - X - - - - -
@@ -111,77 +111,77 @@ void test_puedo_agregar_pokemons_2()
 		X - - - - - - - - X
 	*/
 	Driver d(cc);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(0,0)) == true);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(0,1)) == true);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(0,2)) == true);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(1,2)) == true);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(1,4)) == true);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(4,3)) == true);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(10,0)) == true);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(1,0)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(1,3)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(10,3)) == false);
-	
-	d.agregarPokemon("Jigglypuff", Coordenada(0,0));
-	ASSERT(d.puedoAgregarPokemon(Coordenada(0,0)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(0,1)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(0,2)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(1,2)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(1,4)) == false);
-	//ASSERT(d.puedoAgregarPokemon(Coordenada(4,3)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(4,4)) == true);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(10,0)) == true);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(1,0)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(1,3)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(10,3)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(0,0)) == true);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(0,1)) == true);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(0,2)) == true);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(1,2)) == true);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(1,4)) == true);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(4,3)) == true);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(10,0)) == true);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(1,0)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(1,3)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(10,3)) == false);
 
-	d.agregarPokemon("Vaporeon", Coordenada(10,0));
-	ASSERT(d.puedoAgregarPokemon(Coordenada(0,0)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(0,1)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(0,2)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(1,2)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(1,4)) == false);
-	//ASSERT(d.puedoAgregarPokemon(Coordenada(4,3)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(4,4)) == true);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(10,0)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(1,0)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(1,3)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(10,3)) == false);
+	d.AgregarPokemon("Jigglypuff", Coordenada(0,0));
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(0,0)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(0,1)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(0,2)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(1,2)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(1,4)) == false);
+	//ASSERT(d.PuedoAgregarPokemon(Coordenada(4,3)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(4,4)) == true);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(10,0)) == true);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(1,0)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(1,3)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(10,3)) == false);
 
-	d.agregarPokemon("Gengar", Coordenada(4,4));
-	ASSERT(d.puedoAgregarPokemon(Coordenada(0,0)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(0,1)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(0,2)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(1,2)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(1,4)) == false);
-	//ASSERT(d.puedoAgregarPokemon(Coordenada(4,3)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(4,4)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(10,0)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(1,0)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(1,3)) == false);
-	ASSERT(d.puedoAgregarPokemon(Coordenada(10,3)) == false);
+	d.AgregarPokemon("Vaporeon", Coordenada(10,0));
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(0,0)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(0,1)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(0,2)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(1,2)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(1,4)) == false);
+	//ASSERT(d.PuedoAgregarPokemon(Coordenada(4,3)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(4,4)) == true);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(10,0)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(1,0)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(1,3)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(10,3)) == false);
+
+	d.AgregarPokemon("Gengar", Coordenada(4,4));
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(0,0)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(0,1)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(0,2)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(1,2)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(1,4)) == false);
+	//ASSERT(d.PuedoAgregarPokemon(Coordenada(4,3)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(4,4)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(10,0)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(1,0)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(1,3)) == false);
+	ASSERT(d.PuedoAgregarPokemon(Coordenada(10,3)) == false);
 }
 
-void test_pokemon_en_posicion()
+void test_pokemon_en_Posicion()
 {
 	Conj<Coordenada> cc;
-	cc.Agregar(Coordenada(0,0));
-	cc.Agregar(Coordenada(0,1));
-	cc.Agregar(Coordenada(0,2));
-	cc.Agregar(Coordenada(1,2));
-	cc.Agregar(Coordenada(1,4));
-	cc.Agregar(Coordenada(4,3));
-	cc.Agregar(Coordenada(10,0));
+	cc.AgregarCoord(Coordenada(0,0));
+	cc.AgregarCoord(Coordenada(0,1));
+	cc.AgregarCoord(Coordenada(0,2));
+	cc.AgregarCoord(Coordenada(1,2));
+	cc.AgregarCoord(Coordenada(1,4));
+	cc.AgregarCoord(Coordenada(4,3));
+	cc.AgregarCoord(Coordenada(10,0));
 	Driver d(cc);
-	
-	d.agregarPokemon("Jigglypuff", Coordenada(0,0));
+
+	d.AgregarPokemon("Jigglypuff", Coordenada(0,0));
 	ASSERT("Jigglypuff" == d.pokemonEnPos(Coordenada(0,0)));
 
-	d.agregarPokemon("Vaporeon", Coordenada(10,0));
+	d.AgregarPokemon("Vaporeon", Coordenada(10,0));
 	ASSERT("Jigglypuff" == d.pokemonEnPos(Coordenada(0,0)));
 	ASSERT("Vaporeon" == d.pokemonEnPos(Coordenada(10,0)));
 
-	d.agregarPokemon("Gengar", Coordenada(4,3));
+	d.AgregarPokemon("Gengar", Coordenada(4,3));
 	ASSERT("Jigglypuff" == d.pokemonEnPos(Coordenada(0,0)));
 	ASSERT("Vaporeon" == d.pokemonEnPos(Coordenada(10,0)));
 	ASSERT("Gengar" == d.pokemonEnPos(Coordenada(4,3)));
@@ -199,55 +199,55 @@ void test_pos_con_pokemons()
 
 	Conj<Coordenada> cc;
 
-	cc.Agregar(c0);
-	cc.Agregar(c1);
-	cc.Agregar(c2);
-	cc.Agregar(c3);
-	cc.Agregar(c4);
-	cc.Agregar(c5);
-	cc.Agregar(c6);
-	
+	cc.AgregarCoord(c0);
+	cc.AgregarCoord(c1);
+	cc.AgregarCoord(c2);
+	cc.AgregarCoord(c3);
+	cc.AgregarCoord(c4);
+	cc.AgregarCoord(c5);
+	cc.AgregarCoord(c6);
+
 	Driver d(cc);
 
 	Conj<Coordenada> cc_pokes;
 
-	d.agregarPokemon("Squirtle", c0);
+	d.AgregarPokemon("Squirtle", c0);
 	ASSERT( "Squirtle" == d.pokemonEnPos(c0) );
 	cc_pokes.Agregar(c0);
-	ASSERT( cc_pokes == d.posConPokemons() );
+	ASSERT( cc_pokes == d.PosConPokemons() );
 
-	d.agregarPokemon("Metapod", c3);
+	d.AgregarPokemon("Metapod", c3);
 	ASSERT( "Squirtle" == d.pokemonEnPos(c0) );
 	ASSERT( "Metapod" == d.pokemonEnPos(c3) );
 	cc_pokes.Agregar(c3);
-	ASSERT( cc_pokes == d.posConPokemons() );
+	ASSERT( cc_pokes == d.PosConPokemons() );
 
-	d.agregarPokemon("Chikorita", c6);
+	d.AgregarPokemon("Chikorita", c6);
 	ASSERT( "Squirtle" == d.pokemonEnPos(c0) );
 	ASSERT( "Metapod" == d.pokemonEnPos(c3) );
 	ASSERT( "Chikorita" == d.pokemonEnPos(c6) );
 	cc_pokes.Agregar(c6);
-	ASSERT( cc_pokes == d.posConPokemons() );
+	ASSERT( cc_pokes == d.PosConPokemons() );
 
 }
 
 void test_hay_pokemon_cercano()
 {
 	Conj<Coordenada> cc;
-	cc.Agregar(Coordenada(0,0));
-	cc.Agregar(Coordenada(0,1));
-	cc.Agregar(Coordenada(0,2));
-	cc.Agregar(Coordenada(0,4));
-	cc.Agregar(Coordenada(0,5));
-	cc.Agregar(Coordenada(1,0));
-	cc.Agregar(Coordenada(1,2));
-	cc.Agregar(Coordenada(1,3));
-	cc.Agregar(Coordenada(1,4));
-	cc.Agregar(Coordenada(4,3));
-	cc.Agregar(Coordenada(5,3));
-	cc.Agregar(Coordenada(10,0));
-	cc.Agregar(Coordenada(10,3));
-	cc.Agregar(Coordenada(99,99));
+	cc.AgregarCoord(Coordenada(0,0));
+	cc.AgregarCoord(Coordenada(0,1));
+	cc.AgregarCoord(Coordenada(0,2));
+	cc.AgregarCoord(Coordenada(0,4));
+	cc.AgregarCoord(Coordenada(0,5));
+	cc.AgregarCoord(Coordenada(1,0));
+	cc.AgregarCoord(Coordenada(1,2));
+	cc.AgregarCoord(Coordenada(1,3));
+	cc.AgregarCoord(Coordenada(1,4));
+	cc.AgregarCoord(Coordenada(4,3));
+	cc.AgregarCoord(Coordenada(5,3));
+	cc.AgregarCoord(Coordenada(10,0));
+	cc.AgregarCoord(Coordenada(10,3));
+	cc.AgregarCoord(Coordenada(99,99));
 
 	Driver d(cc);
 	ASSERT(d.hayPokemonCercano(Coordenada(0,0)) == false);
@@ -265,7 +265,7 @@ void test_hay_pokemon_cercano()
 	ASSERT(d.hayPokemonCercano(Coordenada(10,3)) == false);
 	ASSERT(d.hayPokemonCercano(Coordenada(99,99)) == false);
 
-	d.agregarPokemon("Jigglypuff", Coordenada(0,0));
+	d.AgregarPokemon("Jigglypuff", Coordenada(0,0));
 	ASSERT(d.hayPokemonCercano(Coordenada(0,0)) == true);
 	ASSERT(d.hayPokemonCercano(Coordenada(0,1)) == true);
 	ASSERT(d.hayPokemonCercano(Coordenada(0,2)) == true);
@@ -281,7 +281,7 @@ void test_hay_pokemon_cercano()
 	ASSERT(d.hayPokemonCercano(Coordenada(10,3)) == false);
 	ASSERT(d.hayPokemonCercano(Coordenada(99,99)) == false);
 
-	d.agregarPokemon("Vaporeon", Coordenada(10,0));
+	d.AgregarPokemon("Vaporeon", Coordenada(10,0));
 	ASSERT(d.hayPokemonCercano(Coordenada(0,0)) == true);
 	ASSERT(d.hayPokemonCercano(Coordenada(0,1)) == true);
 	ASSERT(d.hayPokemonCercano(Coordenada(0,2)) == true);
@@ -297,7 +297,7 @@ void test_hay_pokemon_cercano()
 	ASSERT(d.hayPokemonCercano(Coordenada(10,3)) == false);
 	ASSERT(d.hayPokemonCercano(Coordenada(99,99)) == false);
 
-	d.agregarPokemon("Gengar", Coordenada(4,3));
+	d.AgregarPokemon("Gengar", Coordenada(4,3));
 	ASSERT(d.hayPokemonCercano(Coordenada(0,0)) == true);
 	ASSERT(d.hayPokemonCercano(Coordenada(0,1)) == true);
 	ASSERT(d.hayPokemonCercano(Coordenada(0,2)) == true);
@@ -324,13 +324,13 @@ void test_coordenada_pokemon_cercano()
 	Coordenada c5(1,4);
 	Coordenada c6(4,3);
 	Coordenada c7(10,0);
-	cc.Agregar(c1);
-	cc.Agregar(c2);
-	cc.Agregar(c3);
-	cc.Agregar(c4);
-	cc.Agregar(c5);
-	cc.Agregar(c6);
-	cc.Agregar(c7);
+	cc.AgregarCoord(c1);
+	cc.AgregarCoord(c2);
+	cc.AgregarCoord(c3);
+	cc.AgregarCoord(c4);
+	cc.AgregarCoord(c5);
+	cc.AgregarCoord(c6);
+	cc.AgregarCoord(c7);
 	/*
 	- X - - - - - - - -
 	- - - - X - - - - -
@@ -340,7 +340,7 @@ void test_coordenada_pokemon_cercano()
 	*/
 	Driver d(cc);
 
-	d.agregarPokemon("Jigglypuff", c1);
+	d.AgregarPokemon("Jigglypuff", c1);
 	ASSERT(d.hayPokemonCercano(c1) == true);
 	ASSERT(d.posPokemonCercano(c1) == c1);
 
@@ -351,13 +351,13 @@ void test_coordenada_pokemon_cercano()
 	ASSERT(d.posPokemonCercano(c3) == c1);
 
 	ASSERT(d.hayPokemonCercano(c4) == false);
-	
+
 	ASSERT(d.hayPokemonCercano(Coordenada(1,0)) == true);
 	ASSERT(d.posPokemonCercano(Coordenada(1,0)) == c1);
 
 	ASSERT(d.hayPokemonCercano(Coordenada(1,3)) == false);
-	
-	d.agregarPokemon("Vaporeon", c7);
+
+	d.AgregarPokemon("Vaporeon", c7);
 
 	ASSERT(d.hayPokemonCercano(c1) == true);
 	ASSERT(d.posPokemonCercano(c1) == c1);
@@ -369,7 +369,7 @@ void test_coordenada_pokemon_cercano()
 	ASSERT(d.posPokemonCercano(c3) == c1);
 
 	ASSERT(d.hayPokemonCercano(c4) == false);
-	
+
 	ASSERT(d.hayPokemonCercano(Coordenada(1,0)) == true);
 	ASSERT(d.posPokemonCercano(Coordenada(1,0)) == c1);
 
@@ -381,7 +381,7 @@ void test_coordenada_pokemon_cercano()
 	ASSERT(d.hayPokemonCercano(Coordenada(10,3)) == false);
 
 
-	d.agregarPokemon("Gengar", c6);
+	d.AgregarPokemon("Gengar", c6);
 
 	ASSERT(d.hayPokemonCercano(c1) == true);
 	ASSERT(d.posPokemonCercano(c1) == c1);
@@ -393,7 +393,7 @@ void test_coordenada_pokemon_cercano()
 	ASSERT(d.posPokemonCercano(c3) == c1);
 
 	ASSERT(d.hayPokemonCercano(c4) == false);
-	
+
 	ASSERT(d.hayPokemonCercano(Coordenada(1,0)) == true);
 	ASSERT(d.posPokemonCercano(Coordenada(1,0)) == c1);
 
@@ -429,21 +429,21 @@ void test_agregar_jugadores()
 	Coordenada c6(120,2); // sector 2
 
 	Conj<Coordenada> cc;
-	
-	cc.Agregar(c0);
-	cc.Agregar(c1);
-	cc.Agregar(c2);
-	cc.Agregar(c3);
-	cc.Agregar(c4);
-	cc.Agregar(c5);
-	cc.Agregar(c6);
+
+	cc.AgregarCoord(c0);
+	cc.AgregarCoord(c1);
+	cc.AgregarCoord(c2);
+	cc.AgregarCoord(c3);
+	cc.AgregarCoord(c4);
+	cc.AgregarCoord(c5);
+	cc.AgregarCoord(c6);
 
 	Driver d(cc);
 
-	Nat j0 = d.agregarJugador();
-	Nat j1 = d.agregarJugador();
-	Nat j2 = d.agregarJugador();
-	Nat j3 = d.agregarJugador();
+	Nat j0 = d.AgregarJugador();
+	Nat j1 = d.AgregarJugador();
+	Nat j2 = d.AgregarJugador();
+	Nat j3 = d.AgregarJugador();
 
 	Conj<Jugador> jugadores;
 
@@ -459,7 +459,7 @@ void test_agregar_jugadores()
 
 	Conj<Coordenada> cp;
 
-	ASSERT( cp == d.posConPokemons() );
+	ASSERT( cp == d.PosConPokemons() );
 
 }
 
@@ -469,35 +469,35 @@ void test_conectar_jugadores()
 	Coordenada c1(0,0);
 	Coordenada c2(0,2);
 	Coordenada c3(10,0);
-	cc.Agregar(c1);
-	cc.Agregar(c2);
-	cc.Agregar(c3);
-	cc.Agregar(Coordenada(0,1));
-	cc.Agregar(Coordenada(1,2));
-	cc.Agregar(Coordenada(1,4));
+	cc.AgregarCoord(c1);
+	cc.AgregarCoord(c2);
+	cc.AgregarCoord(c3);
+	cc.AgregarCoord(Coordenada(0,1));
+	cc.AgregarCoord(Coordenada(1,2));
+	cc.AgregarCoord(Coordenada(1,4));
 	Driver d(cc);
-	Nat j1 = d.agregarJugador();
-	Nat j2 = d.agregarJugador();
-	Nat j3 = d.agregarJugador();
-	Nat j4 = d.agregarJugador();
+	Nat j1 = d.AgregarJugador();
+	Nat j2 = d.AgregarJugador();
+	Nat j3 = d.AgregarJugador();
+	Nat j4 = d.AgregarJugador();
 
-	ASSERT(d.estaConectado(j1) == false);
-	d.conectarse(j1, c1);
-	ASSERT(d.estaConectado(j1) == true);
-	ASSERT(d.estaConectado(j2) == false);
-	d.conectarse(j2, c1);
-	ASSERT(d.estaConectado(j2) == true);
-	ASSERT(d.estaConectado(j3) == false);
-	d.conectarse(j3, c2);
-	ASSERT(d.estaConectado(j3) == true);
-	ASSERT(d.estaConectado(j4) == false);
-	d.conectarse(j4, c3);
-	ASSERT(d.estaConectado(j4) == true);
+	ASSERT(d.EstaConectado(j1) == false);
+	d.Conectarse(j1, c1);
+	ASSERT(d.EstaConectado(j1) == true);
+	ASSERT(d.EstaConectado(j2) == false);
+	d.Conectarse(j2, c1);
+	ASSERT(d.EstaConectado(j2) == true);
+	ASSERT(d.EstaConectado(j3) == false);
+	d.Conectarse(j3, c2);
+	ASSERT(d.EstaConectado(j3) == true);
+	ASSERT(d.EstaConectado(j4) == false);
+	d.Conectarse(j4, c3);
+	ASSERT(d.EstaConectado(j4) == true);
 
-	ASSERT(d.posicion(j1) == c1);
-	ASSERT(d.posicion(j2) == c1);
-	ASSERT(d.posicion(j3) == c2);
-	ASSERT(d.posicion(j4) == c3);
+	ASSERT(d.Posicion(j1) == c1);
+	ASSERT(d.Posicion(j2) == c1);
+	ASSERT(d.Posicion(j3) == c2);
+	ASSERT(d.Posicion(j4) == c3);
 }
 
 void test_desconectar_jugadores()
@@ -506,42 +506,42 @@ void test_desconectar_jugadores()
 	Coordenada c1 (0,0);
 	Coordenada c2 (0,2);
 	Coordenada c3 (10,0);
-	cc.Agregar(c1);
-	cc.Agregar(c2);
-	cc.Agregar(c3);
-	cc.Agregar(Coordenada(0,1));
-	cc.Agregar(Coordenada(1,2));
-	cc.Agregar(Coordenada(1,4));
+	cc.AgregarCoord(c1);
+	cc.AgregarCoord(c2);
+	cc.AgregarCoord(c3);
+	cc.AgregarCoord(Coordenada(0,1));
+	cc.AgregarCoord(Coordenada(1,2));
+	cc.AgregarCoord(Coordenada(1,4));
 	Driver d(cc);
-	Nat j1 = d.agregarJugador();
-	Nat j2 = d.agregarJugador();
-	Nat j3 = d.agregarJugador();
-	Nat j4 = d.agregarJugador();
-	d.conectarse(j1, c1);
-	d.conectarse(j2, c1);
-	d.conectarse(j3, c2);
-	d.conectarse(j4, c3);
+	Nat j1 = d.AgregarJugador();
+	Nat j2 = d.AgregarJugador();
+	Nat j3 = d.AgregarJugador();
+	Nat j4 = d.AgregarJugador();
+	d.Conectarse(j1, c1);
+	d.Conectarse(j2, c1);
+	d.Conectarse(j3, c2);
+	d.Conectarse(j4, c3);
 
-	ASSERT(d.estaConectado(j1) == true);
-	ASSERT(d.estaConectado(j2) == true);
-	ASSERT(d.estaConectado(j3) == true);
-	ASSERT(d.estaConectado(j4) == true);
+	ASSERT(d.EstaConectado(j1) == true);
+	ASSERT(d.EstaConectado(j2) == true);
+	ASSERT(d.EstaConectado(j3) == true);
+	ASSERT(d.EstaConectado(j4) == true);
 
-	d.desconectarse(j1);
-	ASSERT(d.estaConectado(j1) == false);
-	ASSERT(d.estaConectado(j2) == true);
-	ASSERT(d.estaConectado(j3) == true);
-	ASSERT(d.estaConectado(j4) == true);
-	d.desconectarse(j2);
-	ASSERT(d.estaConectado(j1) == false);
-	ASSERT(d.estaConectado(j2) == false);
-	ASSERT(d.estaConectado(j3) == true);
-	ASSERT(d.estaConectado(j4) == true);
-	d.conectarse(j1, c3);
-	ASSERT(d.estaConectado(j1) == true);
-	ASSERT(d.estaConectado(j2) == false);
-	ASSERT(d.estaConectado(j3) == true);
-	ASSERT(d.estaConectado(j4) == true);
+	d.desConectarse(j1);
+	ASSERT(d.EstaConectado(j1) == false);
+	ASSERT(d.EstaConectado(j2) == true);
+	ASSERT(d.EstaConectado(j3) == true);
+	ASSERT(d.EstaConectado(j4) == true);
+	d.desConectarse(j2);
+	ASSERT(d.EstaConectado(j1) == false);
+	ASSERT(d.EstaConectado(j2) == false);
+	ASSERT(d.EstaConectado(j3) == true);
+	ASSERT(d.EstaConectado(j4) == true);
+	d.Conectarse(j1, c3);
+	ASSERT(d.EstaConectado(j1) == true);
+	ASSERT(d.EstaConectado(j2) == false);
+	ASSERT(d.EstaConectado(j3) == true);
+	ASSERT(d.EstaConectado(j4) == true);
 }
 
 void test_mover_jugador_asigna_correcta_coordenada()
@@ -553,13 +553,13 @@ void test_mover_jugador_asigna_correcta_coordenada()
 	Coordenada c4(1,2); // sector 2
 	Coordenada c5(0,1); // sector 0
 	Coordenada c6(1,4); // sector 3
-	
-	cc.Agregar(c1);
-	cc.Agregar(c2);
-	cc.Agregar(c3);
-	cc.Agregar(c4);
-	cc.Agregar(c5);
-	cc.Agregar(c6);
+
+	cc.AgregarCoord(c1);
+	cc.AgregarCoord(c2);
+	cc.AgregarCoord(c3);
+	cc.AgregarCoord(c4);
+	cc.AgregarCoord(c5);
+	cc.AgregarCoord(c6);
 	/*
 		- X - - - - - - - -
 		- - - - - - - - - -
@@ -568,68 +568,70 @@ void test_mover_jugador_asigna_correcta_coordenada()
 		X - - - - - - - - X
 	*/
 	Driver d(cc);
-	Nat j1 = d.agregarJugador();
-	Nat j2 = d.agregarJugador();
-	Nat j3 = d.agregarJugador();
-	Nat j4 = d.agregarJugador();
-	d.conectarse(j1, c1);
-	d.conectarse(j2, c1);
-	d.conectarse(j3, c2);
-	d.conectarse(j4, c5);
+	Nat j1 = d.AgregarJugador();
+	Nat j2 = d.AgregarJugador();
+	Nat j3 = d.AgregarJugador();
+	Nat j4 = d.AgregarJugador();
+	d.Conectarse(j1, c1);
+	d.Conectarse(j2, c1);
+	d.Conectarse(j3, c2);
+	d.Conectarse(j4, c5);
 
-	d.moverse(j1, c1);
-	ASSERT(d.posicion(j1) == c1);
-	ASSERT(d.posicion(j2) == c1);
-	ASSERT(d.posicion(j3) == c2);
-	ASSERT(d.posicion(j4) == c5);
+	d.Moverse(j1, c1);
+	ASSERT(d.Posicion(j1) == c1);
+	ASSERT(d.Posicion(j2) == c1);
+	ASSERT(d.Posicion(j3) == c2);
+	ASSERT(d.Posicion(j4) == c5);
 
-	d.moverse(j2, c4);
-	ASSERT(d.posicion(j1) == c1);
-	ASSERT(d.posicion(j2) == c4);
-	ASSERT(d.posicion(j3) == c2);
-	ASSERT(d.posicion(j4) == c5);
+	d.Moverse(j2, c4);
+	ASSERT(d.Posicion(j1) == c1);
+	ASSERT(d.Posicion(j2) == c4);
+	ASSERT(d.Posicion(j3) == c2);
+	ASSERT(d.Posicion(j4) == c5);
 
-	d.moverse(j3, c3);
-	ASSERT(d.posicion(j1) == c1);
-	ASSERT(d.posicion(j2) == c4);
-	ASSERT(d.posicion(j3) == c2);
-	ASSERT(d.posicion(j4) == c5);
+	d.Moverse(j3, c3);
+	ASSERT(d.Posicion(j1) == c1);
+	ASSERT(d.Posicion(j2) == c4);
+	//este assert estaba mal, de los que me paso emmanuel
+	// nunca va a ser  la posicion de j3 = c2 ya que se mueve a c3
+	ASSERT(d.Posicion(j3) == c3);
+	ASSERT(d.Posicion(j4) == c5);
 
-	d.moverse(j4, c1);
-	ASSERT(d.posicion(j1) == c1);
-	ASSERT(d.posicion(j2) == c4);
-	ASSERT(d.posicion(j3) == c2);
-	ASSERT(d.posicion(j4) == c1);
+	d.Moverse(j4, c1);
+	ASSERT(d.Posicion(j1) == c1);
+	ASSERT(d.Posicion(j2) == c4);
+	ASSERT(d.Posicion(j3) == c2);
+	ASSERT(d.Posicion(j4) == c1);
 
-	d.moverse(j1, c3); // MOVIMIENTO INVÁLIDO
-	ASSERT( d.posicion(j1) == c1 || d.posicion(j1) == c3 ); // CONSIDERO AMBAS IMPLEMENTACIONES
-	ASSERT(d.posicion(j2) == c4);
-	ASSERT(d.posicion(j3) == c2);
-	ASSERT(d.posicion(j4) == c1);
+	d.Moverse(j1, c3); // MOVIMIENTO INVÁLIDO
+	ASSERT( d.Posicion(j1) == c1 || d.Posicion(j1) == c3 ); // CONSIDERO AMBAS IMPLEMENTACIONES
+	ASSERT(d.Posicion(j2) == c4);
+	ASSERT(d.Posicion(j3) == c2);
+	ASSERT(d.Posicion(j4) == c1);
 
-	d.moverse(j1, c4);
-	ASSERT(d.posicion(j1) == c4);
-	ASSERT(d.posicion(j2) == c4);
-	ASSERT(d.posicion(j3) == c2);
-	ASSERT(d.posicion(j4) == c1);
+	d.Moverse(j1, c4);
+	ASSERT(d.Posicion(j1) == c4);
+	ASSERT(d.Posicion(j2) == c4);
+	ASSERT(d.Posicion(j3) == c2);
+	ASSERT(d.Posicion(j4) == c1);
 }
 
-void test_sanciones()
+void test_Sanciones()
 {
 	Conj<Coordenada> cc;
 	for (Nat i = 0; i < 100; ++i)
 	{
-		cc.Agregar(Coordenada(i, 5));
+		cc.AgregarCoord(Coordenada(i, 5));
 	}
-	cc.Agregar(Coordenada(0,0));
-	cc.Agregar(Coordenada(0,1));
-	cc.Agregar(Coordenada(0,2));
-	cc.Agregar(Coordenada(1,2));
-	cc.Agregar(Coordenada(1,4));
-	cc.Agregar(Coordenada(4,3));
-	cc.Agregar(Coordenada(5,180));
-	cc.Agregar(Coordenada(100,0));
-	cc.Agregar(Coordenada(110,0));
+	cc.AgregarCoord(Coordenada(0,0));
+	cc.AgregarCoord(Coordenada(0,1));
+	cc.AgregarCoord(Coordenada(0,2));
+	cc.AgregarCoord(Coordenada(1,2));
+	cc.AgregarCoord(Coordenada(1,4));
+	cc.AgregarCoord(Coordenada(4,3));
+	cc.AgregarCoord(Coordenada(5,180));
+	cc.AgregarCoord(Coordenada(100,0));
+	cc.AgregarCoord(Coordenada(110,0));
 	/*
 	X X X X X X X X X	...	X
 	- X - - - - - - -	...	-
@@ -640,53 +642,53 @@ void test_sanciones()
 	*/
 	Driver d(cc);
 
-	Nat j1 = d.agregarJugador();
-	Nat j2 = d.agregarJugador();
-	Nat j3 = d.agregarJugador();
-	Nat j4 = d.agregarJugador();
-	Nat j5 = d.agregarJugador();
+	Nat j1 = d.AgregarJugador();
+	Nat j2 = d.AgregarJugador();
+	Nat j3 = d.AgregarJugador();
+	Nat j4 = d.AgregarJugador();
+	Nat j5 = d.AgregarJugador();
 
-	ASSERT(d.sanciones(j1) == 0);
-	ASSERT(d.sanciones(j2) == 0);
-	ASSERT(d.sanciones(j3) == 0);
-	ASSERT(d.sanciones(j4) == 0);
-	ASSERT(d.sanciones(j5) == 0);
+	ASSERT(d.Sanciones(j1) == 0);
+	ASSERT(d.Sanciones(j2) == 0);
+	ASSERT(d.Sanciones(j3) == 0);
+	ASSERT(d.Sanciones(j4) == 0);
+	ASSERT(d.Sanciones(j5) == 0);
 
-	d.conectarse(j1, Coordenada(0,5));
-	d.conectarse(j2, Coordenada(0,0));
-	d.conectarse(j3, Coordenada(0,0));
-	d.conectarse(j4, Coordenada(0,0));
-	d.conectarse(j5, Coordenada(0,5));
+	d.Conectarse(j1, Coordenada(0,5));
+	d.Conectarse(j2, Coordenada(0,0));
+	d.Conectarse(j3, Coordenada(0,0));
+	d.Conectarse(j4, Coordenada(0,0));
+	d.Conectarse(j5, Coordenada(0,5));
 
-	ASSERT(d.sanciones(j1) == 0);
-	ASSERT(d.sanciones(j2) == 0);
-	ASSERT(d.sanciones(j3) == 0);
-	ASSERT(d.sanciones(j4) == 0);
-	ASSERT(d.sanciones(j5) == 0);
+	ASSERT(d.Sanciones(j1) == 0);
+	ASSERT(d.Sanciones(j2) == 0);
+	ASSERT(d.Sanciones(j3) == 0);
+	ASSERT(d.Sanciones(j4) == 0);
+	ASSERT(d.Sanciones(j5) == 0);
 
-	d.moverse(j1, Coordenada(10,5));
-	d.moverse(j2, Coordenada(1,4));
-	d.moverse(j3, Coordenada(1,2));
-	//d.moverse(j4, Coordenada(0,0));
-	d.moverse(j5, Coordenada(11,5));
+	d.Moverse(j1, Coordenada(10,5));
+	d.Moverse(j2, Coordenada(1,4));
+	d.Moverse(j3, Coordenada(1,2));
+	//d.Moverse(j4, Coordenada(0,0));
+	d.Moverse(j5, Coordenada(11,5));
 
-	ASSERT(d.sanciones(j1) == 0 || d.sanciones(j1) == 1); // j1: (0,5) => (10,5) #conectados. CASO BORDE, ALGUNOS ALUMNOS LO IMPLEMENTARON DE UNA FORMA Y OTROS DE OTRA.
-	ASSERT(d.sanciones(j2) == 1); // j2: (0,0) => (1,4) #desconectados. MOVIMIENTO INVÁLIDO. CASO 1: SE QUEDA EN 0,0, CASO 2: SE QUEDA EN 1,4
-	ASSERT(d.sanciones(j3) == 0); // j3: (0,0) => (1,2) #conectados
-	//ASSERT(d.sanciones(j4) == 0); // j4: (0,0) => (0,0) #conectados. SE MUEVE AL MISMO LUGAR, CASO BORDE, LO HAN IMPLEMENTADO DE DIFERENTES MANERAS.
-	ASSERT(d.sanciones(j5) == 1); // j5: (0,5) => (11,5) #conectados. MOVIMIENTO INVÁLIDO.
+	ASSERT(d.Sanciones(j1) == 0 || d.Sanciones(j1) == 1); // j1: (0,5) => (10,5) #conectados. CASO BORDE, ALGUNOS ALUMNOS LO IMPLEMENTARON DE UNA FORMA Y OTROS DE OTRA.
+	ASSERT(d.Sanciones(j2) == 1); // j2: (0,0) => (1,4) #desconectados. MOVIMIENTO INVÁLIDO. CASO 1: SE QUEDA EN 0,0, CASO 2: SE QUEDA EN 1,4
+	ASSERT(d.Sanciones(j3) == 0); // j3: (0,0) => (1,2) #conectados
+	//ASSERT(d.Sanciones(j4) == 0); // j4: (0,0) => (0,0) #conectados. SE MUEVE AL MISMO LUGAR, CASO BORDE, LO HAN IMPLEMENTADO DE DIFERENTES MANERAS.
+	ASSERT(d.Sanciones(j5) == 1); // j5: (0,5) => (11,5) #conectados. MOVIMIENTO INVÁLIDO.
 
-	d.moverse(j3, Coordenada(0,2));
-	ASSERT(d.sanciones(j3) == 0); // j3: (1,2) => (0,2) #conectados
+	d.Moverse(j3, Coordenada(0,2));
+	ASSERT(d.Sanciones(j3) == 0); // j3: (1,2) => (0,2) #conectados
 
-	d.moverse(j3, Coordenada(0,1));
-	ASSERT(d.sanciones(j3) == 0); // j3: (0,2) => (0,1) #conectados
+	d.Moverse(j3, Coordenada(0,1));
+	ASSERT(d.Sanciones(j3) == 0); // j3: (0,2) => (0,1) #conectados
 
-	d.moverse(j3, Coordenada(0,0));
-	ASSERT(d.sanciones(j3) == 0); // j3: (0,1) => (0,0) #conectados
+	d.Moverse(j3, Coordenada(0,0));
+	ASSERT(d.Sanciones(j3) == 0); // j3: (0,1) => (0,0) #conectados
 
-	d.moverse(j2, Coordenada(5, 180));
-	ASSERT(d.sanciones(j2) == 2); // j2: (0,0) => (5,180) ó (1,4) => (5,180)  #desconectados. MOVIMIENTO INVÁLIDO.
+	d.Moverse(j2, Coordenada(5, 180));
+	ASSERT(d.Sanciones(j2) == 2); // j2: (0,0) => (5,180) ó (1,4) => (5,180)  #desconectados. MOVIMIENTO INVÁLIDO.
 }
 
 void test_expulsion()
@@ -708,56 +710,56 @@ void test_expulsion()
 	Coordenada c11(60,8); // sector 7
 
 	Conj<Coordenada> cc;
-	cc.Agregar(c0);
-	cc.Agregar(c1);
-	cc.Agregar(c2);
-	cc.Agregar(c3);
-	cc.Agregar(c4);
-	cc.Agregar(c5);
-	cc.Agregar(c6);
-	cc.Agregar(c7);
-	cc.Agregar(c8);
-	cc.Agregar(c9);
-	cc.Agregar(c10);
-	cc.Agregar(c11);
-	
+	cc.AgregarCoord(c0);
+	cc.AgregarCoord(c1);
+	cc.AgregarCoord(c2);
+	cc.AgregarCoord(c3);
+	cc.AgregarCoord(c4);
+	cc.AgregarCoord(c5);
+	cc.AgregarCoord(c6);
+	cc.AgregarCoord(c7);
+	cc.AgregarCoord(c8);
+	cc.AgregarCoord(c9);
+	cc.AgregarCoord(c10);
+	cc.AgregarCoord(c11);
+
 	Driver d(cc);
 
-	Nat j1 = d.agregarJugador();
-	Nat j2 = d.agregarJugador();
+	Nat j1 = d.AgregarJugador();
+	Nat j2 = d.AgregarJugador();
 
-	ASSERT(d.sanciones(j1) == 0);
-	ASSERT(d.sanciones(j2) == 0);
+	ASSERT(d.Sanciones(j1) == 0);
+	ASSERT(d.Sanciones(j2) == 0);
 
 	Conj<Jugador> expulsados;
 	ASSERT(d.expulsados() == expulsados);
 
-	d.conectarse(j1, c6);
-	d.conectarse(j2, c5);
-	
+	d.Conectarse(j1, c6);
+	d.Conectarse(j2, c5);
+
 	ASSERT(d.expulsados() == expulsados);
 
-	d.moverse(j1, c7); // MOVIMIENTO INVÁLIDO
-	d.moverse(j1, c8); // MOVIMIENTO INVÁLIDO 
-	d.moverse(j1, c9); // MOVIMIENTO INVÁLIDO 
-	d.moverse(j1, c10); // MOVIMIENTO INVÁLIDO 
-	d.moverse(j1, c11); // MOVIMIENTO INVÁLIDO 
-	
-	ASSERT((d.sanciones(j1) == 5) || (d.sanciones(j1) == 4)); // CASO BORDE, HAY ALUMNOS QUE LO IMPLEMENTARON DE UNA MANERA Y OTROS DE OTRA
-	ASSERT(d.sanciones(j2) == 0);
+	d.Moverse(j1, c7); // MOVIMIENTO INVÁLIDO
+	d.Moverse(j1, c8); // MOVIMIENTO INVÁLIDO
+	d.Moverse(j1, c9); // MOVIMIENTO INVÁLIDO
+	d.Moverse(j1, c10); // MOVIMIENTO INVÁLIDO
+	d.Moverse(j1, c11); // MOVIMIENTO INVÁLIDO
+
+	ASSERT((d.Sanciones(j1) == 5) || (d.Sanciones(j1) == 4)); // CASO BORDE, HAY ALUMNOS QUE LO IMPLEMENTARON DE UNA MANERA Y OTROS DE OTRA
+	ASSERT(d.Sanciones(j2) == 0);
 
 	expulsados.Agregar(j1);
 	ASSERT(d.expulsados() == expulsados);
 
-	d.moverse(j2, c11);
-	d.moverse(j2, c10);
-	d.moverse(j2, c9);
-	d.moverse(j2, c8);
-	d.moverse(j2, c7);
+	d.Moverse(j2, c11);
+	d.Moverse(j2, c10);
+	d.Moverse(j2, c9);
+	d.Moverse(j2, c8);
+	d.Moverse(j2, c7);
 
-	ASSERT((d.sanciones(j1) == 5) || (d.sanciones(j1) == 4)); // CASO BORDE, HAY ALUMNOS QUE LO IMPLEMENTARON DE UNA MANERA Y OTROS DE OTRA
-	ASSERT((d.sanciones(j2) == 5) || (d.sanciones(j2) == 4)); // CASO BORDE, HAY ALUMNOS QUE LO IMPLEMENTARON DE UNA MANERA Y OTROS DE OTRA
-	
+	ASSERT((d.Sanciones(j1) == 5) || (d.Sanciones(j1) == 4)); // CASO BORDE, HAY ALUMNOS QUE LO IMPLEMENTARON DE UNA MANERA Y OTROS DE OTRA
+	ASSERT((d.Sanciones(j2) == 5) || (d.Sanciones(j2) == 4)); // CASO BORDE, HAY ALUMNOS QUE LO IMPLEMENTARON DE UNA MANERA Y OTROS DE OTRA
+
 	expulsados.Agregar(j2);
 	ASSERT(d.expulsados() == expulsados);
 
@@ -779,26 +781,26 @@ void test_agregar_pokemones_y_jugadores()
 	Coordenada c6(120,2); // sector 2
 
 	Conj<Coordenada> cc;
-	
-	cc.Agregar(c0);
-	cc.Agregar(c1);
-	cc.Agregar(c2);
-	cc.Agregar(c3);
-	cc.Agregar(c4);
-	cc.Agregar(c5);
-	cc.Agregar(c6);
+
+	cc.AgregarCoord(c0);
+	cc.AgregarCoord(c1);
+	cc.AgregarCoord(c2);
+	cc.AgregarCoord(c3);
+	cc.AgregarCoord(c4);
+	cc.AgregarCoord(c5);
+	cc.AgregarCoord(c6);
 
 	Driver d(cc);
 
-	d.agregarPokemon("Squirtle", c0);
-	d.agregarPokemon("Metapod", c3);
-	d.agregarPokemon("Chikorita", c6);
+	d.AgregarPokemon("Squirtle", c0);
+	d.AgregarPokemon("Metapod", c3);
+	d.AgregarPokemon("Chikorita", c6);
 
-	Nat j0 = d.agregarJugador();
-	Nat j1 = d.agregarJugador();
+	Nat j0 = d.AgregarJugador();
+	Nat j1 = d.AgregarJugador();
 
-	d.conectarse(j0, c3);
-	d.conectarse(j1, c0);
+	d.Conectarse(j0, c3);
+	d.Conectarse(j1, c0);
 
 	Conj<Nat> jugadores;
 
@@ -815,7 +817,7 @@ void test_agregar_pokemones_y_jugadores()
 	cc_pokes.Agregar(c3);
 	cc_pokes.Agregar(c6);
 
-	ASSERT( cc_pokes == d.posConPokemons() );
+	ASSERT( cc_pokes == d.PosConPokemons() );
 
 }
 
@@ -834,70 +836,70 @@ void test_cantidad_de_movimientos_para_captura()
 	Coordenada c7(120,2); // sector 2
 
 	Conj<Coordenada> cc;
-	cc.Agregar(c0); // sector 0
-	cc.Agregar(c1); // sector 0
-	cc.Agregar(c2); // sector 0
-	cc.Agregar(c3); // sector 0
-	cc.Agregar(c4); // sector 1
-	cc.Agregar(c5); // sector 1
-	cc.Agregar(c6); // sector 1
-	cc.Agregar(c7); // sector 2
+	cc.AgregarCoord(c0); // sector 0
+	cc.AgregarCoord(c1); // sector 0
+	cc.AgregarCoord(c2); // sector 0
+	cc.AgregarCoord(c3); // sector 0
+	cc.AgregarCoord(c4); // sector 1
+	cc.AgregarCoord(c5); // sector 1
+	cc.AgregarCoord(c6); // sector 1
+	cc.AgregarCoord(c7); // sector 2
 
 	Driver d(cc);
 
-	d.agregarPokemon("Squirtle", c0);
+	d.AgregarPokemon("Squirtle", c0);
 	ASSERT(d.cantMovimientosParaCaptura(c0) == 0);
-	d.agregarPokemon("Squirtle", c7);
+	d.AgregarPokemon("Squirtle", c7);
 	ASSERT(d.cantMovimientosParaCaptura(c7) == 0);
 
-	Nat j1 = d.agregarJugador();
-	Nat j2 = d.agregarJugador();
-	Nat j3 = d.agregarJugador();
+	Nat j1 = d.AgregarJugador();
+	Nat j2 = d.AgregarJugador();
+	Nat j3 = d.AgregarJugador();
 
-	d.conectarse(j1, c4);
-	ASSERT(d.cantMovimientosParaCaptura(c0) == 0);	
+	d.Conectarse(j1, c4);
+	ASSERT(d.cantMovimientosParaCaptura(c0) == 0);
 	ASSERT(d.cantMovimientosParaCaptura(c7) == 0);
 
-	d.conectarse(j2, c0);
-	ASSERT(d.cantMovimientosParaCaptura(c0) == 0);	
+	d.Conectarse(j2, c0);
+	ASSERT(d.cantMovimientosParaCaptura(c0) == 0);
 	ASSERT(d.cantMovimientosParaCaptura(c7) == 0);
 
-	d.conectarse(j3, c7);
+	d.Conectarse(j3, c7);
 	ASSERT(d.cantMovimientosParaCaptura(c0) == 0);
 	ASSERT(d.cantMovimientosParaCaptura(c7) == 0);
 
 	// j1 se mueve fuera del área del pokémon en c0 y en c7
 	// de forma automática se acumulan movimientos
 
-	d.moverse(j1, Coordenada(12,1));
+	d.Moverse(j1, Coordenada(12,1));
 	ASSERT(d.cantMovimientosParaCaptura(c0) == 1);
 	ASSERT(d.cantMovimientosParaCaptura(c7) == 1);
 
-	d.moverse(j1, Coordenada(12,2));
+	d.Moverse(j1, Coordenada(12,2));
 	ASSERT(d.cantMovimientosParaCaptura(c0) == 2);
 	ASSERT(d.cantMovimientosParaCaptura(c7) == 2);
 
-	d.moverse(j1, Coordenada(12,1));
+	d.Moverse(j1, Coordenada(12,1));
 	ASSERT(d.cantMovimientosParaCaptura(c0) == 3);
 	ASSERT(d.cantMovimientosParaCaptura(c7) == 3);
 
-	
-	d.moverse(j1, c0); // MOVIMIENTO INVÁLIDO
+
+	d.Moverse(j1, c0); // MOVIMIENTO INVÁLIDO
 	ASSERT(d.cantMovimientosParaCaptura(c0) == 3 || d.cantMovimientosParaCaptura(c0) == 4); // SE CONSIDERAN AMBAS IMPLEMENTACIONES
 	ASSERT(d.cantMovimientosParaCaptura(c7) == 3 || d.cantMovimientosParaCaptura(c7) == 4); // SE CONSIDERAN AMBAS IMPLEMENTACIONES
-	
+
 	// j2 entra al área del pokemon en c0, reiniciando la cantidad de movimientos
 
-	d.moverse(j2, Coordenada(3,0));
-	d.moverse(j2, Coordenada(1,0));
+	d.Moverse(j2, Coordenada(3,0));
+	d.Moverse(j2, Coordenada(1,0));
 
 	ASSERT(d.cantMovimientosParaCaptura(c0) == 0);
 	ASSERT(d.cantMovimientosParaCaptura(c7) == 4 || d.cantMovimientosParaCaptura(c7) == 5); // SE CONSIDERAN AMBAS IMPLEMENTACIONES
 
-	// j1 vuelve a moverse fuera del área del pokemon c0 y c7,
+	// j1 vuelve a Moverse fuera del área del pokemon c0 y c7,
 	// aumentando la cantidad de movimientos
 
-	d.moverse(j1, Coordenada(12,2)); // MOVIMIENTO PUEDE SER VÁLIDO O NO, EN AMBOS CASOS SUMA MOV. PARA CAPTURA
+	d.Moverse(j1, Coordenada(12,2)); // MOVIMIENTO PUEDE SER VÁLIDO O NO, EN AMBOS CASOS SUMA MOV. PARA CAPTURA
 	ASSERT(d.cantMovimientosParaCaptura(c0) == 1);
 	ASSERT(d.cantMovimientosParaCaptura(c7) == 5 || d.cantMovimientosParaCaptura(c7) == 6); // SE CONSIDERAN AMBAS IMPLEMENTACIONES
 
@@ -907,57 +909,57 @@ void test_cantidad_de_movimientos_para_captura()
 void test_entrenadores_posibles()
 {
 	Conj<Coordenada> cc;
-	cc.Agregar(Coordenada(0,0));
-	cc.Agregar(Coordenada(1,0));
-	cc.Agregar(Coordenada(2,0));
-	cc.Agregar(Coordenada(3,0));
-	cc.Agregar(Coordenada(12,0));
-	cc.Agregar(Coordenada(12,1));
-	cc.Agregar(Coordenada(12,2));
-	cc.Agregar(Coordenada(120,2));
+	cc.AgregarCoord(Coordenada(0,0));
+	cc.AgregarCoord(Coordenada(1,0));
+	cc.AgregarCoord(Coordenada(2,0));
+	cc.AgregarCoord(Coordenada(3,0));
+	cc.AgregarCoord(Coordenada(12,0));
+	cc.AgregarCoord(Coordenada(12,1));
+	cc.AgregarCoord(Coordenada(12,2));
+	cc.AgregarCoord(Coordenada(120,2));
 
 	Driver d(cc);
 	Conj<Jugador> vacio;
 
-	d.agregarPokemon("Squirtle", Coordenada(0,0));
+	d.AgregarPokemon("Squirtle", Coordenada(0,0));
 	ASSERT(d.entrenadoresPosibles(Coordenada(0,0)) == vacio);
 
-	Nat j1 = d.agregarJugador();
-	Nat j2 = d.agregarJugador();
-	Nat j3 = d.agregarJugador();
+	Nat j1 = d.AgregarJugador();
+	Nat j2 = d.AgregarJugador();
+	Nat j3 = d.AgregarJugador();
 	Conj<Jugador> todos;
 	todos.Agregar(j1);
 	todos.Agregar(j2);
 	todos.Agregar(j3);
 
-	d.conectarse(j1, Coordenada(12,0));
+	d.Conectarse(j1, Coordenada(12,0));
 	ASSERT(d.entrenadoresPosibles(Coordenada(0,0)) == vacio);
 
 	Conj<Jugador> entrenadores;
 	entrenadores.Agregar(j2);
-	d.conectarse(j2, Coordenada(0,0));
+	d.Conectarse(j2, Coordenada(0,0));
 	ASSERT(d.entrenadoresPosibles(Coordenada(0,0)) == entrenadores);
 
-	d.desconectarse(j2);
-	d.conectarse(j2, Coordenada(12,0));
+	d.desConectarse(j2);
+	d.Conectarse(j2, Coordenada(12,0));
 	ASSERT(d.entrenadoresPosibles(Coordenada(0,0)) == vacio);
 
-	d.moverse(j2, Coordenada(120,2)); // MOVIMIENTO INVÁLIDO
+	d.Moverse(j2, Coordenada(120,2)); // MOVIMIENTO INVÁLIDO
 	ASSERT(d.entrenadoresPosibles(Coordenada(0,0)) == vacio);
 
-	d.conectarse(j3, Coordenada(120,2));
+	d.Conectarse(j3, Coordenada(120,2));
 	ASSERT(d.entrenadoresPosibles(Coordenada(0,0)) == vacio);
 
-	d.moverse(j1, Coordenada(12,1));
+	d.Moverse(j1, Coordenada(12,1));
 	ASSERT(d.entrenadoresPosibles(Coordenada(0,0)) == vacio);
 
 	Conj<Jugador> entrenadores2;
 	entrenadores2.Agregar(j1);
-	d.desconectarse(j1);
-	d.conectarse(j1, Coordenada(1,0));
+	d.desConectarse(j1);
+	d.Conectarse(j1, Coordenada(1,0));
 	ASSERT(d.entrenadoresPosibles(Coordenada(0,0)) == entrenadores2);
 
-	d.moverse(j1, Coordenada(0,0));
+	d.Moverse(j1, Coordenada(0,0));
 	ASSERT(d.entrenadoresPosibles(Coordenada(0,0)) == entrenadores2);
 }
 
@@ -965,39 +967,39 @@ void test_entrenadores_posibles()
 void test_atrapar_pokemon_test_simple()
 {
 	Conj<Coordenada> cc;
-	cc.Agregar(Coordenada(0,0));
-	cc.Agregar(Coordenada(1,0));
-	cc.Agregar(Coordenada(2,0));
-	cc.Agregar(Coordenada(3,0));
-	cc.Agregar(Coordenada(10,0));
-	cc.Agregar(Coordenada(11,0));
+	cc.AgregarCoord(Coordenada(0,0));
+	cc.AgregarCoord(Coordenada(1,0));
+	cc.AgregarCoord(Coordenada(2,0));
+	cc.AgregarCoord(Coordenada(3,0));
+	cc.AgregarCoord(Coordenada(10,0));
+	cc.AgregarCoord(Coordenada(11,0));
 
 	Driver d(cc);
 
-	d.agregarPokemon("Squirtle", Coordenada(0,0));
+	d.AgregarPokemon("Squirtle", Coordenada(0,0));
 
-	Nat j1 = d.agregarJugador();
-	Nat j2 = d.agregarJugador();
+	Nat j1 = d.AgregarJugador();
+	Nat j2 = d.AgregarJugador();
 
-	d.conectarse(j1, Coordenada(2,0));
-	d.conectarse(j2, Coordenada(10,0));
+	d.Conectarse(j1, Coordenada(2,0));
+	d.Conectarse(j2, Coordenada(10,0));
 
 	Dicc< Pokemon , Nat > pokemons;
 	ASSERT( d.pokemons(j1) == pokemons );
 	ASSERT( d.pokemons(j2) == pokemons );
 
-	d.moverse(j2, Coordenada(11,0));
-	d.moverse(j2, Coordenada(10,0));
-	d.moverse(j2, Coordenada(11,0));
-	d.moverse(j2, Coordenada(10,0));
-	d.moverse(j2, Coordenada(11,0));
-	d.moverse(j2, Coordenada(10,0));
-	d.moverse(j2, Coordenada(11,0));
-	d.moverse(j2, Coordenada(10,0));
-	d.moverse(j2, Coordenada(11,0));
-	d.moverse(j2, Coordenada(10,0));
-	d.moverse(j2, Coordenada(11,0));
-	d.moverse(j2, Coordenada(10,0));
+	d.Moverse(j2, Coordenada(11,0));
+	d.Moverse(j2, Coordenada(10,0));
+	d.Moverse(j2, Coordenada(11,0));
+	d.Moverse(j2, Coordenada(10,0));
+	d.Moverse(j2, Coordenada(11,0));
+	d.Moverse(j2, Coordenada(10,0));
+	d.Moverse(j2, Coordenada(11,0));
+	d.Moverse(j2, Coordenada(10,0));
+	d.Moverse(j2, Coordenada(11,0));
+	d.Moverse(j2, Coordenada(10,0));
+	d.Moverse(j2, Coordenada(11,0));
+	d.Moverse(j2, Coordenada(10,0));
 
 	ASSERT( d.pokemons(j2) == pokemons );
 	pokemons.Definir("Squirtle",1);
@@ -1008,57 +1010,57 @@ void test_atrapar_pokemon_test_simple()
 void test_cantidad_de_pokemons_totales_usando_mover()
 {
 	Conj<Coordenada> cc;
-	cc.Agregar(Coordenada(0,0));
-	cc.Agregar(Coordenada(1,0));
-	cc.Agregar(Coordenada(2,0));
-        
-	cc.Agregar(Coordenada(12,0));
-	cc.Agregar(Coordenada(12,1));
-	cc.Agregar(Coordenada(12,2));
-        
-	cc.Agregar(Coordenada(120,2));
-	cc.Agregar(Coordenada(120,3));
+	cc.AgregarCoord(Coordenada(0,0));
+	cc.AgregarCoord(Coordenada(1,0));
+	cc.AgregarCoord(Coordenada(2,0));
+
+	cc.AgregarCoord(Coordenada(12,0));
+	cc.AgregarCoord(Coordenada(12,1));
+	cc.AgregarCoord(Coordenada(12,2));
+
+	cc.AgregarCoord(Coordenada(120,2));
+	cc.AgregarCoord(Coordenada(120,3));
 
 	Driver d(cc);
 
 	ASSERT(d.cantPokemonsTotales() == 0);
-	d.agregarPokemon("Squirtle", Coordenada(0,0));
+	d.AgregarPokemon("Squirtle", Coordenada(0,0));
 	ASSERT(d.cantPokemonsTotales() == 1);
-	d.agregarPokemon("Rattata", Coordenada(12,0));
+	d.AgregarPokemon("Rattata", Coordenada(12,0));
 	ASSERT(d.cantPokemonsTotales() == 2);
 
-	Nat j1 = d.agregarJugador();
-	Nat j2 = d.agregarJugador();
-	Nat j3 = d.agregarJugador();
-	
-	d.conectarse(j1, Coordenada(12,0));
-	d.conectarse(j2, Coordenada(0,0));
+	Nat j1 = d.AgregarJugador();
+	Nat j2 = d.AgregarJugador();
+	Nat j3 = d.AgregarJugador();
 
-	d.moverse(j2, Coordenada(12,0)); // Movimiento no válido, se teletransporta, se sanciona. sanciones(j2) = 1
-	d.moverse(j2, Coordenada(120,2)); // Movimiento no válido, se teletransporta, se sanciona. sanciones(j2) = 2
+	d.Conectarse(j1, Coordenada(12,0));
+	d.Conectarse(j2, Coordenada(0,0));
 
-	d.conectarse(j3, Coordenada(120,2));
+	d.Moverse(j2, Coordenada(12,0)); // Movimiento no válido, se teletransporta, se sanciona. Sanciones(j2) = 1
+	d.Moverse(j2, Coordenada(120,2)); // Movimiento no válido, se teletransporta, se sanciona. Sanciones(j2) = 2
 
-	d.moverse(j1, Coordenada(12,1)); // Movimiento válido
-	d.moverse(j1, Coordenada(120,3)); // Movimiento no válido, se teletransporta, se sanciona. sanciones(j1) = 1
-	d.moverse(j1, Coordenada(0,0)); // Movimiento no válido, se teletransporta, se sanciona. sanciones(j1) = 2
+	d.Conectarse(j3, Coordenada(120,2));
+
+	d.Moverse(j1, Coordenada(12,1)); // Movimiento válido
+	d.Moverse(j1, Coordenada(120,3)); // Movimiento no válido, se teletransporta, se sanciona. Sanciones(j1) = 1
+	d.Moverse(j1, Coordenada(0,0)); // Movimiento no válido, se teletransporta, se sanciona. Sanciones(j1) = 2
 
 
 	ASSERT(d.cantPokemonsTotales() == 2);
-            
+
 	for (int i = 0; i < 11; ++i)
 	{
-		d.moverse(j3, Coordenada(120,2)); // Movimiento válido
-		d.moverse(j3, Coordenada(120,3)); // Movimiento válido
+		d.Moverse(j3, Coordenada(120,2)); // Movimiento válido
+		d.Moverse(j3, Coordenada(120,3)); // Movimiento válido
 	}
-	
+
 	ASSERT(d.pokemons(j1).CantClaves() == 1);
 	ASSERT(d.pokemons(j2).CantClaves() == 0 || d.pokemons(j2).CantClaves() == 1); // SE CONSIDERAN AMBAS IMPLEMENTACIONES
 	ASSERT(d.cantPokemonsTotales() == 2);
 
-	d.moverse(j1, Coordenada(120,2)); // Movimiento no válido, se teletransporta, se sanciona. sanciones(j1) = 3
-	d.moverse(j1, Coordenada(0,0)); // Movimiento no válido, se teletransporta, se sanciona. sanciones(j1) = 4
-	d.moverse(j1, Coordenada(120,2)); // Movimiento no válido, se teletransporta, se sanciona. sanciones(j1) = 5
+	d.Moverse(j1, Coordenada(120,2)); // Movimiento no válido, se teletransporta, se sanciona. Sanciones(j1) = 3
+	d.Moverse(j1, Coordenada(0,0)); // Movimiento no válido, se teletransporta, se sanciona. Sanciones(j1) = 4
+	d.Moverse(j1, Coordenada(120,2)); // Movimiento no válido, se teletransporta, se sanciona. Sanciones(j1) = 5
 
 	ASSERT(d.cantPokemonsTotales() == 1);
 
@@ -1067,45 +1069,45 @@ void test_cantidad_de_pokemons_totales_usando_mover()
 void test_cantidad_misma_especie_usando_mover()
 {
 	Conj< Coordenada > cc;
-	cc.Agregar(Coordenada(0,0));
-	cc.Agregar(Coordenada(1,0));
-	cc.Agregar(Coordenada(2,0));
-	cc.Agregar(Coordenada(12,0));
-	cc.Agregar(Coordenada(12,1));
-	cc.Agregar(Coordenada(12,2));
-	cc.Agregar(Coordenada(120,2));
-	cc.Agregar(Coordenada(120,3));
+	cc.AgregarCoord(Coordenada(0,0));
+	cc.AgregarCoord(Coordenada(1,0));
+	cc.AgregarCoord(Coordenada(2,0));
+	cc.AgregarCoord(Coordenada(12,0));
+	cc.AgregarCoord(Coordenada(12,1));
+	cc.AgregarCoord(Coordenada(12,2));
+	cc.AgregarCoord(Coordenada(120,2));
+	cc.AgregarCoord(Coordenada(120,3));
 
 	Driver d(cc);
 
-	d.agregarPokemon("Squirtle", Coordenada(0,0));
-	d.agregarPokemon("Rattata", Coordenada(12,0));
-	d.agregarPokemon("Squirtle", Coordenada(120,2));
+	d.AgregarPokemon("Squirtle", Coordenada(0,0));
+	d.AgregarPokemon("Rattata", Coordenada(12,0));
+	d.AgregarPokemon("Squirtle", Coordenada(120,2));
 
 	ASSERT(d.cantMismaEspecie("Squirtle") == 2);
 	ASSERT(d.cantMismaEspecie("Rattata") == 1);
 
-	Nat j1 = d.agregarJugador();
-	Nat j2 = d.agregarJugador();
-	Nat j3 = d.agregarJugador();
+	Nat j1 = d.AgregarJugador();
+	Nat j2 = d.AgregarJugador();
+	Nat j3 = d.AgregarJugador();
 
-	d.conectarse(j1, Coordenada(12,0));
-	d.conectarse(j2, Coordenada(0,0));
+	d.Conectarse(j1, Coordenada(12,0));
+	d.Conectarse(j2, Coordenada(0,0));
 
-	d.moverse(j2, Coordenada(12,0)); // MOVIMIENTO INVÁLIDO
-	d.moverse(j2, Coordenada(120,2)); // MOVIMIENTO INVÁLIDO
-	d.moverse(j2, Coordenada(0,0)); // MOVIMIENTO INVÁLIDO O NO
+	d.Moverse(j2, Coordenada(12,0)); // MOVIMIENTO INVÁLIDO
+	d.Moverse(j2, Coordenada(120,2)); // MOVIMIENTO INVÁLIDO
+	d.Moverse(j2, Coordenada(0,0)); // MOVIMIENTO INVÁLIDO O NO
 
-	d.conectarse(j3, Coordenada(120,2));
+	d.Conectarse(j3, Coordenada(120,2));
 
-	d.moverse(j1, Coordenada(12,1));
-	d.moverse(j1, Coordenada(120,2));  // MOVIMIENTO INVÁLIDO
-	d.moverse(j1, Coordenada(12,0)); // MOVIMIENTO INVÁLIDO O NO
+	d.Moverse(j1, Coordenada(12,1));
+	d.Moverse(j1, Coordenada(120,2));  // MOVIMIENTO INVÁLIDO
+	d.Moverse(j1, Coordenada(12,0)); // MOVIMIENTO INVÁLIDO O NO
 
 	for (int i = 0; i < 10; ++i)
 	{
-		d.moverse(j3, Coordenada(120,3));
-		d.moverse(j3, Coordenada(120,2));
+		d.Moverse(j3, Coordenada(120,3));
+		d.Moverse(j3, Coordenada(120,2));
 	}
 
 	ASSERT(d.pokemons(j1).CantClaves() == 1);
@@ -1113,7 +1115,7 @@ void test_cantidad_misma_especie_usando_mover()
 	ASSERT(d.pokemons(j3).CantClaves() == 0);
 	ASSERT(d.cantPokemonsTotales() == 3);
 
-	ASSERT(d.cantMismaEspecie("Squirtle") == 2);	
+	ASSERT(d.cantMismaEspecie("Squirtle") == 2);
 	ASSERT(d.cantMismaEspecie("Rattata") == 1);
 
 }
@@ -1122,63 +1124,63 @@ void test_indice_de_rareza_usando_mover()
 {
 	//100 - (100 × cantMismaEspecie(p, j) / cantPokémonsTotales(j))
 	Conj<Coordenada> cc;
-	cc.Agregar(Coordenada(0,0));
-	cc.Agregar(Coordenada(1,0));
-	cc.Agregar(Coordenada(2,0));
-	    
-	cc.Agregar(Coordenada(12,0));
-	cc.Agregar(Coordenada(12,1));
-	cc.Agregar(Coordenada(12,2));
-	    
-	cc.Agregar(Coordenada(120,2));
+	cc.AgregarCoord(Coordenada(0,0));
+	cc.AgregarCoord(Coordenada(1,0));
+	cc.AgregarCoord(Coordenada(2,0));
+
+	cc.AgregarCoord(Coordenada(12,0));
+	cc.AgregarCoord(Coordenada(12,1));
+	cc.AgregarCoord(Coordenada(12,2));
+
+	cc.AgregarCoord(Coordenada(120,2));
 
 	Driver d(cc);
 
-	d.agregarPokemon("Squirtle", Coordenada(0,0));
+	d.AgregarPokemon("Squirtle", Coordenada(0,0));
 	ASSERT(d.indiceRareza("Squirtle") == 0);
-	    
-	d.agregarPokemon("Rattata", Coordenada(12,0));
+
+	d.AgregarPokemon("Rattata", Coordenada(12,0));
 	ASSERT(d.indiceRareza("Squirtle") == 50);
-	    
+
 	ASSERT(d.indiceRareza("Rattata") ==	50);
-	d.agregarPokemon("Squirtle", Coordenada(120,2));
-	    
+	d.AgregarPokemon("Squirtle", Coordenada(120,2));
+
 	Nat rarezaS = 100 - 200/3;
 	ASSERT(d.indiceRareza("Squirtle") == rarezaS);
-	    
+
 	Nat rarezaR = 100 - 100/3;
 	ASSERT(d.indiceRareza("Rattata") == rarezaR);
 
-	Nat j1 = d.agregarJugador();
-	Nat j2 = d.agregarJugador();
-	Nat j3 = d.agregarJugador();
+	Nat j1 = d.AgregarJugador();
+	Nat j2 = d.AgregarJugador();
+	Nat j3 = d.AgregarJugador();
 
-	d.conectarse(j1, Coordenada(12,0));
-	d.conectarse(j2, Coordenada(0,0));
-	d.conectarse(j3, Coordenada(120,2));
+	d.Conectarse(j1, Coordenada(12,0));
+	d.Conectarse(j2, Coordenada(0,0));
+	d.Conectarse(j3, Coordenada(120,2));
 
-	d.moverse(j1, Coordenada(12,1));
-	d.moverse(j1, Coordenada(12,0));
-	d.moverse(j1, Coordenada(12,1));
-	d.moverse(j1, Coordenada(12,0));
-	d.moverse(j1, Coordenada(12,1));
-	d.moverse(j1, Coordenada(12,0));
-	d.moverse(j1, Coordenada(12,1));
-	d.moverse(j1, Coordenada(12,0));
-	d.moverse(j1, Coordenada(12,1));
-	d.moverse(j1, Coordenada(12,0));
-	d.moverse(j1, Coordenada(12,1));
-	d.moverse(j1, Coordenada(12,0));
+	d.Moverse(j1, Coordenada(12,1));
+	d.Moverse(j1, Coordenada(12,0));
+	d.Moverse(j1, Coordenada(12,1));
+	d.Moverse(j1, Coordenada(12,0));
+	d.Moverse(j1, Coordenada(12,1));
+	d.Moverse(j1, Coordenada(12,0));
+	d.Moverse(j1, Coordenada(12,1));
+	d.Moverse(j1, Coordenada(12,0));
+	d.Moverse(j1, Coordenada(12,1));
+	d.Moverse(j1, Coordenada(12,0));
+	d.Moverse(j1, Coordenada(12,1));
+	d.Moverse(j1, Coordenada(12,0));
 
 	ASSERT(d.indiceRareza("Squirtle") == rarezaS);
 	ASSERT(d.indiceRareza("Rattata") == rarezaR);
 
-	d.moverse(j2, Coordenada(120,2)); // MOVIMIENTO INVÁLIDO
-	d.moverse(j2, Coordenada(12,0)); // MOVIMIENTO INVÁLIDO
-	d.moverse(j2, Coordenada(120,2)); // MOVIMIENTO INVÁLIDO
-	d.moverse(j2, Coordenada(12,0)); // MOVIMIENTO INVÁLIDO
-	d.moverse(j2, Coordenada(120,2)); // MOVIMIENTO INVÁLIDO
-	    
+	d.Moverse(j2, Coordenada(120,2)); // MOVIMIENTO INVÁLIDO
+	d.Moverse(j2, Coordenada(12,0)); // MOVIMIENTO INVÁLIDO
+	d.Moverse(j2, Coordenada(120,2)); // MOVIMIENTO INVÁLIDO
+	d.Moverse(j2, Coordenada(12,0)); // MOVIMIENTO INVÁLIDO
+	d.Moverse(j2, Coordenada(120,2)); // MOVIMIENTO INVÁLIDO
+
 	ASSERT(d.indiceRareza("Squirtle") == 50);
 	ASSERT(d.indiceRareza("Rattata") == 50);
 }
@@ -1192,9 +1194,9 @@ void plotAgregarPokemon(int * xvals, double * yvals, double * yvals_ori, int nro
 	//std::string plot_comand = "plot \"Agregar-Pokemon-Plot.dat\" using 1:2 t \"Mediciones del algoritmo\", \"Agregar-Pokemon-Plot.dat\" using 1:3 with lines t \""+ std::to_string(c1) +" * P + "+ std::to_string(c2) +" * EC log(EC)\" ";
 	char plot_comand[200];
 	sprintf(plot_comand, "plot \"Agregar-Pokemon-Plot.dat\" using 1:2 t \"Mediciones del algoritmo\", \"Agregar-Pokemon-Plot.dat\" using 1:3 with lines t \" %f * P + %f * EC log(EC)\" ", c1, c2);
-	char * commandsForGnuplot[] = {	 "set title \"Complejidad temporal: agregarPokemon\"", 
-											 "set xlabel \"Tamaño de la entrada: P + EC\"", 
-											 "set ylabel \"Tiempo [us]\"", 
+	char * commandsForGnuplot[] = {	 "set title \"Complejidad temporal: agregarPokemon\"",
+											 "set xlabel \"Tamaño de la entrada: P + EC\"",
+											 "set ylabel \"Tiempo [us]\"",
 											 // "plot \"Agregar-Pokemon-Plot.dat\" using 1:2 t \"Mediciones del algoritmo\",
 											 //  \"Agregar-Pokemon-Plot.dat\" using 1:3 with lines t \"Curva esperada\" ",
 											 plot_comand,
@@ -1202,7 +1204,7 @@ void plotAgregarPokemon(int * xvals, double * yvals, double * yvals_ori, int nro
 											 "set output \"Agregar-Pokemon-Plot.png\"",
 											 "replot",
 											 "set term x11"};
- 	FILE * temp = fopen("Agregar-Pokemon-Plot.dat", "w");	 
+ 	FILE * temp = fopen("Agregar-Pokemon-Plot.dat", "w");
 	FILE * gnuplotPipe = popen ("gnuplot -persistent", "w");
 	int i;
 	for (i=0; i < nro_experimentos; i++)
@@ -1217,15 +1219,15 @@ void plotAgregarPokemon(int * xvals, double * yvals, double * yvals_ori, int nro
 
 void scatterAgregarPokemon(std::string title, std::string filename, int * ECs, int * Ps, double * yvals, int nro_experimentos)
 {
-	char * commandsForGnuplot[] = {  "set title \"Complejidad temporal: agregarPokemon\"", 
-									 "set xlabel \"EC\"", 
-									 "set ylabel \"P\"", 
+	char * commandsForGnuplot[] = {  "set title \"Complejidad temporal: agregarPokemon\"",
+									 "set xlabel \"EC\"",
+									 "set ylabel \"P\"",
 									 "plot \"Agregar-Pokemon-Scatter.dat\" using 1:2:3 with points palette pointsize 3 pointtype 7 title \"Tiempo [us]\"",
 									 "set term png",
 									 "set output \"Agregar-Pokemon-Scatter.png\"",
 									 "replot",
 									 "set term x11"};
-	FILE * temp = fopen("Agregar-Pokemon-Scatter.dat", "w");	 
+	FILE * temp = fopen("Agregar-Pokemon-Scatter.dat", "w");
 	FILE * gnuplotPipe = popen ("gnuplot -persistent", "w");
 	int i,j;
 	for (i=0; i < nro_experimentos; i++)
@@ -1307,7 +1309,7 @@ void test_complejidad_agregarPokemon()
 	int P_max = 500;
 	int EC_max = 700;
 
-	double cant_proms = 30.; 
+	double cant_proms = 30.;
 
 	int nro_experimentos = 40;
 	int delta_P = P_max / ( nro_experimentos - 1 );
@@ -1324,8 +1326,8 @@ void test_complejidad_agregarPokemon()
 	int rtn;
 
 	Conj<Coordenada> cc;
-	cc.Agregar(Coordenada(0,0));
-	cc.Agregar(Coordenada(10,10));
+	cc.AgregarCoord(Coordenada(0,0));
+	cc.AgregarCoord(Coordenada(10,10));
 
 	cout << "Test de complejidad en agregarPokemon: " ;
 
@@ -1352,20 +1354,20 @@ void test_complejidad_agregarPokemon()
 			Driver d(cc);
 
 			// Agrego un pokemon
-			d.agregarPokemon(nombre, Coordenada(0,0));
+			d.AgregarPokemon(nombre, Coordenada(0,0));
 
 			// Agrego los EC jugadores
 			for(int i = 0; i < EC; i++)
 			{
-				int j = d.agregarJugador();
-				d.conectarse(j, Coordenada(0,0));
+				int j = d.AgregarJugador();
+				d.Conectarse(j, Coordenada(0,0));
 			}
-		
+
 			rtn = gettimeofday(&tp, NULL);
 			ti = (long double)tp.tv_sec+(1.e-6)*tp.tv_usec;
 
-			d.agregarPokemon(nombre, Coordenada(10,10));
-			
+			d.AgregarPokemon(nombre, Coordenada(10,10));
+
 			rtn = gettimeofday(&tp, NULL);
 			tf = (long double)tp.tv_sec+(1.e-6)*tp.tv_usec;
 
@@ -1410,7 +1412,7 @@ int main(int argc, char **argv)
 	RUN_TEST(test_puedo_agregar_pokemons_2);
 	output_file.flush();
 
-	RUN_TEST(test_pokemon_en_posicion);
+	RUN_TEST(test_pokemon_en_Posicion);
 	output_file.flush();
 
 	RUN_TEST(test_pos_con_pokemons);
@@ -1439,7 +1441,7 @@ int main(int argc, char **argv)
 	RUN_TEST(test_mover_jugador_asigna_correcta_coordenada);
 	output_file.flush();
 
-	RUN_TEST(test_sanciones);
+	RUN_TEST(test_Sanciones);
 	output_file.flush();
 
 	RUN_TEST(test_expulsion);
@@ -1471,13 +1473,13 @@ int main(int argc, char **argv)
 	RUN_TEST(test_indice_de_rareza_usando_mover);
 	output_file << " \n";
 	output_file.flush();
-	
+
 	// Acerca de la complejidad temporal
 	output_file << ">> Acerca de la complejidad temporal (en experimentación):  \n";
 	RUN_TEST(test_complejidad_agregarPokemon);
 	output_file << " \n";
-		
+
 	output_file.close();
-	
+
 	return 0;
 }

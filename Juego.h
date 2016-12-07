@@ -19,8 +19,11 @@ using namespace std;
       Iterador_Exp CrearIt_Exp();
 
       Juego();
+
       Juego(Mapa &map);
+
       ~Juego();
+
       //
       void AgregarPokemon(const Coordenada &c, const Pokemon &p);
       //
@@ -34,7 +37,7 @@ using namespace std;
       //
       Mapa MAPA();
 
-      typename Conj<String>::const_Iterador Pokemons(const Jugador j);
+      typename Dicc< Pokemon , Nat > Pokemons(const Jugador j);
       //
       bool HayCamino(const Coordenada &c1, const Coordenada &c2);
       //IteradorJug Jugadores();
@@ -64,6 +67,8 @@ using namespace std;
       Coordenada PosPokemonCercano(const Coordenada &c);
 
       Conj<Jugador> Expulsados();
+
+      Conj<Jugador> jugadores();
 
 	    Conj< Coordenada > posConPokemons() const;
 
@@ -141,6 +146,7 @@ using namespace std;
         bool JugadorExistente(const Jugador j)const;
         bool MovimientoInvalido(const Coordenada &c1,const Coordenada &c2)const;
         void ActualizarPosSalvajes(const Coordenada &c1, const Coordenada &c2, bool b,bool libre);
+  //      Nat DistanciaEuclidea(const Coordenada c1, const Coordenada c2);
         Mapa Mundo;
         //conjunto con todos los jugadores incluso los expulsados
         Vector<InfoJug*> Jugadores;

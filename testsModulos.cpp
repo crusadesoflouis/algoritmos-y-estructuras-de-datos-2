@@ -34,15 +34,13 @@ void encolar_y_borrar() {
   Cola<int>::Iterador IT_10 = c.Encolar(10);
   ASSERT_EQ(c.Cardinal(),9);
   ASSERT_EQ(c.Tope(),10);
-
-/*
   IT_10.EliminarSiguiente();
   ASSERT_EQ(c.Cardinal(),8);
   ASSERT_EQ(c.Tope(),26);
   IT_51.EliminarSiguiente();
   ASSERT_EQ(c.Cardinal(),7);
   ASSERT_EQ(c.Tope(),26);
-*/
+
 }
 
 /*
@@ -168,8 +166,8 @@ ASSERT( m.Definido(c3) == true );
 
 int main() {
 
-  RUN_TEST(diccmatriz_2);
 //  RUN_TEST(diccmatriz_2);
+  RUN_TEST(encolar_y_borrar);
 //	RUN_TEST(diccString);
 
 

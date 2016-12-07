@@ -1,12 +1,9 @@
 clear
 clear
 
-
-
-rm juego.o
 rm tests
 
-g++ -c -g -Wall Juego.cpp cord.o mapa.o multi.o -o juego.o
-g++ -g -Wall testsJuego.cpp cord.o mapa.o multi.o juego.o -o tests
+g++ -g -Wall testsJuego.cpp Juego.cpp Coordenada.cpp Mapa.cpp MultiC.cpp -o tests
 
 ./tests
+#valgrind --leak-check=full ./tests

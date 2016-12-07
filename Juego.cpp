@@ -11,9 +11,7 @@ bool Juego::JugadorExistente(const Jugador j)const{
   return j<= Jugadores.Longitud();
 }
 
-bool Juego::MovimientoInvalido(const Coordenada &c1,const Coordenada  &c2)const{
-  return true;
-}
+
 
 Nat DistanciaEuclidea(const Coordenada c1, const Coordenada c2){
   Nat a = 0;
@@ -29,6 +27,11 @@ Nat DistanciaEuclidea(const Coordenada c1, const Coordenada c2){
   else
     b =  ( (c2.longitud() - c1.longitud()) * (c2.longitud() - c1.longitud()) );
   return a+b;
+}
+
+bool Juego::MovimientoInvalido(const Coordenada &c1,const Coordenada  &c2)const{
+  //std::cout << "la distancia es : " <<DistanciaEuclidea(c1,c2) <<std::endl;
+  return  !Mundo.HayCamino(c1,c2) || DistanciaEuclidea(c1,c2) > 100;
 }
 
 bool Juego::PuedeAtrapar (Coordenada c1,const Coordenada &c2){
@@ -115,7 +118,7 @@ Juego::Juego(Mapa &map):Mundo(map){
 }
 
 Juego::~Juego(){
-  for (Nat i = 1; i < Jugadores.Longitud(); i++) {
+  for (Nat i = 0; i < Jugadores.Longitud(); i++) {
     delete Jugadores[i];
   }
   Conj<Coordenada> C = FuturasCapturas.Claves();
@@ -156,19 +159,12 @@ PosSalvajes.AgregarRapido(c);
 // creo un puntero a InfoPos que es donde hay que gener
 //un heap con todos los jugadores cercanos a donde agregue
 //dicho pokemon
-std::cout << "ya defini al pokemon " << std::endl;
   InfoPos* info = new InfoPos(p);
   bool online = false;
-  std::cout << "voy a definir" << std::endl;
-  std::cout << "latitud" <<c.latitud() <<std::endl;
-  std::cout << "longitud" << c.longitud() <<std::endl;
   FuturasCapturas.Definir(c,info);
-  std::cout << "despues de definir" << std::endl;
-std::cout << "creo un iterador al vector donde estan todos los jugadores" << std::endl;
   Vector<InfoJug*>::const_Iterador IT = Jugadores.CrearIt();
   Nat pos = 0;
   while (IT.HaySiguiente()) {
-    std::cout << "asd" << std::endl;
     online = IT.Siguiente()->Conectado;
     if (online && PuedeAtrapar(c,IT.Siguiente()->Posicion)) {
       Tupla<InfoJug*> t(Jugadores[pos],IT.Siguiente()->Atrapados.Cardinal(),pos);
@@ -177,7 +173,6 @@ std::cout << "creo un iterador al vector donde estan todos los jugadores" << std
     pos++;
     IT.Avanzar();
   }
-  std::cout << "/* message */" << std::endl;
   TotalPokemones ++;
 
 }
@@ -199,9 +194,11 @@ void Juego::Desconectarse(const Jugador j){
   if (Jugadores[j]->EstaCazando) {
     Jugadores[j]->CazaActual.EliminarSiguiente();
   }
- if (FuturasCapturas.Obtener(PosPokemonCercano(Jugadores[j]->Posicion))->PosiblesEntrenadores.esVacia()) {
-   FuturasCapturas.Obtener(PosPokemonCercano(Jugadores[j]->Posicion))->Turnos = 0;
-  }
+    if (HayPokemonCercano(Jugadores[j]->Posicion)) {
+      if (FuturasCapturas.Obtener(PosPokemonCercano(Jugadores[j]->Posicion))->PosiblesEntrenadores.esVacia()) {
+        FuturasCapturas.Obtener(PosPokemonCercano(Jugadores[j]->Posicion))->Turnos = 0;
+       }
+    }
 }
 
 
@@ -216,36 +213,38 @@ void Juego::Moverse(const Coordenada &c,const Jugador j){
 
   if (MovimientoInvalido(c,Jugadores[j]->Posicion)) {
     Jugadores[j]->Sanciones++;
+    bool b = false;
+    bool libre = true;
+    ActualizarPosSalvajes(vieja,nueva,b,libre);
+    return;
   }
-
 if (Jugadores[j]->Sanciones < 5) {
 //  std::cout << "sanciones de jugador menor a 5" << std::endl;
     if (HayPokemonCercano(Jugadores[j]->Posicion)) {
     HayPokemonAlmoverme = true;
     Coordenada e(PosPokemonCercano(Jugadores[j]->Posicion).latitud(),PosPokemonCercano(Jugadores[j]->Posicion).longitud());
     vieja = e;
-
-
     }
     if (HayPokemonCercano(c)) {
-  //    std::cout << "hay pokemon cercano en la poscion" << std::endl;
+      std::cout << "hay pokemon cercano en la poscion" << std::endl;
       HayPokemonAlEntrar = true;
       nueva = PosPokemonCercano(c);
     }
+    std::cout << "pase haypokemoncercano(c)" << std::endl;
     if (HayPokemonAlEntrar && HayPokemonAlmoverme && vieja == nueva) {
-  //    std::cout << "si me muevo dentro de una posicion cercana a un pokemon" << std::endl;
+    //  std::cout << "si me muevo dentro de una posicion cercana a un pokemon" << std::endl;
         bool b = false;
         bool libre = false;
         ActualizarPosSalvajes(vieja,nueva,b,libre);
     }
     else{
-  //    std::cout << "no entre al casode que me muevo dentro del rango del pokemon" << std::endl;
+      std::cout << "no entre al casode que me muevo dentro del rango del pokemon" << std::endl;
       //esto implica que en la posicion nueva y vieja son distintas
       //osea puede ser que ambas sean vacias
       //o que salgo de una cola y entro a otra
       //o que de no estar en nada voy a una nueva capturas
       if (HayPokemonAlmoverme && HayPokemonAlEntrar) {
-    //      std::cout << "si salgo de una cola y entro en otra" << std::endl;
+          std::cout << "si salgo de una cola y entro en otra" << std::endl;
 
         // caso en el que salgo de una cola y entro a otra
         Jugadores[j]->CazaActual.EliminarSiguiente();
@@ -261,19 +260,19 @@ if (Jugadores[j]->Sanciones < 5) {
         ActualizarPosSalvajes(nueva,vieja,b,libre);
       }
       else{
-      //    std::cout << "salgo de una cola a una posicion libre o vole libre" << std::endl;
+          std::cout << "salgo de una cola a una posicion libre o vole libre" << std::endl;
           //salgo de una posicion con pokemon a un lugar donde no hay pokemon
           if (HayPokemonAlmoverme) {
+            std::cout << "salgo de una cola " << std::endl;
             Jugadores[j]->CazaActual.EliminarSiguiente();
+            std::cout << "se rompio" << std::endl;
             bool b = true;
             bool libre = true;
             ActualizarPosSalvajes(nueva,vieja,b,libre);
           }
           else{
-
             if (HayPokemonAlEntrar) {
-                // entro a una posición con un pokemon y lo encolado
-              FuturasCapturas.Obtener(nueva)->Turnos = 0;
+              std::cout << "entro a una posición con un pokemon y lo encolado" << std::endl;              FuturasCapturas.Obtener(nueva)->Turnos = 0;
               Tupla<InfoJug*> t(Jugadores[j],Jugadores[j]->Atrapados.Cardinal(),j);
               FuturasCapturas.Obtener(nueva)->PosiblesEntrenadores.Encolar(t);
               bool b = false;
@@ -398,23 +397,32 @@ Conj<Coordenada> Juego::ObtenerPosicionesCercanas_25(const Coordenada c){
 
 Conj <Jugador> Juego::Expulsados(){
   Conj <Jugador> expulsados;
-  Vector<InfoJug*>::const_Iterador IT = Jugadores.CrearIt();
-  Nat player = 0;
+  Juego::Iterador_Exp IT = CrearIt_Exp();
   while (IT.HaySiguiente()) {
-    if (IT.Siguiente()->Sanciones > 4) {
-      expulsados.Agregar(player);
-    }
-  player++;
- }
+    std::cout << "el jugador expulsado es: " <<IT.Siguiente() <<std::endl;
+    expulsados.Agregar(IT.Siguiente());
+    IT.Avanzar();
+  }
 
 return expulsados;
 }
 
+Conj <Jugador> Juego::jugadores(){
+  Conj <Jugador> jugadores;
+  Juego::Iterador IT = CrearIt();
+  while (IT.HaySiguiente()) {
+    jugadores.Agregar(IT.Siguiente());
+    IT.Avanzar();
+  }
+  return jugadores;
+}
 
 
 bool Juego::HayPokemonCercano(const Coordenada &c){
+  std::cout << "entre en hay pokemon cercano la pregunta" << std::endl;
 Conj<Coordenada>::const_Iterador IT = PosSalvajes.CrearIt();
 while (IT.HaySiguiente()) {
+  std::cout << "latitud,lognitud " <<c.latitud() <<","<<c.longitud()<<std::endl;
   if (DistanciaEuclidea(c,IT.Siguiente()) <= 4  ) {
     return true;
   }
@@ -428,15 +436,14 @@ while (IT.HaySiguiente()) {
 bool Juego::PuedoAgregarPokemon(const Coordenada &c){
   Conj<Coordenada>::const_Iterador IT = PosSalvajes.CrearIt();
   while (IT.HaySiguiente()) {
-    //  std::cout << IT.Siguiente().longitud() <<"," <<IT.Siguiente().latitud()<<std::endl;
+  //  std::cout << IT.Siguiente().longitud() <<"," <<IT.Siguiente().latitud()<<std::endl;
   //  std::cout << "la distancia es " << DistanciaEuclidea(c,IT.Siguiente()) <<std::endl;
-    if (DistanciaEuclidea(c,IT.Siguiente()) <= 25) {
+    if (DistanciaEuclidea(c,IT.Siguiente()) <= 24) {
       return false;
     }
     IT.Avanzar();
   }
-  return true;
-
+  return PosExistente(c);
 }
 
 
@@ -453,8 +460,21 @@ Nat Juego::CantPokemonTotales(){
 
 
 
-typename Conj<String>::const_Iterador Juego::Pokemons(const Jugador j){
-  return Jugadores[j]->Atrapados.CrearIt();
+typename Dicc< Pokemon , Nat > Juego::Pokemons(const Jugador j){
+  Conj<String>::const_Iterador IT = Jugadores[j]->Atrapados.CrearIt();
+  Dicc <Pokemon, Nat> a;
+  while (IT.HaySiguiente()) {
+    if (a.Definido(IT.Siguiente())) {
+      Nat valor = a.Significado(IT.Siguiente())++;
+      a.Borrar(IT.Siguiente());
+      a.Definir(IT.Siguiente(),valor);
+    }
+    else{
+      a.Definir(IT.Siguiente(),1);
+    }
+    IT.Avanzar();
+  }
+  return a;
 }
 
 Nat Juego::cantMismaEspecie(const Pokemon &p)const{
@@ -466,7 +486,7 @@ Pokemon Juego::PokemonEnPos (const Coordenada &c){
 }
 
 Nat Juego::CantMovimientosParaCaptura(const Coordenada &c){
-  return 10 - FuturasCapturas.Obtener(c)->Turnos ;
+  return  FuturasCapturas.Obtener(c)->Turnos ;
 }
 
 
