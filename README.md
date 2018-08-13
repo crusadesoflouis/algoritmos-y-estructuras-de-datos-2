@@ -15,5 +15,5 @@ Todas las estructuras fueron creadas de cero, excepto con la carpeta aed2 que pr
 
 - Correrlo usando sh run.sh => compila ejecuta una bateria de tests que fueron creados por la catedra y limpia.
 
-# Authors
+# Autor
 * Arroyo Luis Alberto - [repository](https://github.com/crusadesoflouis)
