@@ -1,9 +1,9 @@
 #include <iostream>
 #include <cassert>
 #include "aed2.h"
+#include "TiposJuego.h"
 #include "MultiC.h"
 #include "Mapa.h"
-#include "DiccMatriz.h"
 #include "Cola.h"
 #include "Tupla.h"
 
@@ -16,13 +16,16 @@ using namespace std;
 
       Iterador CrearIt();
 
-      Iterador_Exp CrearIt();
+      Iterador_Exp CrearIt_Exp();
 
       Juego();
+
       Juego(Mapa &map);
+
       ~Juego();
+
       //
-      void AgregarPokemon(Coordenada c, const Pokemon &p);
+      void AgregarPokemon(const Coordenada &c, const Pokemon &p);
       //
       Jugador AgregarJugador();
       //
@@ -34,6 +37,8 @@ using namespace std;
       //
       Mapa MAPA();
 
+       Dicc<Pokemon,Nat> Pokemons(const Jugador j);
+      //
       bool HayCamino(const Coordenada &c1, const Coordenada &c2);
       //IteradorJug Jugadores();
 
@@ -50,7 +55,6 @@ using namespace std;
       //revisar estos iteradores //it al conjunto de jugadores expulsados
       //Conj<Jugador>::IteradorExp Expulsados();
       //
-      Coordenada PosPokemonCercano(const Coordenada &c);
 
       Pokemon PokemonEnPos(const Coordenada &c);
 
@@ -60,15 +64,22 @@ using namespace std;
 
       bool HayPokemonCercano(const Coordenada &c);
 
+      Coordenada PosPokemonCercano(const Coordenada &c);
+
       Conj<Jugador> Expulsados();
 
-      Conj<Jugador> EntrenadoresPosibles(const Coordenada &c, const Conj<Jugador> &JugPosibeles);
+      Conj<Jugador> jugadores();
+
+	    Conj< Coordenada > posConPokemons() const;
+
+      Conj<Jugador> EntrenadoresPosibles(const Coordenada &c, const Conj<Jugador> &muestra);
 
       Nat IndiceRareza (const Pokemon &p);
 
       Nat CantPokemonTotales();
 
-      //Nat CantidadMismaEspecie(const Pokemon p, MultiC<Pokemon>);
+      Nat cantMismaEspecie(const Pokemon &p)const;
+
 
         class Iterador{
 
@@ -83,6 +94,7 @@ using namespace std;
             unsigned int Posicion;
             Iterador(Juego* j,Nat p = 0):juego(j),Posicion(p){}
             friend typename Juego::Iterador Juego::CrearIt();
+
       };
       class Iterador_Exp{
 
@@ -95,8 +107,9 @@ using namespace std;
         private:
           Juego* juego;
           unsigned int Posicion;
-          Iterador(Juego* j,Nat p = 0):juego(j),Posicion(p){}
-          friend typename Juego::Iterador_Exp Juego::CrearIt();
+          Iterador_Exp(Juego * j,Nat p = 0):juego(j),Posicion(p){}
+          friend typename Juego::Iterador_Exp Juego::CrearIt_Exp();
+
     };
 
         //iterador expulsados idem a Iterador pero con los expulsados//
@@ -105,9 +118,11 @@ using namespace std;
       private:
 
         bool PuedeAtrapar(Coordenada c1,const Coordenada &c2);
-        void Capturar(const Coordenada &c);
-        Conj<Coordenada> ObtenerPosicionesCercanas(const Coordenada c);
+        void Capturar(typename Conj<Coordenada>::Iterador &IT);
         void EliminarJugador(const Jugador &j);
+        Conj<Coordenada> ObtenerPosicionesCercanas(const Coordenada c);
+        Conj<Coordenada> ObtenerPosicionesCercanas_25(const Coordenada c);
+        Conj<Coordenada> PosicionesValidas()const;
         struct InfoJug{
           Nat Sanciones;
           bool Conectado;
@@ -128,7 +143,10 @@ using namespace std;
             Bicho = p;}
         };
 
-
+        bool JugadorExistente(const Jugador j)const;
+        bool MovimientoInvalido(const Coordenada &c1,const Coordenada &c2)const;
+        void ActualizarPosSalvajes(const Coordenada &c1, const Coordenada &c2, bool b,bool libre);
+  //      Nat DistanciaEuclidea(const Coordenada c1, const Coordenada c2);
         Mapa Mundo;
         //conjunto con todos los jugadores incluso los expulsados
         Vector<InfoJug*> Jugadores;

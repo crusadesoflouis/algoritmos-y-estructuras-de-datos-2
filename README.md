@@ -1,10 +1,16 @@
 # Algoritmos y Estructuras de datos 2
+
+# TP0 
+- Es un escheduler basado en una lista circular
+
+# TP1 y TP2 
+- Fueron entregas de informes  especificando y diseñando lo que seria el TP3 el informe del tp2 quedo desaparecido por grupo irresponsable
 # TP3
--   Juego de pokemon go version simplificada 
+- Juego de pokemon go version simplificada 
 
-todas las estructuras fueron codeadas desde cero como la pila, el trie, el diccionario fue construido en base al trie, el mapa esta construido en base a un vector de vector que se debe ir expandiendo en funcion de una coordenada nueva que este fuera del rango luego todas las estructuras son unidas para armar el juego que debe respetar las instrucciones del enunciado
+Todas las estructuras fueron creadas de cero, excepto con la carpeta aed2 que proveia una base de tipos basicos de datos para la construcción del programa y el archivo mini_test.h que también fue provisto por la catedra para el testeo del programa.
 
-
+- Correrlo usando sh run.sh => compila ejecuta una bateria de tests que fueron creados por la catedra y limpia.
 
 # Authors
 * Arroyo Luis Alberto - [repository](https://github.com/crusadesoflouis)

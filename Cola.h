@@ -19,7 +19,7 @@ class Cola
 		typename Cola<T>::Iterador Encolar(const T);
 		Nat Cardinal() const;
 		void mostrar();
-		Conj<T> Elementos();
+	//	Lista<T> Elementos();
 		Iterador CrearIt();
 		Iterador CrearIt(typename Cola<T>::Nodo* );
 
@@ -252,14 +252,19 @@ void deleteSwap(Nodo* A, Nodo* B){
 		delete A;
 }
 void Remover(Nodo* Aborrar){
+	//cout << "entre a remover"<< endl;
+	//cout << " dasdf"<< endl;
+	//cout << "cardinal : "<< this->Cardinal() << endl;
+	//cout << "despues de cardinal "<< endl;
 	//flag si es falso entonces ultimo es hijo izquierdo
 	//flag si es verdadero entonces ultimo es hijo derecho
 Nodo* ultimo = raiz;
-if (card == 1) {
+if (this->card == 1) {
 	raiz = NULL;
 	delete Aborrar;
 }
 else{
+//	cout << " no es el ultimo nodo "<< endl;
 		bool flag = false;
 		flag = UltimoAgregado(ultimo);
 		if (Aborrar == ultimo) {
@@ -289,16 +294,21 @@ else{
 	delete nodulo;
 }
 
-Conj<T> DameTodos(Nodo* nodulo,Conj<T> & elems){
+Lista<T> DameTodos(Nodo* nodulo,Lista<T> & elems){
 	if (nodulo != NULL) {
-		elems.AgregarRapido();
+		cout << "entre aca0" << endl;
+		elems.AgregarAdelante(nodulo->valor);
+		cout <<"sali"<< endl;
 		if (nodulo->der != NULL) {
+			cout << "no tuve que entrar aca 0"<< endl;
 			DameTodos(nodulo->der,elems);
 		}
 		if (nodulo->izq != NULL) {
+		cout << "no tuve que entrar aca 0"<< endl;
 			DameTodos(nodulo->izq,elems);
 		}
 	}
+	cout << " end" << endl;
 
 }
 
@@ -371,14 +381,15 @@ template <class T>
 bool Cola<T>::esVacia() const{
 return raiz == NULL;
 }
-
+/*
 template <class T>
-Conj<T> Cola<T>::Elementos(){
-	Conj<T> elems;
+Lista<T> Cola<T>::Elementos(){
+	Lista<T> elems;
  	DameTodos(this->raiz, elems);
+	cout << "ase rompe aca " << endl;
 	return elems;
 }
-
+*/
 template <class T>
 typename Cola<T>::Iterador Cola<T>::Encolar(const T clave){
 	Cola<T>::Iterador IT;

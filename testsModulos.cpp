@@ -2,7 +2,7 @@
 #include "mini_test.h"
 //#include "DiccString.h"
 #include "Cola.h"
-//#include "DiccMatriz.h"
+#include "DiccMatriz.h"
 //#include "Multiconjunto.h"
 using namespace ::std;
 
@@ -41,10 +41,8 @@ void encolar_y_borrar() {
   ASSERT_EQ(c.Cardinal(),7);
   ASSERT_EQ(c.Tope(),26);
 
-
-
-
 }
+
 /*
 void diccString(){
   DiccS<int> trie;
@@ -81,26 +79,54 @@ void diccString(){
   ASSERT_EQ(trie == trie2 , false);
 	//era necesario hacer el constructor por copia?
 }
+*/
 
 void diccmatriz(){
+
   //inicializacion de datos
   DiccMatriz<int*> mat;
   int* a = NULL;
   int valor = 12;
   a = &valor;
+  Coordenada c_0_0(0,0);
   Coordenada c_1_1(1,1);
   Coordenada c_3_3(3,3);
   Coordenada c_3_1(3,1);
   Coordenada c_3_2(3,2);
   Coordenada c_7_2(7,2);
+  Coordenada c_2_2(2,2);
+  Coordenada c_4_4(4,4);
+  Coordenada c_9_9(9,9);
+  Coordenada c_10_10(10,10);
   ASSERT_EQ(mat.Vacio(),true);
+
+
+  mat.Definir(c_4_4,a);
+  mat.Definir(c_0_0,a);
+  mat.mostrar();
+  ASSERT_EQ(mat.Definido(c_4_4),true);
+  ASSERT_EQ(mat.Definido(c_0_0),true);
+
+  mat.Definir(c_2_2,a);
+  mat.Definir(c_3_3,a);
+  mat.Definir(c_9_9,a);
+  mat.Definir(c_10_10,a);
+
+  ASSERT_EQ(mat.Definido(c_1_1),false);
+  ASSERT_EQ(mat.Definido(c_3_3),true);
+  ASSERT_EQ(mat.Definido(c_2_2),true);
+  ASSERT_EQ(mat.Definido(c_9_9),true);
+  ASSERT_EQ(mat.Definido(c_10_10),true);
+
   //fin inicializacion datos
+/*
+  mat.Definir(c_2_2,a);
+  mat.mostrar();
   mat.Definir(c_1_1,a);
   ASSERT_EQ(mat.Vacio(),false);
   mat.Definir(c_3_3,a);
-//  mat.mostrar();
   mat.Definir(c_3_1,a);
-//  mat.mostrar();
+  mat.mostrar();
   ASSERT_EQ(mat.Definido(c_3_1),true);
   ASSERT_EQ(mat.Definido(c_3_2),false);
   mat.Borrar(c_3_1);
@@ -108,13 +134,41 @@ void diccmatriz(){
   ASSERT_EQ(mat.Obtener(c_1_1),a);
   mat.Definir(c_7_2,a);
   ASSERT_EQ(mat.Obtener(c_7_2),a);
-}
+  ASSERT_EQ(mat.Definido(c_0_0),false);
+  mat.Definir(c_0_0,a);
+  ASSERT_EQ(mat.Definido(c_0_0),true);
 */
+
+}
+
+void diccmatriz_2(){
+  //inicializacion de datos
+  DiccMatriz<bool> m;
+  Coordenada c0(0,0); // sector 0
+  Coordenada c1(1,0); // sector 0
+  Coordenada c2(2,0); // sector 0
+  Coordenada c3(12,0); // sector 1
+  Coordenada c4(12,1); // sector 1
+  Coordenada c5(12,2); // sector 1
+  Coordenada c6(20,2); // sector 2
+  Coordenada c7(22,22); // sector 3
+  ASSERT_EQ(m.Vacio(),true);
+
+  m.Definir(c0,true);
+  std::cout << "a definir c3 12 0 " << std::endl;
+  m.Definir(c3,true);
+
+ASSERT( m.Definido(c0) == true );
+ASSERT( m.Definido(c3) == true );
+}
+
+
+
 int main() {
 
-//  RUN_TEST(diccmatriz);
-//	RUN_TEST(diccString);
+//  RUN_TEST(diccmatriz_2);
   RUN_TEST(encolar_y_borrar);
+//	RUN_TEST(diccString);
 
 
   return 0;
